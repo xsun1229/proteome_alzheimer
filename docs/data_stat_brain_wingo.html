@@ -431,10 +431,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -527,15 +527,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree372f90f10ee162a9810ff6c0644c5463b17b861etargetblank372f90fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreeb637291d20dae446ce915fda88499174340d8ebctargetblankb637291a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/372f90f10ee162a9810ff6c0644c5463b17b861e" target="_blank">372f90f</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/b637291d20dae446ce915fda88499174340d8ebc" target="_blank">b637291</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree372f90f10ee162a9810ff6c0644c5463b17b861etargetblank372f90fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreeb637291d20dae446ce915fda88499174340d8ebctargetblankb637291a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -545,7 +545,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/372f90f10ee162a9810ff6c0644c5463b17b861e" target="_blank">372f90f</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/b637291d20dae446ce915fda88499174340d8ebc" target="_blank">b637291</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,11 +559,8 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  analysis/data_stat_brain_wingo.Rmd
-
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/data_stat_brain_wingo.Rmd
 
 </code></pre>
 <p>
@@ -578,10 +575,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/data_stat_brain_wingo.Rmd</code>)
+and HTML (<code>docs/data_stat_brain_wingo.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b637291d20dae446ce915fda88499174340d8ebc/analysis/data_stat_brain_wingo.Rmd" target="_blank">b637291</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-04-15
+</td>
+<td>
+updata
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/b637291d20dae446ce915fda88499174340d8ebc/docs/data_stat_brain_wingo.html" target="_blank">b637291</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-04-15
+</td>
+<td>
+updata
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -591,10 +652,47 @@ There are no past versions. Publish this analysis with
 <p>Wingo et al. (Nat Communication, 2022, PMID: 35882878) generated
 FUSION weights in brain tissue that include LASSO model.</p>
 </div>
-<div id="number-of-snps-selected-bu-lasso" class="section level1">
-<h1>Number of SNPs selected bu LASSO</h1>
+<div id="number-of-snps-selected-by-lasso" class="section level1">
+<h1>Number of SNPs selected by LASSO</h1>
 <pre><code>[1] &quot;number of gene:2934&quot;</code></pre>
 <p><img src="figure/data_stat_brain_wingo.Rmd/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b637291d20dae446ce915fda88499174340d8ebc/docs/figure/data_stat_brain_wingo.Rmd/unnamed-chunk-2-1.png" target="_blank">b637291</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-04-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -633,9 +731,9 @@ loaded via a namespace (and not attached):
 [37] jsonlite_1.8.0   farver_2.1.0     fs_1.5.2         bit_4.0.4       
 [41] digest_0.6.29    stringi_1.7.6    dplyr_1.0.9      rprojroot_2.0.3 
 [45] grid_4.2.0       cli_3.3.0        tools_4.2.0      magrittr_2.0.3  
-[49] sass_0.4.1       tibble_3.1.7     crayon_1.5.1     pkgconfig_2.0.3 
-[53] ellipsis_0.3.2   assertthat_0.2.1 rmarkdown_2.14   rstudioapi_0.13 
-[57] R6_2.5.1         git2r_0.30.1     compiler_4.2.0  </code></pre>
+[49] sass_0.4.1       tibble_3.1.7     crayon_1.5.1     whisker_0.4     
+[53] pkgconfig_2.0.3  ellipsis_0.3.2   assertthat_0.2.1 rmarkdown_2.14  
+[57] rstudioapi_0.13  R6_2.5.1         git2r_0.30.1     compiler_4.2.0  </code></pre>
 </div>
 </div>
 

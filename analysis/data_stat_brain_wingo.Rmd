@@ -16,7 +16,7 @@ suppressMessages(library(ggplot2))
 
 Wingo et al. (Nat Communication, 2022, PMID: 35882878) generated FUSION weights in brain tissue that include LASSO model. 
 
-# Number of SNPs selected bu LASSO
+# Number of SNPs selected by LASSO
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
 
