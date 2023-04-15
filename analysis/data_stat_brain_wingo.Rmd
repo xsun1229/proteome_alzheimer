@@ -1,0 +1,40 @@
+---
+title: "Some data stats for Brain data"
+author: "XSun"
+date: "2023-04-14"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+suppressMessages(library(RSQLite))
+suppressMessages(library(ggplot2))
+```
+
+# Introduction
+
+Wingo et al. (Nat Communication, 2022, PMID: 35882878) generated FUSION weights in brain tissue that include LASSO model. 
+
+# Number of SNPs selected bu LASSO
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
+
+filename <- "/project2/guiming/data_download/model_weights/Wingo_722_brain_protein_models/Wingo_722_brain_protein.lasso.db"
+
+sqlite.driver <- dbDriver("SQLite")
+db <- dbConnect(sqlite.driver,dbname = filename)
+
+## Some operations
+#dbListTables(db)
+weights <- dbReadTable(db,"weights")
+extra <- dbReadTable(db,"extra")
+
+print(paste0("number of gene:", sum(!duplicated(weights$gene))))
+
+ggplot(extra, aes(x = n.snps.in.model)) + 
+  geom_histogram() +
+  labs(x = "# of SNPs selected by LASSO", y = "Count") +
+  theme_bw() 
+
+```

@@ -8,4 +8,5 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+[data statistics -- brain, Wingo](https://xsun1229.github.io/proteome_alzheimer/data_stat_brain_wingo.html)
+
