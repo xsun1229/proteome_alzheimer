@@ -16,25 +16,54 @@ suppressMessages(library(ggplot2))
 
 Wingo et al. (Nat Communication, 2022, PMID: 35882878) generated FUSION weights in brain tissue that include LASSO model. 
 
+LASSO mode and saved in /project2/guiming/data_download/model_weights/Wingo_722_brain_protein_models
+
+The original brain FUSION weights are in /project2/guiming/data_download/Wingo_NC_2022/shared_mechanism.pQTLs.fusion.WEIGHTS_unzip
+
+The LD file can be found in
+/project2/guiming/data_download/Wingo_NG_proteome_2021/LDREF.
+
+*The total number of genes is 2934*
+
 # Number of SNPs selected by LASSO
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
 
-filename <- "/project2/guiming/data_download/model_weights/Wingo_722_brain_protein_models/Wingo_722_brain_protein.lasso.db"
+load("/project2/guiming/xsun/1.brain_wingo/data/wgts_stats.rdata")
 
-sqlite.driver <- dbDriver("SQLite")
-db <- dbConnect(sqlite.driver,dbname = filename)
+dat <- as.data.frame(cbind(num_snp_lasso, num_snp_enet))
 
-## Some operations
-#dbListTables(db)
-weights <- dbReadTable(db,"weights")
-extra <- dbReadTable(db,"extra")
-
-print(paste0("number of gene:", sum(!duplicated(weights$gene))))
-
-ggplot(extra, aes(x = n.snps.in.model)) + 
+ggplot(dat, aes(x = num_snp_lasso)) + 
   geom_histogram() +
   labs(x = "# of SNPs selected by LASSO", y = "Count") +
   theme_bw() 
 
 ```
+
+
+# Number of SNPs selected by LASSO
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
+
+ggplot(dat, aes(x = num_snp_enet)) + 
+  geom_histogram() +
+  labs(x = "# of SNPs selected by ENET", y = "Count") +
+  theme_bw() 
+
+```
+
+
+# Comparing the number of snp selected by LASSO and ENET
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
+
+ggplot(dat, aes(x = num_snp_enet, y = num_snp_lasso)) +
+  geom_point() +
+  xlab("# of SNPs selected by ENET") +
+  ylab("# of SNPs selected by LASSO") +
+  geom_abline(slope = 1, intercept = 0, color = "red") +
+  theme_bw()
+
+```
+
+

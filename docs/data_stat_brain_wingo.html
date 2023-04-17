@@ -393,7 +393,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-04-15
+<strong>Last updated:</strong> 2023-04-17
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -527,15 +527,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreeb637291d20dae446ce915fda88499174340d8ebctargetblankb637291a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree0b0580b702988bba548ffc877d8c94dcdf3f61dbtargetblank0b0580ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/b637291d20dae446ce915fda88499174340d8ebc" target="_blank">b637291</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/0b0580b702988bba548ffc877d8c94dcdf3f61db" target="_blank">0b0580b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreeb637291d20dae446ce915fda88499174340d8ebctargetblankb637291a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree0b0580b702988bba548ffc877d8c94dcdf3f61dbtargetblank0b0580ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -545,7 +545,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/b637291d20dae446ce915fda88499174340d8ebc" target="_blank">b637291</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/0b0580b702988bba548ffc877d8c94dcdf3f61db" target="_blank">0b0580b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,6 +559,9 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+
 Unstaged changes:
     Modified:   analysis/data_stat_brain_wingo.Rmd
 
@@ -611,6 +614,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/ea05406e183601055a3e4974eb671bf62e51368b/analysis/data_stat_brain_wingo.Rmd" target="_blank">ea05406</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-04-15
+</td>
+<td>
+updata
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/ea05406e183601055a3e4974eb671bf62e51368b/docs/data_stat_brain_wingo.html" target="_blank">ea05406</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-04-15
+</td>
+<td>
+updata
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/xsun1229/proteome_alzheimer/blob/b637291d20dae446ce915fda88499174340d8ebc/analysis/data_stat_brain_wingo.Rmd" target="_blank">b637291</a>
 </td>
 <td>
@@ -651,10 +688,16 @@ updata
 <h1>Introduction</h1>
 <p>Wingo et al. (Nat Communication, 2022, PMID: 35882878) generated
 FUSION weights in brain tissue that include LASSO model.</p>
+<p>LASSO mode and saved in
+/project2/guiming/data_download/model_weights/Wingo_722_brain_protein_models</p>
+<p>The original brain FUSION weights are in
+/project2/guiming/data_download/Wingo_NC_2022/shared_mechanism.pQTLs.fusion.WEIGHTS_unzip</p>
+<p>The LD file can be found in
+/project2/guiming/data_download/Wingo_NG_proteome_2021/LDREF.</p>
+<p><em>The total number of genes is 2934</em></p>
 </div>
 <div id="number-of-snps-selected-by-lasso" class="section level1">
 <h1>Number of SNPs selected by LASSO</h1>
-<pre><code>[1] &quot;number of gene:2934&quot;</code></pre>
 <p><img src="figure/data_stat_brain_wingo.Rmd/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -693,6 +736,15 @@ XSun
 </table>
 </div>
 </div>
+</div>
+<div id="number-of-snps-selected-by-lasso-1" class="section level1">
+<h1>Number of SNPs selected by LASSO</h1>
+<p><img src="figure/data_stat_brain_wingo.Rmd/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comparing-the-number-of-snp-selected-by-lasso-and-enet"
+class="section level1">
+<h1>Comparing the number of snp selected by LASSO and ENET</h1>
+<p><img src="figure/data_stat_brain_wingo.Rmd/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
