@@ -23,7 +23,7 @@ The original brain FUSION weights are in /project2/guiming/data_download/Wingo_N
 The LD file can be found in
 /project2/guiming/data_download/Wingo_NG_proteome_2021/LDREF.
 
-*The total number of genes is 2934*
+**The total number of genes is 2934**
 
 # Number of SNPs selected by LASSO
 
