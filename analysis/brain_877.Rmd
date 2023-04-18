@@ -18,6 +18,8 @@ The GWAS data here is GCST90012877_buildGRCh37
 
 # Results
 
+The results are saved in "/project2/guiming/xsun/1.brain_wingo/results/877/877.susieIrss.txt"
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
 
 data <- fread("/project2/guiming/xsun/1.brain_wingo/results/877/877.susieIrss.txt")
