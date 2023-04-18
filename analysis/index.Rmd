@@ -8,5 +8,10 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Analysis using brain tissue
+
 [data statistics -- brain, Wingo](https://xsun1229.github.io/proteome_alzheimer/data_stat_brain_wingo.html)
 
+[Results for GCST90012877_buildGRCh37](https://xsun1229.github.io/proteome_alzheimer/brain_877.html)
+
+[TODO:Results for GCST90012878_buildGRCh37](https://xsun1229.github.io/proteome_alzheimer/brain_878.html)

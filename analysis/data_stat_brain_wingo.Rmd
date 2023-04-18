@@ -41,7 +41,7 @@ ggplot(dat, aes(x = num_snp_lasso)) +
 ```
 
 
-# Number of SNPs selected by LASSO
+# Number of SNPs selected by ENET
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
 

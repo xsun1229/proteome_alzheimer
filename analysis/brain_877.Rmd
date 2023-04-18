@@ -1,0 +1,28 @@
+---
+title: "Results for GCST90012877_buildGRCh37"
+author: "XSun"
+date: "2023-04-18"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+suppressMessages(library(data.table))
+suppressMessages(library(ggplot2))
+```
+
+# Introduction
+
+The GWAS data here is GCST90012877_buildGRCh37
+
+# Results
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
+
+data <- fread("/project2/guiming/xsun/1.brain_wingo/results/877/877.susieIrss.txt")
+data_pip08 <- data[data$susie_pip >0.8,][, c("chrom", "id", "pos", "type", "susie_pip")]
+
+print("Genes and SNPs with susie pip >0.8")
+DT::datatable(data_pip08)
+```
