@@ -238,6 +238,7 @@ p_enrich <- p_enrich + theme(plot.title=element_text(size=title_size)) +
 plot_grid(p_pi, p_sigma2, p_enrich, p_pve)
 ```
 
+
 ```{r}
 #estimated group prior
 estimated_group_prior <- estimated_group_prior_all[,ncol(group_prior_rec)]
@@ -323,16 +324,16 @@ ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
 ```
 
 
-# ```{r}
-# analysis_id <- "brain"
-# t <- ctwas_res
-# ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"]
-# a <- locus_plot(region_tag="1_1", return_table=T,
-#                       focus=NULL,
-#                       label_genes=NULL,
-#                       rerun_ctwas=F,
-#                       rerun_load_only=F,
-#                       label_panel="both",
-#                       legend_side="left",
-#                       legend_panel="")
-# ```
+<!-- # ```{r} -->
+<!-- # analysis_id <- "brain" -->
+<!-- # t <- ctwas_res -->
+<!-- # ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
+<!-- # a <- locus_plot(region_tag="1_1", return_table=T, -->
+<!-- #                       focus=NULL, -->
+<!-- #                       label_genes=NULL, -->
+<!-- #                       rerun_ctwas=F, -->
+<!-- #                       rerun_load_only=F, -->
+<!-- #                       label_panel="both", -->
+<!-- #                       legend_side="left", -->
+<!-- #                       legend_panel="") -->
+<!-- # ``` -->
