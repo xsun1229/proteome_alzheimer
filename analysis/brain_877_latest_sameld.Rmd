@@ -1,14 +1,14 @@
 ---
-title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: UKBB)"
+title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: wingo et al)"
 author: "XSun"
-date: "2023-05-25"
+date: "2023-05-26"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r echo=F}
-results_dir <- paste0("/project2/guiming/xsun/1.brain_wingo_latest/brain_output/")
+results_dir <- paste0("/project2/guiming/xsun/1.brain_wingo_latest_sameld/brain_output/")
 source("/project2/guiming/xsun/1.brain_wingo_latest/ctwas_config_b37.R")
 options(digits = 4)
 ```
@@ -239,7 +239,7 @@ plot_grid(p_pi, p_sigma2, p_enrich, p_pve)
 ```
 
 
-```{r}
+```{r }
 #estimated group prior
 estimated_group_prior <- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)
@@ -272,7 +272,7 @@ estimated_group_pve/sum(estimated_group_pve)
 
 ## Genes with highest PIPs 
 
-```{r}
+```{r echo=FALSE}
 #distribution of PIPs
 hist(ctwas_gene_res$susie_pip, xlim=c(0,1), main="Distribution of Gene PIPs")
 
@@ -329,21 +329,6 @@ analysis_id <- "brain"
 #t <- ctwas_res
 #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"]
 a <- locus_plot(region_tag="16_24", return_table=T,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="left",
-                      legend_panel="")
-```
-
-
-```{r }
-analysis_id <- "brain"
-#t <- ctwas_res
-#ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"]
-a <- locus_plot(region_tag="6_36", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
                       rerun_ctwas=F,
