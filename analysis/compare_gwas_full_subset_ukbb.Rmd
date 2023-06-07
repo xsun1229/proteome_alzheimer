@@ -1,0 +1,90 @@
+---
+title: "Comparing the results from full GWAS and GWAS subset"
+author: "XSun"
+date: "2023-06-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=F}
+suppressMessages(library(ggplot2))
+```
+
+# LD ref: UKBB
+
+```{r echo=F, fig.width=5, fig.height=5}
+
+all <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest/brain_output/brain_ctwas_gene_res.RDS")
+all_08 <- all[all$susie_pip>0.8,]
+
+
+print("genes with pip > 0.8, from full GWAS")
+DT::datatable(all_08)
+
+subset <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_subset/brain_output/brain_ctwas_gene_res.RDS")
+subset_08 <- subset[subset$susie_pip>0.8,]
+
+print("genes with pip > 0.8, from GWAS subset")
+DT::datatable(subset_08)
+
+print("the number of overlapped genes:")
+sum(all_08$id %in% subset_08$id)
+
+df <- merge(all,subset,by="id")
+
+ggplot(data = df) +
+  geom_point(aes(x = z.x, y = z.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "zscores from full GWAS", y = "zscores from GWAS subset") +
+  ggtitle("Comparing the gene zscores for all genes") +
+  theme_bw()
+
+
+ggplot(data = df) +
+  geom_point(aes(x = susie_pip.x, y = susie_pip.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "SUSIE PIPs from full GWAS", y = "SUSIE PIPs from GWAS subset") +
+  ggtitle("Comparing the PIPs for all genes") +
+  theme_bw()
+
+```
+
+
+# LD ref: 1000G
+
+```{r echo=F, fig.width=5, fig.height=5}
+
+all <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_sameld/brain_output/brain_ctwas_gene_res.RDS")
+all_08 <- all[all$susie_pip>0.8,]
+
+print("genes with pip > 0.8, from full GWAS")
+DT::datatable(all_08)
+
+subset <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_subset/brain_output1/brain_ctwas_gene_res.RDS")
+subset_08 <- subset[subset$susie_pip>0.8,]
+
+print("genes with pip > 0.8, from GWAS subset")
+DT::datatable(subset_08)
+
+print("the number of overlapped genes:")
+sum(all_08$id %in% subset_08$id)
+
+df <- merge(all,subset,by="id")
+
+ggplot(data = df) +
+  geom_point(aes(x = z.x, y = z.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "zscores from full GWAS", y = "zscores from GWAS subset") +
+  ggtitle("Comparing the gene zscores for all genes") +
+  theme_bw()
+
+
+ggplot(data = df) +
+  geom_point(aes(x = susie_pip.x, y = susie_pip.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "SUSIE PIPs from full GWAS", y = "SUSIE PIPs from GWAS subset") +
+  ggtitle("Comparing the PIPs for all genes") +
+  theme_bw()
+
+```
