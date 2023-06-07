@@ -11,9 +11,9 @@
 
 <meta name="author" content="XSun" />
 
-<meta name="date" content="2023-06-06" />
+<meta name="date" content="2023-05-26" />
 
-<title>Results for GCST90012877_buildGRCh37 – latest ctwas package (LD REF: wingo et al, GWAS: subset to wingo et al)</title>
+<title>Results for GCST90012877_buildGRCh37 – latest ctwas package (LD REF: 1000G)</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -371,10 +371,9 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Results for GCST90012877_buildGRCh37 –
-latest ctwas package (LD REF: wingo et al, GWAS: subset to wingo et
-al)</h1>
+latest ctwas package (LD REF: 1000G)</h1>
 <h4 class="author">XSun</h4>
-<h4 class="date">2023-06-06</h4>
+<h4 class="date">2023-05-26</h4>
 
 </div>
 
@@ -382,7 +381,7 @@ al)</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -393,8 +392,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -407,9 +406,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
@@ -432,18 +431,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -589,8 +591,8 @@ have uncommitted changes.
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown
-(<code>analysis/brain_877_latest_subset.Rmd</code>) and HTML
-(<code>docs/brain_877_latest_subset.html</code>) files. If you’ve
+(<code>analysis/brain_877_latest_ld1kg.Rmd</code>) and HTML
+(<code>docs/brain_877_latest_ld1kg.html</code>) files. If you’ve
 configured a remote Git repository (see <code>?wflow_git_remote</code>),
 click on the hyperlinks in the table below to view the files as they
 were in that past version.
@@ -622,30 +624,13 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/analysis/brain_877_latest_subset.Rmd" target="_blank">b82c7b5</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/d6fe736c42e20a0ae94f41e2d9543eb6138c941f/analysis/brain_877_latest_ld1kg.Rmd" target="_blank">d6fe736</a>
 </td>
 <td>
 XSun
 </td>
 <td>
-2023-06-06
-</td>
-<td>
-update
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/docs/brain_877_latest_subset.html" target="_blank">b82c7b5</a>
-</td>
-<td>
-XSun
-</td>
-<td>
-2023-06-06
+2023-06-07
 </td>
 <td>
 update
@@ -677,44 +662,7 @@ update
 <h2>Load ctwas results</h2>
 <div id="check-convergence-of-parameters" class="section level3">
 <h3>Check convergence of parameters</h3>
-<p><img src="figure/brain_877_latest_subset.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/docs/figure/brain_877_latest_subset.Rmd/unnamed-chunk-4-1.png" target="_blank">b82c7b5</a>
-</td>
-<td>
-XSun
-</td>
-<td>
-2023-06-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/brain_877_latest_ld1kg.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#estimated group prior
 estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)</code></pre>
@@ -731,7 +679,7 @@ print(estimated_enrichment)</code></pre>
 <pre><code>[1] 27.51</code></pre>
 <pre class="r"><code>#report sample size
 print(sample_size)</code></pre>
-<pre><code>[1] 472868</code></pre>
+<pre><code>[1] 420000</code></pre>
 <pre class="r"><code>#report group size
 print(group_size)</code></pre>
 <pre><code>    SNP    gene 
@@ -740,10 +688,10 @@ print(group_size)</code></pre>
 estimated_group_pve &lt;- estimated_group_pve_all[,ncol(group_prior_rec)]
 print(estimated_group_pve)</code></pre>
 <pre><code>     SNP     gene 
-0.007960 0.001273 </code></pre>
+0.008961 0.001434 </code></pre>
 <pre class="r"><code>#total PVE
 sum(estimated_group_pve)</code></pre>
-<pre><code>[1] 0.009233</code></pre>
+<pre><code>[1] 0.0104</code></pre>
 <pre class="r"><code>#attributable PVE
 estimated_group_pve/sum(estimated_group_pve)</code></pre>
 <pre><code>   SNP   gene 
@@ -752,47 +700,10 @@ estimated_group_pve/sum(estimated_group_pve)</code></pre>
 </div>
 <div id="genes-with-highest-pips" class="section level2">
 <h2>Genes with highest PIPs</h2>
-<p><img src="figure/brain_877_latest_subset.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/docs/figure/brain_877_latest_subset.Rmd/unnamed-chunk-6-1.png" target="_blank">b82c7b5</a>
-</td>
-<td>
-XSun
-</td>
-<td>
-2023-06-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/brain_877_latest_ld1kg.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] &quot;Genes with susie pip &gt;0.8&quot;</code></pre>
 <div id="htmlwidget-e580bcebcc2166761c08" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"data":[["2669","2697","2731","2751","2764","2822","2827","2753","2880","2699","2932"],[1,4,7,8,14,16,16,9,17,5,22],["ENSG00000204138","ENSG00000109814","ENSG00000001629","ENSG00000168575","ENSG00000131323","ENSG00000167397","ENSG00000090861","ENSG00000165025","ENSG00000008283","ENSG00000133835","ENSG00000180957"],[28668558,39491521,91738437,42397731,103237508,30928970,70139542,93463424,61066639,118453771,28270372],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[1,4,7,8,14,16,16,9,17,5,22],[19,32,56,37,55,24,38,46,36,72,9],[5,1,2,3,3,3,3,5,1,1,3],[1,1,1,1,1,1,1,0.999999995296639,0.999998980354906,0.999884449342003,0.904028127521008],[1569.06426591785,338.234264430853,1830.94039614948,4846.54890282217,2190.81450567169,6043.90788003919,1703.0943001262,672.15046714589,173.79149969433,32.1446700200182,1380.97129800014],["1_19","4_32","7_56","8_37","14_55","16_24","16_38","9_46","17_36","5_72","22_9"],[0.00331818661004308,0.000715282625237599,0.0038719904839183,0.0102492638597287,0.00463303608125669,0.0127813848262923,0.00360162730429253,0.00142143360088761,0.00036752608019295,6.79702489537171e-05,0.00264013825568937],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["PHACTR4","UGDH","ANKIB1","SLC20A2","TRAF3","VKORC1","AARS1","SYK","CYB561","HSD17B4","PITPNB"],[-2.90367059660558,5.74332568748684,3.04768779794564,-4.1534256736002,3.95633691659252,5.3919194741131,-4.33904689523797,-3.66044317804603,6.24048332845626,5.14506176847046,-3.56512996913707],[3,4,6,5,3,5,5,9,5,9,5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"data":[["2669","2697","2731","2751","2764","2822","2827","2753","2880","2699","2932"],[1,4,7,8,14,16,16,9,17,5,22],["ENSG00000204138","ENSG00000109814","ENSG00000001629","ENSG00000168575","ENSG00000131323","ENSG00000167397","ENSG00000090861","ENSG00000165025","ENSG00000008283","ENSG00000133835","ENSG00000180957"],[28668558,39491521,91738437,42397731,103237508,30928970,70139542,93463424,61066639,118453771,28270372],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[1,4,7,8,14,16,16,9,17,5,22],[19,32,56,37,55,24,38,46,36,72,9],[5,1,2,3,3,3,3,5,1,1,3],[1,1,1,1,1,1,1,0.999999995296639,0.999998980354906,0.999884449342003,0.904028127521008],[1569.06426591785,338.234264430853,1830.94039614948,4846.54890282217,2190.81450567169,6043.90788003919,1703.0943001262,672.15046714589,173.79149969433,32.1446700200182,1380.97129800014],["1_19","4_32","7_56","8_37","14_55","16_24","16_38","9_46","17_36","5_72","22_9"],[0.0037358672998044,0.000805319677216317,0.004359381895594,0.0115394021495766,0.00521622501350402,0.0143902568572362,0.00405498642887191,0.0016003582475822,0.000413788863068286,7.65260849577293e-05,0.00297246880164601],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["PHACTR4","UGDH","ANKIB1","SLC20A2","TRAF3","VKORC1","AARS1","SYK","CYB561","HSD17B4","PITPNB"],[-2.90367059660558,5.74332568748684,3.04768779794564,-4.1534256736002,3.95633691659252,5.3919194741131,-4.33904689523797,-3.66044317804603,6.24048332845626,5.14506176847046,-3.56512996913707],[3,4,6,5,3,5,5,9,5,9,5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="comparing-with-wingos-results" class="section level2">
 <h2>Comparing with Wingo’s results</h2>
@@ -800,38 +711,52 @@ XSun
 href="https://www.nature.com/articles/s41467-022-31873-5s">Wingo_Nat_comm_2022</a></p>
 <pre><code>[1] &quot;overlapped&quot;</code></pre>
 <div id="htmlwidget-f110db3ae422a0420019" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f110db3ae422a0420019">{"x":{"filter":"none","vertical":false,"data":[["1"],["ENSG00000167397"],[16],[30928970],["gene"],[16],[24],[3],[1],[6043.90788003919],["16_24"],[0.0127813848262923],["protein_coding"],["VKORC1"],[5.3919194741131],[5],["VKORC1"],["cis"],[4.77368],[1.81e-06],[0.000658161],[0.768]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,5,6,7,8,9,11,14,15,18,19,20,21]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f110db3ae422a0420019">{"x":{"filter":"none","vertical":false,"data":[["1"],["ENSG00000167397"],[16],[30928970],["gene"],[16],[24],[3],[1],[6043.90788003919],["16_24"],[0.0143902568572362],["protein_coding"],["VKORC1"],[5.3919194741131],[5],["VKORC1"],["cis"],[4.77368],[1.81e-06],[0.000658161],[0.768]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,5,6,7,8,9,11,14,15,18,19,20,21]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre><code>[1] &quot;our unique genes&quot;</code></pre>
 <div id="htmlwidget-b3540f48f687887edb0c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b3540f48f687887edb0c">{"x":{"filter":"none","vertical":false,"data":[["2669","2697","2699","2731","2751","2753","2764","2827","2880","2932"],[1,4,5,7,8,9,14,16,17,22],["ENSG00000204138","ENSG00000109814","ENSG00000133835","ENSG00000001629","ENSG00000168575","ENSG00000165025","ENSG00000131323","ENSG00000090861","ENSG00000008283","ENSG00000180957"],[28668558,39491521,118453771,91738437,42397731,93463424,103237508,70139542,61066639,28270372],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[1,4,5,7,8,9,14,16,17,22],[19,32,72,56,37,46,55,38,36,9],[5,1,1,2,3,5,3,3,1,3],[1,1,0.999884449342003,1,1,0.999999995296639,1,1,0.999998980354906,0.904028127521008],[1569.06426591785,338.234264430853,32.1446700200182,1830.94039614948,4846.54890282217,672.15046714589,2190.81450567169,1703.0943001262,173.79149969433,1380.97129800014],["1_19","4_32","5_72","7_56","8_37","9_46","14_55","16_38","17_36","22_9"],[0.00331818661004308,0.000715282625237599,6.79702489537171e-05,0.0038719904839183,0.0102492638597287,0.00142143360088761,0.00463303608125669,0.00360162730429253,0.00036752608019295,0.00264013825568937],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["PHACTR4","UGDH","HSD17B4","ANKIB1","SLC20A2","SYK","TRAF3","AARS1","CYB561","PITPNB"],[-2.90367059660558,5.74332568748684,5.14506176847046,3.04768779794564,-4.1534256736002,-3.66044317804603,3.95633691659252,-4.33904689523797,6.24048332845626,-3.56512996913707],[3,4,9,6,5,9,3,5,5,5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-b3540f48f687887edb0c">{"x":{"filter":"none","vertical":false,"data":[["2669","2697","2699","2731","2751","2753","2764","2827","2880","2932"],[1,4,5,7,8,9,14,16,17,22],["ENSG00000204138","ENSG00000109814","ENSG00000133835","ENSG00000001629","ENSG00000168575","ENSG00000165025","ENSG00000131323","ENSG00000090861","ENSG00000008283","ENSG00000180957"],[28668558,39491521,118453771,91738437,42397731,93463424,103237508,70139542,61066639,28270372],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[1,4,5,7,8,9,14,16,17,22],[19,32,72,56,37,46,55,38,36,9],[5,1,1,2,3,5,3,3,1,3],[1,1,0.999884449342003,1,1,0.999999995296639,1,1,0.999998980354906,0.904028127521008],[1569.06426591785,338.234264430853,32.1446700200182,1830.94039614948,4846.54890282217,672.15046714589,2190.81450567169,1703.0943001262,173.79149969433,1380.97129800014],["1_19","4_32","5_72","7_56","8_37","9_46","14_55","16_38","17_36","22_9"],[0.0037358672998044,0.000805319677216317,7.65260849577293e-05,0.004359381895594,0.0115394021495766,0.0016003582475822,0.00521622501350402,0.00405498642887191,0.000413788863068286,0.00297246880164601],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["PHACTR4","UGDH","HSD17B4","ANKIB1","SLC20A2","SYK","TRAF3","AARS1","CYB561","PITPNB"],[-2.90367059660558,5.74332568748684,5.14506176847046,3.04768779794564,-4.1534256736002,-3.66044317804603,3.95633691659252,-4.33904689523797,6.24048332845626,-3.56512996913707],[3,4,9,6,5,9,3,5,5,5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre><code>[1] &quot;wingo&#39;s unique genes&quot;</code></pre>
 <div id="htmlwidget-f75ed56b951ed5bc9e08" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-f75ed56b951ed5bc9e08">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","17","18"],["ENSG00000159640","ENSG00000184227","ENSG00000137845","ENSG00000108091","ENSG00000198087","ENSG00000168993","ENSG00000103811","ENSG00000149927","ENSG00000162755","ENSG00000103642","ENSG00000115828","ENSG00000022277","ENSG00000172803","ENSG00000099365","ENSG00000135823","ENSG00000120594","ENSG00000116266"],["ACE","ACOT1","ADAM10","CCDC6","CD2AP","CPLX1","CTSH","DOC2A","KLHDC9","LACTB","QPCT","RTFDC1","SNX32","STX1B","STX6","PLXDC2","STXBP3"],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","trans"],[-5.5364,-3.6618,5.0857,4.39918,4.93877,3.71748,4.7126,-4.4087,-3.54621,3.9108,-3.59743,4.57268,-4.3567,4.10666,3.72181,null,null],[3.09e-08,0.00025,3.66e-07,1.09e-05,7.86e-07,0.000201,2.45e-06,1.04e-05,0.000391,9.2e-05,0.000321,4.82e-06,1.32e-05,4.01e-05,0.000198,null,null],[2.25e-05,0.030302083,0.000212939,0.002439085,0.000381079,0.026577682,0.000791894,0.002439085,0.037913967,0.014085684,0.034284643,0.001402138,0.002742771,0.006861818,0.026577682,null,null],[0.98,0.012,0.534,0.97,0.999,0.197,0.962,0.944,0.89,0.6,0.207,0.94,0.981,0.278,0.178,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Ensembl_gene_ID<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<!-- ```{r echo=FALSE,  message=FALSE} -->
-<!-- #load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData") -->
-<!-- G_list <- G_list[G_list$gene_biotype %in% c("protein_coding"),] -->
-<!-- G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-" -->
-<!-- G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)] -->
-<!-- alpha <- 0.05 -->
-<!-- source("/project2/guiming/xsun/1.brain_wingo_latest/locus_plot.R") -->
-<!-- ``` -->
-<!-- ```{r echo=FALSE} -->
-<!-- ctwas_res$group <- "Expression" -->
-<!-- ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP" -->
-<!-- ``` -->
-<!-- ```{r } -->
-<!-- analysis_id <- "brain" -->
-<!-- #t <- ctwas_res -->
-<!-- #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
-<!-- a <- locus_plot(region_tag="16_24", return_table=T, -->
-<!--                       focus=NULL, -->
-<!--                       label_genes=NULL, -->
-<!--                       rerun_ctwas=F, -->
-<!--                       rerun_load_only=F, -->
-<!--                       label_panel="both", -->
-<!--                       legend_side="left", -->
-<!--                       legend_panel="") -->
-<!-- ``` -->
+<pre><code>Loading required package: S4Vectors</code></pre>
+<pre><code>Loading required package: stats4</code></pre>
+<pre><code>Loading required package: BiocGenerics</code></pre>
+<pre><code>
+Attaching package: &#39;BiocGenerics&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min</code></pre>
+<pre><code>
+Attaching package: &#39;S4Vectors&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    expand.grid, I, unname</code></pre>
+<pre><code>Loading required package: IRanges</code></pre>
+<pre><code>Loading required package: GenomicRanges</code></pre>
+<pre><code>Loading required package: GenomeInfoDb</code></pre>
+<pre><code>Loading required package: grid</code></pre>
+<pre><code>Warning: replacing previous import &#39;utils::download.file&#39; by
+&#39;restfulr::download.file&#39; when loading &#39;rtracklayer&#39;</code></pre>
+<pre class="r"><code>analysis_id &lt;- &quot;brain&quot;
+#t &lt;- ctwas_res
+#ctwas_res$id[ctwas_res$type ==&quot;gene&quot;] &lt;- ctwas_res$genename[ctwas_res$type ==&quot;gene&quot;]
+a &lt;- locus_plot(region_tag=&quot;16_24&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_877_latest_ld1kg.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -857,29 +782,79 @@ locale:
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
 
 other attached packages:
-[1] cowplot_1.1.1 ggplot2_3.3.5
+[1] Gviz_1.40.1          GenomicRanges_1.48.0 GenomeInfoDb_1.32.2 
+[4] IRanges_2.30.0       S4Vectors_0.34.0     BiocGenerics_0.42.0 
+[7] cowplot_1.1.1        ggplot2_3.3.5       
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.1.2  xfun_0.30         bslib_0.3.1       purrr_0.3.4      
- [5] colorspace_2.0-3  vctrs_0.4.1       generics_0.1.2    htmltools_0.5.2  
- [9] yaml_2.3.5        utf8_1.2.2        blob_1.2.3        rlang_1.0.5      
-[13] jquerylib_0.1.4   later_1.3.0       pillar_1.7.0      withr_2.5.0      
-[17] glue_1.6.2        DBI_1.1.2         bit64_4.0.5       lifecycle_1.0.1  
-[21] stringr_1.4.0     munsell_0.5.0     gtable_0.3.0      workflowr_1.7.0  
-[25] htmlwidgets_1.5.4 evaluate_0.15     memoise_2.0.1     labeling_0.4.2   
-[29] knitr_1.39        fastmap_1.1.0     crosstalk_1.2.0   httpuv_1.6.5     
-[33] fansi_1.0.3       highr_0.9         Rcpp_1.0.8.3      DT_0.22          
-[37] promises_1.2.0.1  scales_1.2.0      cachem_1.0.6      jsonlite_1.8.0   
-[41] farver_2.1.0      fs_1.5.2          bit_4.0.4         digest_0.6.29    
-[45] stringi_1.7.6     dplyr_1.0.9       rprojroot_2.0.3   grid_4.2.0       
-[49] cli_3.3.0         tools_4.2.0       magrittr_2.0.3    sass_0.4.1       
-[53] tibble_3.1.7      RSQLite_2.3.1     crayon_1.5.1      whisker_0.4      
-[57] pkgconfig_2.0.3   ellipsis_0.3.2    data.table_1.14.2 assertthat_0.2.1 
-[61] rmarkdown_2.14    rstudioapi_0.13   R6_2.5.1          git2r_0.30.1     
-[65] compiler_4.2.0   </code></pre>
+  [1] colorspace_2.0-3            rjson_0.2.21               
+  [3] deldir_1.0-6                ellipsis_0.3.2             
+  [5] rprojroot_2.0.3             htmlTable_2.4.0            
+  [7] biovizBase_1.44.0           XVector_0.36.0             
+  [9] base64enc_0.1-3             fs_1.5.2                   
+ [11] dichromat_2.0-0.1           rstudioapi_0.13            
+ [13] farver_2.1.0                DT_0.22                    
+ [15] bit64_4.0.5                 AnnotationDbi_1.58.0       
+ [17] fansi_1.0.3                 xml2_1.3.3                 
+ [19] codetools_0.2-18            splines_4.2.0              
+ [21] cachem_1.0.6                knitr_1.39                 
+ [23] Formula_1.2-4               jsonlite_1.8.0             
+ [25] workflowr_1.7.0             Rsamtools_2.12.0           
+ [27] cluster_2.1.3               dbplyr_2.1.1               
+ [29] png_0.1-7                   compiler_4.2.0             
+ [31] httr_1.4.3                  backports_1.4.1            
+ [33] lazyeval_0.2.2              assertthat_0.2.1           
+ [35] Matrix_1.5-3                fastmap_1.1.0              
+ [37] cli_3.3.0                   later_1.3.0                
+ [39] htmltools_0.5.2             prettyunits_1.1.1          
+ [41] tools_4.2.0                 gtable_0.3.0               
+ [43] glue_1.6.2                  GenomeInfoDbData_1.2.8     
+ [45] dplyr_1.0.9                 rappdirs_0.3.3             
+ [47] Rcpp_1.0.8.3                Biobase_2.56.0             
+ [49] jquerylib_0.1.4             vctrs_0.4.1                
+ [51] Biostrings_2.64.0           rtracklayer_1.56.0         
+ [53] crosstalk_1.2.0             xfun_0.30                  
+ [55] stringr_1.4.0               lifecycle_1.0.1            
+ [57] ensembldb_2.20.2            restfulr_0.0.14            
+ [59] XML_3.99-0.14               zlibbioc_1.42.0            
+ [61] scales_1.2.0                BSgenome_1.64.0            
+ [63] VariantAnnotation_1.42.1    ProtGenerics_1.28.0        
+ [65] hms_1.1.1                   promises_1.2.0.1           
+ [67] MatrixGenerics_1.8.0        parallel_4.2.0             
+ [69] SummarizedExperiment_1.26.1 AnnotationFilter_1.20.0    
+ [71] RColorBrewer_1.1-3          yaml_2.3.5                 
+ [73] curl_4.3.2                  gridExtra_2.3              
+ [75] memoise_2.0.1               sass_0.4.1                 
+ [77] rpart_4.1.16                biomaRt_2.52.0             
+ [79] latticeExtra_0.6-30         stringi_1.7.6              
+ [81] RSQLite_2.3.1               highr_0.9                  
+ [83] BiocIO_1.6.0                checkmate_2.1.0            
+ [85] GenomicFeatures_1.48.3      filelock_1.0.2             
+ [87] BiocParallel_1.30.3         rlang_1.0.5                
+ [89] pkgconfig_2.0.3             matrixStats_0.62.0         
+ [91] bitops_1.0-7                evaluate_0.15              
+ [93] lattice_0.20-45             purrr_0.3.4                
+ [95] GenomicAlignments_1.32.0    htmlwidgets_1.5.4          
+ [97] labeling_0.4.2              bit_4.0.4                  
+ [99] tidyselect_1.1.2            magrittr_2.0.3             
+[101] R6_2.5.1                    generics_0.1.2             
+[103] Hmisc_4.7-1                 DelayedArray_0.22.0        
+[105] DBI_1.1.2                   foreign_0.8-82             
+[107] pillar_1.7.0                whisker_0.4                
+[109] withr_2.5.0                 nnet_7.3-17                
+[111] survival_3.3-1              KEGGREST_1.36.2            
+[113] RCurl_1.98-1.7              tibble_3.1.7               
+[115] crayon_1.5.1                interp_1.1-3               
+[117] utf8_1.2.2                  BiocFileCache_2.4.0        
+[119] rmarkdown_2.14              jpeg_0.1-9                 
+[121] progress_1.2.2              data.table_1.14.2          
+[123] blob_1.2.3                  git2r_0.30.1               
+[125] digest_0.6.29               httpuv_1.6.5               
+[127] munsell_0.5.0               bslib_0.3.1                </code></pre>
 </div>
 </div>
 

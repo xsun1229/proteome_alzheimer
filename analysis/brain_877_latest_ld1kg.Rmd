@@ -1,5 +1,5 @@
 ---
-title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: wingo et al)"
+title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: 1000G)"
 author: "XSun"
 date: "2023-05-26"
 output: workflowr::wflow_html
@@ -9,7 +9,7 @@ editor_options:
 
 ```{r echo=F}
 results_dir <- paste0("/project2/guiming/xsun/1.brain_wingo_latest_sameld/brain_output/")
-#source("/project2/guiming/xsun/1.brain_wingo_latest/ctwas_config_b37.R")
+source("/project2/guiming/xsun/1.brain_wingo_latest/ctwas_config_b37.R")
 options(digits = 4)
 ```
 

@@ -381,7 +381,7 @@ latest ctwas package (LD REF: UKBB, GWAS: subset to wingo et al)</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -392,8 +392,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -402,13 +402,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-06
+<strong>Last updated:</strong> 2023-06-07
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
@@ -431,21 +431,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -536,15 +533,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree80c17c1d09e3cb3a406cd0998373e74c56a6897atargetblank80c17c1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreed6fe736c42e20a0ae94f41e2d9543eb6138c941ftargetblankd6fe736a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/80c17c1d09e3cb3a406cd0998373e74c56a6897a" target="_blank">80c17c1</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/d6fe736c42e20a0ae94f41e2d9543eb6138c941f" target="_blank">d6fe736</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree80c17c1d09e3cb3a406cd0998373e74c56a6897atargetblank80c17c1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreed6fe736c42e20a0ae94f41e2d9543eb6138c941ftargetblankd6fe736a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +551,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/80c17c1d09e3cb3a406cd0998373e74c56a6897a" target="_blank">80c17c1</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/d6fe736c42e20a0ae94f41e2d9543eb6138c941f" target="_blank">d6fe736</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,13 +568,8 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
 
-Untracked files:
-    Untracked:  analysis/brain_877_latest_subset.Rmd
-    Untracked:  analysis/brain_877_latest_subset_ukbb.Rmd
-    Untracked:  analysis/compare_sameld_diffld.Rmd
-
 Unstaged changes:
-    Modified:   analysis/brain_877_latest_sameld.Rmd
+    Modified:   analysis/brain_877_latest_ld1kg.Rmd
 
 </code></pre>
 <p>
@@ -592,10 +584,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/brain_877_latest_subset_ukbb.Rmd</code>) and HTML
+(<code>docs/brain_877_latest_subset_ukbb.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/analysis/brain_877_latest_subset_ukbb.Rmd" target="_blank">b82c7b5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-06
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/docs/brain_877_latest_subset_ukbb.html" target="_blank">b82c7b5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-06
+</td>
+<td>
+update
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -620,6 +677,43 @@ There are no past versions. Publish this analysis with
 <div id="check-convergence-of-parameters" class="section level3">
 <h3>Check convergence of parameters</h3>
 <p><img src="figure/brain_877_latest_subset_ukbb.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/docs/figure/brain_877_latest_subset_ukbb.Rmd/unnamed-chunk-4-1.png" target="_blank">b82c7b5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#estimated group prior
 estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)</code></pre>
@@ -658,6 +752,43 @@ estimated_group_pve/sum(estimated_group_pve)</code></pre>
 <div id="genes-with-highest-pips" class="section level2">
 <h2>Genes with highest PIPs</h2>
 <p><img src="figure/brain_877_latest_subset_ukbb.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/b82c7b591100bd096a365ad6b0678ff2b5ef3cb0/docs/figure/brain_877_latest_subset_ukbb.Rmd/unnamed-chunk-6-1.png" target="_blank">b82c7b5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[1] &quot;Genes with susie pip &gt;0.8&quot;</code></pre>
 <div id="htmlwidget-e580bcebcc2166761c08" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"data":[["2428","2429","2433","2461","2485","2500","2509","2530","2542","2547","2557","2561","2578","2585","2591","2614","2622","2633","2648","2662","2688","2713","2721","2792","2847","2860","2881","2902","2908","2478","2640","2900","2412","2795","2696","2844","2741","2739","2782","2579","2502","2510","2612","2409","2751","2563","2506","2638","2454","2577","2823","2501","2677","2534","2413","2468","2759","2870","2515","2893","2489","2455","2923"],[1,1,1,2,4,4,5,6,7,7,8,8,8,9,9,10,12,12,14,14,16,16,16,17,18,19,20,22,22,3,12,21,1,17,16,17,16,16,17,8,5,5,10,1,17,8,5,12,2,8,17,5,15,6,1,2,17,19,6,20,4,2,22],["ENSG00000204138","ENSG00000121769","ENSG00000117016","ENSG00000128641","ENSG00000109814","ENSG00000169288","ENSG00000171444","ENSG00000198502","ENSG00000001629","ENSG00000155660","ENSG00000168575","ENSG00000176623","ENSG00000178685","ENSG00000165025","ENSG00000095321","ENSG00000108219","ENSG00000139117","ENSG00000176422","ENSG00000119661","ENSG00000131323","ENSG00000140650","ENSG00000167397","ENSG00000132613","ENSG00000175662","ENSG00000141452","ENSG00000105607","ENSG00000101439","ENSG00000180957","ENSG00000184076","ENSG00000188846","ENSG00000135677","ENSG00000160221","ENSG00000011009","ENSG00000108262","ENSG00000103356","ENSG00000167280","ENSG00000167523","ENSG00000131165","ENSG00000007237","ENSG00000178814","ENSG00000131711","ENSG00000133835","ENSG00000150867","ENSG00000116649","ENSG00000070366","ENSG00000104312","ENSG00000113048","ENSG00000179912","ENSG00000003509","ENSG00000178209","ENSG00000008283","ENSG00000170571","ENSG00000138621","ENSG00000198087","ENSG00000117305","ENSG00000135929","ENSG00000167720","ENSG00000130479","ENSG00000137266","ENSG00000075043","ENSG00000109133","ENSG00000115828","ENSG00000172346"],[28668558,31673263,40966183,191993626,39491521,78461264,111968281,32572251,91738437,148700542,42397731,87165011,145044749,93463424,131874641,81924830,38735803,56844559,74168431,103237508,8499784,30928970,70383238,17750907,21078716,12911340,23582418,28270372,29793641,40088077,65018137,45199738,24114129,27893015,23519986,77045508,89399455,89708224,9812562,145114643,71138138,118453771,22822524,11104676,1711040,90776812,71495041,57644767,37281063,144984283,61066639,49511425,74817689,47432637,24102080,219392159,2115271,17827257,2779882,61960080,41889237,37454286,41677214],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[1,1,1,2,4,4,5,6,7,7,8,8,8,9,9,10,12,12,14,14,16,16,16,17,18,19,20,22,22,3,12,21,1,17,16,17,16,16,17,8,5,5,10,1,17,8,5,12,2,8,17,5,15,6,1,2,17,19,6,20,4,2,22],[19,20,25,114,32,52,67,27,56,92,37,62,94,46,69,51,26,35,34,55,9,24,38,15,12,11,19,9,12,29,39,22,17,18,21,44,54,54,8,94,43,72,17,8,3,64,43,36,25,94,36,29,35,36,17,130,3,15,4,38,35,25,18],[3,1,1,1,3,1,1,1,3,1,3,3,2,3,1,1,1,1,1,1,1,1,3,3,1,1,1,3,1,1,3,1,3,2,2,1,1,2,1,1,2,1,1,1,1,3,3,3,1,4,1,1,1,1,5,1,2,1,1,0,0,3,0],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0.999999999999951,0.999999999987537,0.999999999902558,0.999999999862974,0.999999999766565,0.999999999677192,0.999999999555537,0.999999994823498,0.999999991816404,0.999999989154395,0.999999956844403,0.999999939597497,0.99999993086243,0.999999887286529,0.999999435482598,0.999999390034836,0.999999279578771,0.999999052485807,0.999995672016746,0.999993490316758,0.99997752229007,0.999975367132464,0.999896441679057,0.999879090307523,0.999802481932035,0.999719884868638,0.99869374357828,0.997886976522237,0.993191261157991,0.991556968400531,0.945599150789346,0.940255859976428,0.9185380880232,0.867324061970839],[614.763850598721,167.974130359444,189.911749174085,201.443981613632,451.703036160374,368.651996029175,169.641319520707,386.852869315291,759.981274269877,445.706030752391,2150.72339125028,810.24012143151,690.677713685433,784.842076949227,378.675731535816,1327.6767481844,307.243031450749,230.015135179388,702.08726445467,885.201293523796,288.39549029568,9238.39794999422,823.780184576905,1834.95917265805,181.174581111228,159.847944181466,264.669958195372,576.655540825832,320.931485068686,158.169467793434,506.038983125005,72.0847260121398,657.102829064699,507.607828432612,735.076740127703,81.3123813872493,286.442392573065,301.482116807632,381.188900585654,63.3471610891529,175.722616327616,58.1216704747291,114.120179590478,81.1564489024083,150.957516275892,437.74572972173,141.399910918764,315.362287166079,245.221243583567,398.038345411409,76.7865093887973,74.2833796534958,47.8290049705928,159.880798164711,728.499283911131,26.1198743284369,144.305292800833,266.601298088514,386.577373525626,19.6559347861267,20.4674952252156,284.418622336513,91.5193165583148],["1_19","1_20","1_25","2_114","4_32","4_52","5_67","6_27","7_56","7_92","8_37","8_62","8_94","9_46","9_69","10_51","12_26","12_35","14_34","14_55","16_9","16_24","16_38","17_15","18_12","19_11","20_19","22_9","22_12","3_29","12_39","21_22","1_17","17_18","16_21","17_44","16_54","16_54","17_8","8_94","5_43","5_72","10_17","1_8","17_3","8_64","5_43","12_36","2_25","8_94","17_36","5_29","15_35","6_36","1_17","2_130","17_3","19_15","6_4","20_38","4_35","2_25","22_18"],[0.00130007496933335,0.000355224143649906,0.000401616834241448,0.000426004681250649,0.000955241285433512,0.000779608677324697,0.000358749840379782,0.000818099066367974,0.0016071742521589,0.000942559087847752,0.00454825319380944,0.00171345940395948,0.0014606141961085,0.00165974876064616,0.000800806422798362,0.00280771113330655,0.00064974375819626,0.000486425673082949,0.00148474260143353,0.00187198392262491,0.000609885824999112,0.0195369488948168,0.0017420933211317,0.00388048921191125,0.000383139863791223,0.000338039250237838,0.000559712135723652,0.00121948522806752,0.000678691484872493,0.00033448968378792,0.00107014850469623,0.000152441539721689,0.00138961153847302,0.00107346622802583,0.00155450726183716,0.00017195577064024,0.000605755498554132,0.00063756082953472,0.00080612115104306,0.000133963724243062,0.000371610271182508,0.000122913088761215,0.000241336201070059,0.000171625914818048,0.000319237978034178,0.000925724333979913,0.000299025895049658,0.000666911108984709,0.000518579492101278,0.000841734687948729,0.00016238065996617,0.000157074885573617,0.000101134401102021,0.000338041945782656,0.00154016600877734,5.51649827750257e-05,0.000304525517330797,0.000559957703788137,0.000810614142943294,3.93061810943692e-05,4.06977894984404e-05,0.000552478360893893,0.000167862713032289],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["PHACTR4","FABP3","RIMS3","MYO1B","UGDH","MRPL1","MCC","HLA-DRB5","ANKIB1","PDIA4","SLC20A2","RMDN1","PARP10","SYK","CRAT","TSPAN14","CPNE8","SPRYD4","DNAL1","TRAF3","PMM2","VKORC1","MTSS2","TOM1L2","RMC1","GCDH","CST3","PITPNB","UQCR10","RPL14","GNS","GATD3","LYPLA2","GIT1","EARS2","ENGASE","SPATA33","CHMP1A","GAS7","OPLAH","MAP1B","HSD17B4","PIP4K2A","SRM","SMG6","RIPK2","MRPS27","R3HDM2","NDUFAF7","PLEC","CYB561","EMB","PPCDC","CD2AP","HMGCL","CYP27A1","SRR","MAP1S","SLC22A23","KCNQ2","TMEM33","QPCT","CSDC2"],[-2.90738339612162,-4.9222632646942,3.68055870417558,-3.16395553377078,3.56567874408135,4.36474774724881,-3.72155987667335,7.14824278629513,3.05124205508682,5.40792489703969,-4.14611335936409,3.47086763461523,-3.13706373983228,-4.20969671509678,6.29280446102321,8.11382948682847,3.37732228126989,7.57412629644876,3.07585059679352,4.28286687359862,3.17750441501764,42.5577986734023,-4.18774090398175,-3.90413355730637,-6.13466023861011,7.73223298574865,-4.8527095369153,-3.5089445193606,-4.45042631898693,3.74294323528968,2.68106017330784,6.17689262767779,-2.62310058657478,2.34389169354908,2.8711374220353,-4.18341621533302,-2.89322602939616,2.18471722853989,2.99722113159623,6.75575593218951,-2.25498106865034,4.08399730715293,-3.48135444696531,4.96908011600924,3.02916524251781,3.02087045784331,-3.40389159737508,4.31848167010587,-4.45318785811411,-3.93535011426835,5.77026063194411,-4.88149701287488,4.38373108314367,-7.71900674097898,-2.67978051986226,4.08241922534993,1.18895387131169,4.4694469985355,-3.90850033829018,-3.87984720254211,-4.17283668275392,3.17083785880536,-3.62203440254826],[3,5,3,12,4,25,7,4,6,3,5,12,3,9,6,5,11,7,2,3,7,5,3,4,4,6,2,5,18,10,4,7,5,2,10,5,6,8,3,7,4,9,4,3,5,2,6,4,6,2,5,7,12,5,3,2,5,7,8,4,7,9,11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
@@ -717,7 +848,12 @@ Matrix products: default
 BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
 
 locale:
-[1] C
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -729,8 +865,8 @@ loaded via a namespace (and not attached):
  [1] tidyselect_1.1.2  xfun_0.30         bslib_0.3.1       purrr_0.3.4      
  [5] colorspace_2.0-3  vctrs_0.4.1       generics_0.1.2    htmltools_0.5.2  
  [9] yaml_2.3.5        utf8_1.2.2        blob_1.2.3        rlang_1.0.5      
-[13] jquerylib_0.1.4   later_1.3.0       pillar_1.7.0      glue_1.6.2       
-[17] withr_2.5.0       DBI_1.1.2         bit64_4.0.5       lifecycle_1.0.1  
+[13] jquerylib_0.1.4   later_1.3.0       pillar_1.7.0      withr_2.5.0      
+[17] glue_1.6.2        DBI_1.1.2         bit64_4.0.5       lifecycle_1.0.1  
 [21] stringr_1.4.0     munsell_0.5.0     gtable_0.3.0      workflowr_1.7.0  
 [25] htmlwidgets_1.5.4 evaluate_0.15     memoise_2.0.1     labeling_0.4.2   
 [29] knitr_1.39        fastmap_1.1.0     crosstalk_1.2.0   httpuv_1.6.5     
@@ -739,9 +875,10 @@ loaded via a namespace (and not attached):
 [41] farver_2.1.0      fs_1.5.2          bit_4.0.4         digest_0.6.29    
 [45] stringi_1.7.6     dplyr_1.0.9       rprojroot_2.0.3   grid_4.2.0       
 [49] cli_3.3.0         tools_4.2.0       magrittr_2.0.3    sass_0.4.1       
-[53] tibble_3.1.7      RSQLite_2.3.1     crayon_1.5.1      pkgconfig_2.0.3  
-[57] ellipsis_0.3.2    data.table_1.14.2 assertthat_0.2.1  rmarkdown_2.14   
-[61] rstudioapi_0.13   R6_2.5.1          git2r_0.30.1      compiler_4.2.0   </code></pre>
+[53] tibble_3.1.7      RSQLite_2.3.1     crayon_1.5.1      whisker_0.4      
+[57] pkgconfig_2.0.3   ellipsis_0.3.2    data.table_1.14.2 assertthat_0.2.1 
+[61] rmarkdown_2.14    rstudioapi_0.13   R6_2.5.1          git2r_0.30.1     
+[65] compiler_4.2.0   </code></pre>
 </div>
 </div>
 
