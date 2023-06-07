@@ -1,0 +1,47 @@
+---
+title: "Comparing the results from different LD reference"
+author: "XSun"
+date: "2023-06-04"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=F}
+suppressMessages(library(ggplot2))
+```
+
+
+We are trying to figure out how LD reference influences the results. 
+
+
+# Comparing the PIPs and z scores
+
+```{r echo=F,width =5, height=5}
+
+sameld <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_sameld/brain_output/brain_ctwas_gene_res.RDS")
+diffld <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest/brain_output/brain_ctwas_gene_res.RDS")
+
+merge_all <- merge(sameld, diffld, by="id")
+
+df <- data.frame(x = merge_all$susie_pip.x, y = merge_all$susie_pip.y)
+
+ggplot(data = df) +
+  geom_point(aes(x = x, y = y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "PIPs from LD REF: Wingo et al", y = "PIPs from LD REF: UKBB") +
+  ggtitle("Comparing the Susie PIPs") +
+  theme_bw()
+
+
+df <- data.frame(x = merge_all$z.x, y = merge_all$z.y)
+
+ggplot(data = df) +
+  geom_point(aes(x = x, y = y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "zscores from LD REF: Wingo et al", y = "zscores from LD REF: UKBB") +
+  ggtitle("Comparing the gene zscores") +
+  theme_bw()
+
+```
+

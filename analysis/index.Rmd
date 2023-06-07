@@ -17,3 +17,7 @@ editor_options:
 [Results for GCST90012877_buildGRCh37 -- latest ctwas package, LD REF: UKBB](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest.html)
 
 [Results for GCST90012877_buildGRCh37 -- latest ctwas package, LD REF: wingo et al](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_sameld.html)
+
+[Results for GCST90012877_buildGRCh37 -- latest ctwas package, GWAS: subset to  wingo et al, LD REF: UKBB](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_subset_ukbb.html)
+
+[Results for GCST90012877_buildGRCh37 -- latest ctwas package, GWAS: subset to  wingo et al, LD REF: wingo et al](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_subset.html)

@@ -1,15 +1,15 @@
 ---
-title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: wingo et al)"
+title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: wingo et al, GWAS: subset to  wingo et al)"
 author: "XSun"
-date: "2023-05-26"
+date: "2023-06-06"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r echo=F}
-results_dir <- paste0("/project2/guiming/xsun/1.brain_wingo_latest_sameld/brain_output/")
-#source("/project2/guiming/xsun/1.brain_wingo_latest/ctwas_config_b37.R")
+results_dir <- paste0("/project2/guiming/xsun/1.brain_wingo_latest_subset/brain_output1/")
+source("/project2/guiming/xsun/1.brain_wingo_latest/ctwas_config_b37.R")
 options(digits = 4)
 ```
 
@@ -308,32 +308,32 @@ DT::datatable(data_wingo_uniq)
 ```
 
 
-```{r echo=FALSE}
-#load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData")
-G_list <- G_list[G_list$gene_biotype %in% c("protein_coding"),]
-G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-"
-G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)]
-alpha <- 0.05
-source("/project2/guiming/xsun/1.brain_wingo_latest/locus_plot.R")
-```
+<!-- ```{r echo=FALSE,  message=FALSE} -->
+<!-- #load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData") -->
+<!-- G_list <- G_list[G_list$gene_biotype %in% c("protein_coding"),] -->
+<!-- G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-" -->
+<!-- G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)] -->
+<!-- alpha <- 0.05 -->
+<!-- source("/project2/guiming/xsun/1.brain_wingo_latest/locus_plot.R") -->
+<!-- ``` -->
 
 
-```{r echo=FALSE}
-ctwas_res$group <- "Expression"
-ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
-```
+<!-- ```{r echo=FALSE} -->
+<!-- ctwas_res$group <- "Expression" -->
+<!-- ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP" -->
+<!-- ``` -->
 
 
-```{r }
-analysis_id <- "brain"
-#t <- ctwas_res
-#ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"]
-a <- locus_plot(region_tag="16_24", return_table=T,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="left",
-                      legend_panel="")
-```
+<!-- ```{r } -->
+<!-- analysis_id <- "brain" -->
+<!-- #t <- ctwas_res -->
+<!-- #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
+<!-- a <- locus_plot(region_tag="16_24", return_table=T, -->
+<!--                       focus=NULL, -->
+<!--                       label_genes=NULL, -->
+<!--                       rerun_ctwas=F, -->
+<!--                       rerun_load_only=F, -->
+<!--                       label_panel="both", -->
+<!--                       legend_side="left", -->
+<!--                       legend_panel="") -->
+<!-- ``` -->
