@@ -1,7 +1,7 @@
 ---
-title: "Comparing the results from different LD reference"
+title: "Comparing the results from different LD reference (GWAS: subset)"
 author: "XSun"
-date: "2023-06-04"
+date: "2023-06-07"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -19,8 +19,8 @@ We are trying to figure out how LD reference influences the results.
 
 ```{r echo=F,width =5, height=5}
 
-sameld <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_sameld/brain_output/brain_ctwas_gene_res.RDS")
-diffld <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest/brain_output/brain_ctwas_gene_res.RDS")
+sameld <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_subset/brain_output1/brain_ctwas_gene_res.RDS")
+diffld <- readRDS("/project2/guiming/xsun/1.brain_wingo_latest_subset/brain_output/brain_ctwas_gene_res.RDS")
 
 merge_all <- merge(sameld, diffld, by="id")
 
@@ -32,7 +32,6 @@ merge_all <- merge(sameld, diffld, by="id")
 #   labs(x = "PIPs from LD REF: Wingo et al", y = "PIPs from LD REF: UKBB") +
 #   ggtitle("Comparing the Susie PIPs") +
 #   theme_bw()
-
 
 df <- data.frame(x = merge_all$z.x, y = merge_all$z.y)
 
