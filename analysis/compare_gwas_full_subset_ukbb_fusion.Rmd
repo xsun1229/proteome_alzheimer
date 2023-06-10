@@ -1,0 +1,136 @@
+---
+title: "Comparing the results from full GWAS and GWAS subset (LD REF: ukbb)"
+author: "XSun"
+date: "2023-06-10"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=F}
+suppressMessages(library(ggplot2))
+```
+
+# LD ref: UKBB (comparing full GWAS and subset GWAS)
+
+```{r echo=F, fig.width=5, fig.height=5}
+
+all <- readRDS("/project2/guiming/xsun/proteome_alzheimer/2.brain_wingo_latest_fusionwgts_ukbb/brain_output/brain_ctwas_gene_res.RDS")
+all_08 <- all[all$susie_pip>0.8,]
+
+
+print("the number of genes with pip > 0.8, from GWAS subset (UKBB)")
+print(nrow(all_08))
+DT::datatable(all_08)
+
+subset <- readRDS("/project2/guiming/xsun/proteome_alzheimer/4.brain_wingo_latest_fusionwgts_ukbb_subsetgwas/brain_output/brain_ctwas_gene_res.RDS")
+subset_08 <- subset[subset$susie_pip>0.8,]
+
+print("the number of genes with pip > 0.8, from full GWAS (1000G) ")
+print(nrow(subset_08))
+DT::datatable(subset_08)
+
+print("the number of overlapped genes:")
+sum(all_08$id %in% subset_08$id)
+
+df <- merge(all,subset,by="id")
+
+ggplot(data = df) +
+  geom_point(aes(x = z.x, y = z.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "zscores from full GWAS", y = "zscores from GWAS subset") +
+  ggtitle("Comparing the gene zscores for all genes") +
+  theme_bw()
+
+
+ggplot(data = df) +
+  geom_point(aes(x = susie_pip.x, y = susie_pip.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "SUSIE PIPs from full GWAS", y = "SUSIE PIPs from GWAS subset") +
+  ggtitle("Comparing the PIPs for all genes") +
+  theme_bw()
+
+```
+
+
+# LD ref: 1000G (comparing full GWAS and subset GWAS)
+
+```{r echo=F, fig.width=5, fig.height=5}
+
+all <- readRDS("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/brain_ctwas_gene_res.RDS")
+all_08 <- all[all$susie_pip>0.8,]
+
+print("the number of genes with pip > 0.8, from GWAS subset (UKBB)")
+print(nrow(all_08))
+DT::datatable(all_08)
+
+subset <- readRDS("/project2/guiming/xsun/proteome_alzheimer/3.brain_wingo_latest_fusionwgts_1000g_subsetgwas/brain_output/brain_ctwas_gene_res.RDS")
+subset_08 <- subset[subset$susie_pip>0.8,]
+
+print("the number of genes with pip > 0.8, from full GWAS (1000G) ")
+print(nrow(subset_08))
+DT::datatable(subset_08)
+
+print("the number of overlapped genes:")
+sum(all_08$id %in% subset_08$id)
+
+df <- merge(all,subset,by="id")
+
+ggplot(data = df) +
+  geom_point(aes(x = z.x, y = z.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "zscores from full GWAS", y = "zscores from GWAS subset") +
+  ggtitle("Comparing the gene zscores for all genes") +
+  theme_bw()
+
+
+ggplot(data = df) +
+  geom_point(aes(x = susie_pip.x, y = susie_pip.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "SUSIE PIPs from full GWAS", y = "SUSIE PIPs from GWAS subset") +
+  ggtitle("Comparing the PIPs for all genes") +
+  theme_bw()
+
+```
+
+# Comparing subset GWAS(LD ref UKBB) and full GWAS (LD ref 1000G)
+
+```{r echo=F, fig.width=5, fig.height=5}
+
+all <- readRDS("/project2/guiming/xsun/proteome_alzheimer/4.brain_wingo_latest_fusionwgts_ukbb_subsetgwas/brain_output/brain_ctwas_gene_res.RDS")
+all_08 <- all[all$susie_pip>0.8,]
+
+
+print("the number of genes with pip > 0.8, from GWAS subset (UKBB)")
+print(nrow(all_08))
+DT::datatable(all_08)
+
+subset <- readRDS("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/brain_ctwas_gene_res.RDS")
+subset_08 <- subset[subset$susie_pip>0.8,]
+
+print("the number of genes with pip > 0.8, from full GWAS (1000G) ")
+print(nrow(subset_08))
+DT::datatable(subset_08)
+
+
+print("the number of overlapped genes:")
+sum(all_08$id %in% subset_08$id)
+
+df <- merge(all,subset,by="id")
+
+ggplot(data = df) +
+  geom_point(aes(x = z.x, y = z.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "zscores from GWAS subset (UKBB)", y = "zscores from full GWAS (1000G) ") +
+  ggtitle("Comparing the gene zscores for all genes") +
+  theme_bw()
+
+
+ggplot(data = df) +
+  geom_point(aes(x = susie_pip.x, y = susie_pip.y)) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(x = "SUSIE PIPs from GWAS subset (UKBB)", y = "SUSIE PIPs from full GWAS (1000G) ") +
+  ggtitle("Comparing the PIPs for all genes") +
+  theme_bw()
+
+```
