@@ -7,30 +7,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r echo=F}
+```{r echo=FALSE, message=FALSE, warning=FALSE }
 results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/")
 source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
 ```
 
 
-## Weight QC
-
-```{r echo=FALSE}
-qclist_all <- list()
-
-qc_files <- paste0(results_dir, "/", list.files(results_dir, pattern="exprqc.Rd"))
-
-for (i in 1:length(qc_files)){
-  load(qc_files[i])
-  chr <- unlist(strsplit(rev(unlist(strsplit(qc_files[i], "_")))[1], "[.]"))[1]
-  qclist_all[[chr]] <- cbind(do.call(rbind, lapply(qclist,unlist)), as.numeric(substring(chr,4)))
-}
-
-qclist_all <- data.frame(do.call(rbind, qclist_all))
-colnames(qclist_all)[ncol(qclist_all)] <- "chr"
-
-rm(qclist, wgtlist, z_gene_chr)
+# Weight QC
+```{r echo=FALSE, message=FALSE, warning=FALSE }
+# load Weight QC results
+qclist_all <- readRDS(paste0(results_dir, "/weight_QC.RDS"))
 
 #load information for all genes
 files_weights <- list.files("/project2/guiming/data_download/Wingo_NC_2022/shared_mechanism.pQTLs.fusion.WEIGHTS_unzip/SampleID-map.nonNAfam.fusion.WEIGHTS/train_weights")
@@ -53,88 +40,28 @@ mean(qclist_all$nmiss==0)
 ```
 
 
-## Load ctwas results
+# ctwas results
 
-```{r echo=F}
-#load ctwas results
-ctwas_res <- data.table::fread(paste0(results_dir, "/brain_ctwas.susieIrss.txt"))
+```{r echo=FALSE, message=FALSE, warning=FALSE }
 
-#make unique identifier for regions
-ctwas_res$region_tag <- paste(ctwas_res$region_tag1, ctwas_res$region_tag2, sep="_")
+ctwas_gene_res <- readRDS(paste0(results_dir,"/brain_ctwas_gene_res.RDS"))
+ctwas_res <- readRDS(paste0(results_dir, "/processed_gene&snp.RDS"))
 
-#load z scores for SNPs and collect sample size
 load(paste0(results_dir, "/brain_expr_z_snp.Rd"))
 
 sample_size <- z_snp$ss
 sample_size <- as.numeric(names(which.max(table(sample_size))))
 
-#compute PVE for each gene/SNP
-ctwas_res$PVE = ctwas_res$susie_pip*ctwas_res$mu2/sample_size
-
-#separate gene and SNP results
-ctwas_gene_res <- ctwas_res[ctwas_res$type == "gene", ]
-ctwas_gene_res <- data.frame(ctwas_gene_res)
-#####
-ctwas_snp_res <- ctwas_res[ctwas_res$type == "SNP", ]
-ctwas_snp_res <- data.frame(ctwas_snp_res)
-
-
-#add gene information to results
-#ctwas_gene_res <- cbind(ctwas_gene_res, gene_info[sapply(ctwas_gene_res$id, match, gene_info$gene), c("genename", "gene_type")])
-
-
-load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData")
-G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-"
-G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)]
-ctwas_gene_res$gene_type <- G_list[sapply(ctwas_gene_res$id, match, G_list$ensembl_gene_id), "gene_biotype"]
-ctwas_gene_res$genename <- G_list[sapply(ctwas_gene_res$id, match, G_list$ensembl_gene_id), "hgnc_symbol"]
-#ctwas_gene_res <- na.omit(ctwas_gene_res)
-#ctwas_gene_res <- ctwas_gene_res[ctwas_gene_res$gene_type=="protein_coding",]
-
-
-#add z scores to results
-load(paste0(results_dir, "/brain_expr_z_gene.Rd"))
-ctwas_gene_res$z <- z_gene[ctwas_gene_res$id,]$z
-
-z_snp <- z_snp[z_snp$id %in% ctwas_snp_res$id,]
-ctwas_snp_res$z <- z_snp$z[match(ctwas_snp_res$id, z_snp$id)]
-
-#merge gene and snp results with added information
-ctwas_snp_res$genename=NA
-ctwas_snp_res$gene_type=NA
-
-ctwas_res <- rbind(ctwas_gene_res,
-                   ctwas_snp_res[,colnames(ctwas_gene_res)])
-
-#get number of eQTL for genes
-num_eqtl <- c()
-for (i in 1:22){
-  load(paste0(results_dir, "/brain_expr_chr", i, ".exprqc.Rd"))
-  num_eqtl <- c(num_eqtl, unlist(lapply(wgtlist, nrow)))
-}
-ctwas_gene_res$num_eqtl <- num_eqtl[ctwas_gene_res$id]
-
-#store columns to report
-report_cols <- colnames(ctwas_gene_res)[!(colnames(ctwas_gene_res) %in% c("type", "region_tag1", "region_tag2", "cs_index", "gene_type", "z_flag", "id", "chrom", "pos"))]
-first_cols <- c("genename", "region_tag")
-report_cols <- c(first_cols, report_cols[!(report_cols %in% first_cols)])
-
-report_cols_snps <- c("id", report_cols[-1])
-report_cols_snps <- report_cols_snps[!(report_cols_snps %in% "num_eqtl")]
-
-#get number of SNPs from s1 results; adjust for thin argument
 ctwas_res_s1 <- data.table::fread(paste0(results_dir, "/brain_ctwas.s1.susieIrss.txt"))
 n_snps <- sum(ctwas_res_s1$type=="SNP")/thin
 rm(ctwas_res_s1)
 
-saveRDS(ctwas_gene_res, paste0(results_dir,"/brain_ctwas_gene_res.RDS"))
-
 ```
 
 
-### Check convergence of parameters
+## Check convergence of parameters
 
-```{r echo=F}
+```{r echo=FALSE, message=FALSE, warning=FALSE }
 library(ggplot2)
 library(cowplot)
 
@@ -235,7 +162,7 @@ plot_grid(p_pi, p_sigma2, p_enrich, p_pve)
 ```
 
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE }
 #estimated group prior
 estimated_group_prior <- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)
@@ -265,34 +192,31 @@ sum(estimated_group_pve)
 estimated_group_pve/sum(estimated_group_pve)
 ```
 
+## Genes with high pip
 
-## Genes with highest PIPs 
-
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE }
 #distribution of PIPs
 hist(ctwas_gene_res$susie_pip, xlim=c(0,1), main="Distribution of Gene PIPs")
-
-#genes with PIP>0.8 or 20 highest PIPs
-#head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),report_cols], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
 
 print("Genes with susie pip >0.8")
 ctwas_gene_respip08 <- ctwas_gene_res[ctwas_gene_res$susie_pip > 0.8,]
 DT::datatable(ctwas_gene_respip08[order(-ctwas_gene_respip08$susie_pip),])
 ```
 
+# Comparing with Wingo's results 
 
-## Comparing with Wingo's results 
+## Detailed results
 
-Comparing with AD1 from Suppl Table 11 [Wingo_Nat_comm_2022](https://www.nature.com/articles/s41467-022-31873-5s)
+Comparing with AD1 from Suppl Table 4 [Wingo_Nat_comm_2022](https://www.nature.com/articles/s41467-022-31873-5s)
 
-```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 data_our <- ctwas_gene_respip08
 id <- unlist(strsplit(data_our$id,split = "[.]"))[seq(1,2*nrow(data_our), by=2)]
 data_our$genename <- unlist(strsplit(data_our$id,split = "[.]"))[seq(2,2*nrow(data_our), by=2)]
 data_our$id <- id
 
-data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo.txt",header = T)
 
 print("overlapped")
 data_overlap <- merge(data_our, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
@@ -308,47 +232,35 @@ DT::datatable(data_wingo_uniq)
 ```
 
 
-<!-- ```{r echo=FALSE, message=FALSE} -->
-<!-- #load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData") -->
-<!-- G_list <- G_list[G_list$gene_biotype %in% c("protein_coding"),] -->
-<!-- G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-" -->
-<!-- G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)] -->
-<!-- alpha <- 0.05 -->
-<!-- source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot.R") -->
-<!-- ``` -->
+
+## Plots for the overlapped genes
+
+```{r echo=FALSE, message=FALSE, warning=FALSE }
+source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_fusion.R")
+analysis_id <- "brain"
+load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
+alpha <- 0.05
+ctwas_res$group <- "Expression"
+ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
+
+print("region tag = 2_25")
+a <- locus_plot(region_tag="2_25", return_table=T,
+                      focus="ENSG00000115828.QPCT",
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
 
 
-<!-- ```{r echo=FALSE} -->
-<!-- ctwas_res$group <- "Expression" -->
-<!-- ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP" -->
-<!-- ``` -->
-
-
-<!-- ```{r } -->
-<!-- analysis_id <- "brain" -->
-<!-- #t <- ctwas_res -->
-<!-- #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
-<!-- a <- locus_plot(region_tag="16_24", return_table=T, -->
-<!--                       focus=NULL, -->
-<!--                       label_genes=NULL, -->
-<!--                       rerun_ctwas=F, -->
-<!--                       rerun_load_only=F, -->
-<!--                       label_panel="both", -->
-<!--                       legend_side="left", -->
-<!--                       legend_panel="") -->
-<!-- ``` -->
-
-
-<!-- ```{r } -->
-<!-- analysis_id <- "brain" -->
-<!-- #t <- ctwas_res -->
-<!-- #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
-<!-- a <- locus_plot(region_tag="6_36", return_table=T, -->
-<!--                       focus=NULL, -->
-<!--                       label_genes=NULL, -->
-<!--                       rerun_ctwas=F, -->
-<!--                       rerun_load_only=F, -->
-<!--                       label_panel="both", -->
-<!--                       legend_side="left", -->
-<!--                       legend_panel="") -->
-<!-- ``` -->
+print("region tag = 17_37")
+a <- locus_plot(region_tag="17_37", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```

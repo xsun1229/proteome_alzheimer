@@ -1,15 +1,15 @@
 ---
-title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: 1000G)"
+  title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: 1000G, Weights: fusion)"
 author: "XSun"
-date: "2023-05-26"
+date: "2023-06-10"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
-
-```{r echo=F}
-results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_sameld/brain_output/")
-source("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest/ctwas_config_b37.R")
+  
+  ```{r echo=F}
+results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/")
+source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
 ```
 
@@ -33,15 +33,11 @@ colnames(qclist_all)[ncol(qclist_all)] <- "chr"
 rm(qclist, wgtlist, z_gene_chr)
 
 #load information for all genes
-sqlite <- RSQLite::dbDriver("SQLite")
-db = RSQLite::dbConnect(sqlite, "/project2/guiming/xsun/1.brain_wingo_latest/data/Wingo_722_brain_protein.lasso.db")
-query <- function(...) RSQLite::dbGetQuery(db, ...)
-gene_info <- query("select gene, genename, gene_type from extra")
-RSQLite::dbDisconnect(db)
+files_weights <- list.files("/project2/guiming/data_download/Wingo_NC_2022/shared_mechanism.pQTLs.fusion.WEIGHTS_unzip/SampleID-map.nonNAfam.fusion.WEIGHTS/train_weights")
 
 #number of weights in database
 print("number of weights in database")
-nrow(gene_info)
+length(files_weights)
 
 #number of imputed weights
 print("number of imputed weights")
@@ -239,7 +235,7 @@ plot_grid(p_pi, p_sigma2, p_enrich, p_pve)
 ```
 
 
-```{r }
+```{r}
 #estimated group prior
 estimated_group_prior <- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)
@@ -272,7 +268,7 @@ estimated_group_pve/sum(estimated_group_pve)
 
 ## Genes with highest PIPs 
 
-```{r echo=FALSE}
+```{r}
 #distribution of PIPs
 hist(ctwas_gene_res$susie_pip, xlim=c(0,1), main="Distribution of Gene PIPs")
 
@@ -292,7 +288,11 @@ Comparing with AD1 from Suppl Table 11 [Wingo_Nat_comm_2022](https://www.nature.
 ```{r echo=FALSE, message=FALSE, warning=FALSE,fig.height=5, fig.width=5}
 
 data_our <- ctwas_gene_respip08
-data_wingo <- read.table("/project2/guiming/xsun/1.brain_wingo/data/AD1_wingo.txt",header = T)
+id <- unlist(strsplit(data_our$id,split = "[.]"))[seq(1,2*nrow(data_our), by=2)]
+data_our$genename <- unlist(strsplit(data_our$id,split = "[.]"))[seq(2,2*nrow(data_our), by=2)]
+data_our$id <- id
+
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
 
 print("overlapped")
 data_overlap <- merge(data_our, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
@@ -308,32 +308,48 @@ DT::datatable(data_wingo_uniq)
 ```
 
 
-```{r echo=FALSE}
-#load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData")
-G_list <- G_list[G_list$gene_biotype %in% c("protein_coding"),]
-G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-"
-G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)]
-alpha <- 0.05
-source("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest/locus_plot.R")
-```
-
-
-```{r echo=FALSE}
-ctwas_res$group <- "Expression"
-ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
-```
-
-
-```{r }
-analysis_id <- "brain"
-#t <- ctwas_res
-#ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"]
-a <- locus_plot(region_tag="16_24", return_table=T,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="left",
-                      legend_panel="")
-```
+<!-- ```{r echo=FALSE, message=FALSE} -->
+  <!-- #load("/project2/xinhe/shengqian/cTWAS/cTWAS_analysis/data/G_list.RData") -->
+  <!-- G_list <- G_list[G_list$gene_biotype %in% c("protein_coding"),] -->
+  <!-- G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-" -->
+  <!-- G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)] -->
+  <!-- alpha <- 0.05 -->
+  <!-- source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot.R") -->
+  <!-- ``` -->
+  
+  
+  <!-- ```{r echo=FALSE} -->
+  <!-- ctwas_res$group <- "Expression" -->
+  <!-- ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP" -->
+  <!-- ``` -->
+  
+  
+  <!-- ```{r } -->
+  <!-- analysis_id <- "brain" -->
+  <!-- #t <- ctwas_res -->
+  <!-- #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
+  <!-- a <- locus_plot(region_tag="16_24", return_table=T, -->
+                         <!--                       focus=NULL, -->
+                         <!--                       label_genes=NULL, -->
+                         <!--                       rerun_ctwas=F, -->
+                         <!--                       rerun_load_only=F, -->
+                         <!--                       label_panel="both", -->
+                         <!--                       legend_side="left", -->
+                         <!--                       legend_panel="") -->
+  <!-- ``` -->
+  
+  
+  <!-- ```{r } -->
+  <!-- analysis_id <- "brain" -->
+  <!-- #t <- ctwas_res -->
+  <!-- #ctwas_res$id[ctwas_res$type =="gene"] <- ctwas_res$genename[ctwas_res$type =="gene"] -->
+  <!-- a <- locus_plot(region_tag="6_36", return_table=T, -->
+                         <!--                       focus=NULL, -->
+                         <!--                       label_genes=NULL, -->
+                         <!--                       rerun_ctwas=F, -->
+                         <!--                       rerun_load_only=F, -->
+                         <!--                       label_panel="both", -->
+                         <!--                       legend_side="left", -->
+                         <!--                       legend_panel="") -->
+  <!-- ``` -->
+  

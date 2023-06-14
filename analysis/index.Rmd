@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Analysis using brain tissue
+# Analysis using brain eQTL
 
 [Results for GCST90012877_buildGRCh37 -- latest ctwas package, LD REF: UKBB, weights: Fusion](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion.html)
 
@@ -23,3 +23,6 @@ editor_options:
 [Comparing the gene z-score, GWAS: subset, weights: Fusion](https://xsun1229.github.io/proteome_alzheimer/compare_ld_subset_fusion.html)
 
 [Comparing the results from full GWAS and GWAS subset](https://xsun1229.github.io/proteome_alzheimer/compare_gwas_full_subset_ukbb_fusion.html)
+
+
+

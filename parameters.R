@@ -1,0 +1,12 @@
+xlim=NULL
+return_table=F
+focus=NULL
+label_panel="TWAS"
+label_genes=NULL
+label_pos=NULL
+plot_eqtl=NULL
+rerun_ctwas=F
+rerun_load_only=F
+legend_side="right"
+legend_panel="cTWAS"
+twas_ymax=NULL
