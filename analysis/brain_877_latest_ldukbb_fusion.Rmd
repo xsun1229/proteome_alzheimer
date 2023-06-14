@@ -162,7 +162,7 @@ plot_grid(p_pi, p_sigma2, p_enrich, p_pve)
 ```
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE }
+```{r  message=FALSE, warning=FALSE }
 #estimated group prior
 estimated_group_prior <- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)
@@ -235,7 +235,7 @@ DT::datatable(data_wingo_uniq)
 
 ## Plots for the overlapped genes
 
-```{r echo=FALSE, message=FALSE, warning=FALSE }
+```{r message=FALSE, warning=FALSE }
 source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_fusion.R")
 analysis_id <- "brain"
 load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
@@ -243,7 +243,6 @@ alpha <- 0.05
 ctwas_res$group <- "Expression"
 ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
 
-print("region tag = 6_36")
 a <- locus_plot(region_tag="6_36", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -262,7 +261,7 @@ a <- locus_plot(region_tag="16_24", return_table=T,
                       legend_side="left",
                       legend_panel="")
 
-print("region tag = 17_37")
+
 a <- locus_plot(region_tag="17_37", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -272,7 +271,7 @@ a <- locus_plot(region_tag="17_37", return_table=T,
                       legend_side="left",
                       legend_panel="")
 
-print("region tag = 10_39")
+
 a <- locus_plot(region_tag="10_39", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -283,7 +282,6 @@ a <- locus_plot(region_tag="10_39", return_table=T,
                       legend_panel="")
 
 
-print("region tag = 2_25")
 a <- locus_plot(region_tag="2_25", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -293,8 +291,6 @@ a <- locus_plot(region_tag="2_25", return_table=T,
                       legend_side="left",
                       legend_panel="")
 
-
-print("region tag = 15_27")
 a <- locus_plot(region_tag="15_27", return_table=T,
                       focus=NULL,
                       label_genes=NULL,

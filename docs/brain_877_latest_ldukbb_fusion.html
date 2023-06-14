@@ -536,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree7455b36ea90255a23396b5b298c5dda9caaaf459targetblank7455b36a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreef00077aed5a35792ad851a78b786f8871d73dac8targetblankf00077aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/7455b36ea90255a23396b5b298c5dda9caaaf459" target="_blank">7455b36</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/f00077aed5a35792ad851a78b786f8871d73dac8" target="_blank">f00077a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree7455b36ea90255a23396b5b298c5dda9caaaf459targetblank7455b36a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreef00077aed5a35792ad851a78b786f8871d73dac8targetblankf00077aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -554,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/7455b36ea90255a23396b5b298c5dda9caaaf459" target="_blank">7455b36</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/f00077aed5a35792ad851a78b786f8871d73dac8" target="_blank">f00077a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -571,16 +571,9 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
 
-Untracked files:
-    Untracked:  analysis/test.Rmd
-    Untracked:  analysis_rmd_earlier.R
-    Untracked:  parameters.R
-
 Unstaged changes:
-    Modified:   analysis/brain_877_latest_ld1kg.Rmd
     Modified:   analysis/brain_877_latest_ld1kg_fusion.Rmd
     Modified:   analysis/brain_877_latest_ldukbb_fusion.Rmd
-    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -627,6 +620,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/analysis/brain_877_latest_ldukbb_fusion.Rmd" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/f00077aed5a35792ad851a78b786f8871d73dac8/docs/brain_877_latest_ldukbb_fusion.html" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -725,17 +752,37 @@ XSun
 </table>
 </div>
 </div>
+<pre class="r"><code>#estimated group prior
+estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
+print(estimated_group_prior)</code></pre>
 <pre><code>      SNP      gene 
 3.180e-06 8.758e-02 </code></pre>
+<pre class="r"><code>#estimated group prior variance
+estimated_group_prior_var &lt;- estimated_group_prior_var_all[,ncol(group_prior_var_rec)]
+print(estimated_group_prior_var)</code></pre>
 <pre><code>    SNP    gene 
 465.125   4.812 </code></pre>
+<pre class="r"><code>#estimated enrichment
+estimated_enrichment &lt;- estimated_enrichment_all[ncol(group_prior_var_rec)]
+print(estimated_enrichment)</code></pre>
 <pre><code>[1] 27539</code></pre>
+<pre class="r"><code>#report sample size
+print(sample_size)</code></pre>
 <pre><code>[1] 472868</code></pre>
+<pre class="r"><code>#report group size
+print(group_size)</code></pre>
 <pre><code>    SNP    gene 
 8416370    2932 </code></pre>
+<pre class="r"><code>#estimated group PVE
+estimated_group_pve &lt;- estimated_group_pve_all[,ncol(group_prior_rec)]
+print(estimated_group_pve)</code></pre>
 <pre><code>     SNP     gene 
 0.026326 0.002613 </code></pre>
+<pre class="r"><code>#total PVE
+sum(estimated_group_pve)</code></pre>
 <pre><code>[1] 0.02894</code></pre>
+<pre class="r"><code>#attributable PVE
+estimated_group_pve/sum(estimated_group_pve)</code></pre>
 <pre><code>    SNP    gene 
 0.90972 0.09028 </code></pre>
 </div>
@@ -802,16 +849,290 @@ href="https://www.nature.com/articles/s41467-022-31873-5s">Wingo_Nat_comm_2022</
 </div>
 <div id="plots-for-the-overlapped-genes" class="section level2">
 <h2>Plots for the overlapped genes</h2>
-<pre><code>[1] &quot;region tag = 6_36&quot;</code></pre>
+<pre class="r"><code>source(&quot;/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_fusion.R&quot;)
+analysis_id &lt;- &quot;brain&quot;
+load(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData&quot;)
+alpha &lt;- 0.05
+ctwas_res$group &lt;- &quot;Expression&quot;
+ctwas_res[ctwas_res$type==&quot;SNP&quot;,]$group &lt;- &quot;SNP&quot;
+
+a &lt;- locus_plot(region_tag=&quot;6_36&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)
+
+a &lt;- locus_plot(region_tag=&quot;16_24&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
 <p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;region tag = 17_37&quot;</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/docs/figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-1.png" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;17_37&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
 <p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;region tag = 10_39&quot;</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
+Past versions of unnamed-chunk-8-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/docs/figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-2.png" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;10_39&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
 <p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;region tag = 2_25&quot;</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-3">
+Past versions of unnamed-chunk-8-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/docs/figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-3.png" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;2_25&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
 <p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;region tag = 15_27&quot;</code></pre>
-<p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-4">
+Past versions of unnamed-chunk-8-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/docs/figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-4.png" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;15_27&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-5">
+Past versions of unnamed-chunk-8-5.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/docs/figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-5.png" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-6">
+Past versions of unnamed-chunk-8-6.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/f00077aed5a35792ad851a78b786f8871d73dac8/docs/figure/brain_877_latest_ldukbb_fusion.Rmd/unnamed-chunk-8-6.png" target="_blank">f00077a</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
