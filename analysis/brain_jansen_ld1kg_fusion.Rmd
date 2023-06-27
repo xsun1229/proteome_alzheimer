@@ -1,14 +1,14 @@
 ---
-title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: 1000G, Weights: fusion)"
+title: "Results for Jansen et al  -- latest ctwas package (LD REF: 1000G, Weights: fusion)"
 author: "XSun"
-date: "2023-06-10"
+date: "2023-06-26"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE }
-results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/")
+results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/7.brain_jansen_fusionwgts_1000g_lasso/brain_output/")
 source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
 ```
@@ -203,6 +203,25 @@ ctwas_gene_respip08 <- ctwas_gene_res[ctwas_gene_res$susie_pip > 0.8,]
 DT::datatable(ctwas_gene_respip08[order(-ctwas_gene_respip08$susie_pip),])
 ```
 
+### Comparing with genes found by Wingo's GWAS
+
+Earlier genes with pip > 0.8 are [here](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ld1kg_fusion.html#Genes_with_high_pip)
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE }
+
+print("Overlapped genes")
+wingo_gwas <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/brain_ctwas.susieIrss.txt",header=T)
+wingo_gene <- wingo_gwas[wingo_gwas$type == "gene",]
+
+wingo_gene_pip08 <- wingo_gene[wingo_gene$susie_pip > 0.8,]
+
+overlapped <- ctwas_gene_respip08[ctwas_gene_respip08$id %in%wingo_gene_pip08$id,]
+DT::datatable(ctwas_gene_respip08[order(-overlapped$susie_pip),])
+
+```
+
 # Comparing with Wingo's results 
 
 ## Detailed results
@@ -246,8 +265,81 @@ ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
 
 
 ```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="20_33", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="15_30", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="15_39", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="10_39", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="2_25", return_table=T,
-                      focus="ENSG00000115828.QPCT",
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="15_27", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="16_24", return_table=T,
+                      focus=NULL,
                       label_genes=NULL,
                       rerun_ctwas=F,
                       rerun_load_only=F,
@@ -267,4 +359,30 @@ a <- locus_plot(region_tag="17_37", return_table=T,
                       label_panel="both",
                       legend_side="left",
                       legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="16_24", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+```
+
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="11_37", return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="left",
+                      legend_panel="")
+
+
 ```

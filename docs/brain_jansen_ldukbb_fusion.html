@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="XSun" />
+
+<meta name="date" content="2023-06-26" />
+
+<title>Results for Jansen et al – latest ctwas package (LD REF: UKBB, Weights: fusion)</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.22/datatables.js"></script>
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">proteome_alzheimer</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/xsun1229/proteome_alzheimer">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Results for Jansen et al – latest ctwas
+package (LD REF: UKBB, Weights: fusion)</h1>
+<h4 class="author">XSun</h4>
+<h4 class="date">2023-06-26</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-06-27
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230414code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230414)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230414code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230414)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree00c9958da6fd030604d3a9fc026193b14fd83e00targetblank00c9958a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/00c9958da6fd030604d3a9fc026193b14fd83e00" target="_blank">00c9958</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree00c9958da6fd030604d3a9fc026193b14fd83e00targetblank00c9958a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/00c9958da6fd030604d3a9fc026193b14fd83e00" target="_blank">00c9958</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+
+Untracked files:
+    Untracked:  analysis/brain_877_latest_1kg_top1.Rmd
+    Untracked:  analysis/brain_877_latest_ukbb_top1.Rmd
+    Untracked:  analysis/brain_jansen_ld1kg_fusion.Rmd
+    Untracked:  analysis/brain_jansen_ldukbb_fusion.Rmd
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="weight-qc" class="section level1">
+<h1>Weight QC</h1>
+<pre><code>[1] &quot;number of weights in database&quot;</code></pre>
+<pre><code>[1] 2934</code></pre>
+<pre><code>[1] &quot;number of imputed weights&quot;</code></pre>
+<pre><code>[1] 2932</code></pre>
+<pre><code>[1] &quot;number of imputed weights by chromosome&quot;</code></pre>
+<pre><code>
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20 
+320 205 209 122 146 155 136 106 134 139 186 153  53 103 110 131 166  41 124  71 
+ 21  22 
+ 33  89 </code></pre>
+<pre><code>[1] &quot;proportion of imputed weights without missing variants&quot;</code></pre>
+<pre><code>[1] 0.957</code></pre>
+</div>
+<div id="ctwas-results" class="section level1">
+<h1>ctwas results</h1>
+<div id="check-convergence-of-parameters" class="section level2">
+<h2>Check convergence of parameters</h2>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#estimated group prior
+estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
+print(estimated_group_prior)</code></pre>
+<pre><code>      SNP      gene 
+0.0000626 0.0588087 </code></pre>
+<pre class="r"><code>#estimated group prior variance
+estimated_group_prior_var &lt;- estimated_group_prior_var_all[,ncol(group_prior_var_rec)]
+print(estimated_group_prior_var)</code></pre>
+<pre><code>  SNP  gene 
+4.938 4.287 </code></pre>
+<pre class="r"><code>#estimated enrichment
+estimated_enrichment &lt;- estimated_enrichment_all[ncol(group_prior_var_rec)]
+print(estimated_enrichment)</code></pre>
+<pre><code>[1] 939.4</code></pre>
+<pre class="r"><code>#report sample size
+print(sample_size)</code></pre>
+<pre><code>[1] 455258</code></pre>
+<pre class="r"><code>#report group size
+print(group_size)</code></pre>
+<pre><code>    SNP    gene 
+8483300    2932 </code></pre>
+<pre class="r"><code>#estimated group PVE
+estimated_group_pve &lt;- estimated_group_pve_all[,ncol(group_prior_rec)]
+print(estimated_group_pve)</code></pre>
+<pre><code>     SNP     gene 
+0.005760 0.001624 </code></pre>
+<pre class="r"><code>#total PVE
+sum(estimated_group_pve)</code></pre>
+<pre><code>[1] 0.007383</code></pre>
+<pre class="r"><code>#attributable PVE
+estimated_group_pve/sum(estimated_group_pve)</code></pre>
+<pre><code>   SNP   gene 
+0.7801 0.2199 </code></pre>
+</div>
+<div id="genes-with-high-pip" class="section level2">
+<h2>Genes with high pip</h2>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;Genes with susie pip &gt;0.8&quot;</code></pre>
+<div id="htmlwidget-e580bcebcc2166761c08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"data":[["2892","2930","2851","2908","2924","2863","2831","2850","2923","2836"],[15,17,10,16,16,11,1,9,16,2],["ENSG00000103811.CTSH","ENSG00000159640.ACE","ENSG00000108091.CCDC6","ENSG00000153048.CARHSP1","ENSG00000167397.VKORC1","ENSG00000172803.SNX32","ENSG00000135823.STX6","ENSG00000165025.SYK","ENSG00000149927.DOC2A","ENSG00000115828.QPCT"],[79224683,61548948,61346166,8752547,30928970,65507605,180541021,93463424,29647342,37454286],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[15,17,10,16,16,11,1,9,16,2],[39,37,39,9,24,37,91,46,24,25],[1,1,1,1,4,1,0,0,0,0],[0.999999653811057,0.996240332863336,0.985888870109163,0.968287570877542,0.958520587993043,0.953511819369293,0.872298705602135,0.849689876619335,0.825981816375387,0.818309890166276],[345.898461413826,25.4285236530473,20.4856986189454,18.3345939196521,477.88002656695,19.4974710626208,16.0142075366541,16.2080048132022,31.1244988038685,16.2127297359531],["15_39","17_37","10_39","16_9","16_24","11_37","1_91","9_46","16_24","2_25"],[0.000759785312213302,5.56451965003032e-05,4.43630255038438e-05,3.89958208521016e-05,0.00100615001615586,4.08363369913757e-05,3.06840791495533e-05,3.02504900737063e-05,5.64696722645025e-05,2.91417989129753e-05],["PEAK1","FTSJ3","AUH","AKAP13","ITGAX","STIP1","ENSG00000057252","CCDC25","STX4","2"],["ENSG00000173517","ENSG00000108592","ENSG00000148090","ENSG00000170776","ENSG00000140678","ENSG00000168439","ABL2","ENSG00000147419","ENSG00000103496","RP5-1180C10"],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding",null,"protein_coding","protein_coding",null],[4.6173908830885,-5.40355935636608,4.68740996633579,4.46206332699143,4.90661449876859,-4.5322007803521,3.76995721786192,-3.75031318185057,-4.40542652585775,-3.74372625050912],[4,5,13,10,5,11,12,9,8,9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>genename<\/th>\n      <th>id_ensembl<\/th>\n      <th>gene_type<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="comparing-with-genes-found-by-wingos-gwas"
+class="section level3">
+<h3>Comparing with genes found by Wingo’s GWAS</h3>
+<p>Earlier genes with pip &gt; 0.8 are <a
+href="https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion.html#Genes_with_high_pip">here</a></p>
+<pre><code>[1] &quot;Overlapped genes&quot;</code></pre>
+<div id="htmlwidget-f110db3ae422a0420019" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f110db3ae422a0420019">{"x":{"filter":"none","vertical":false,"data":[["2863","2850","2851","2836","2831"],[11,9,10,2,1],["ENSG00000172803.SNX32","ENSG00000165025.SYK","ENSG00000108091.CCDC6","ENSG00000115828.QPCT","ENSG00000135823.STX6"],[65507605,93463424,61346166,37454286,180541021],["gene","gene","gene","gene","gene"],[11,9,10,2,1],[37,46,39,25,91],[1,0,1,0,0],[0.953511819369293,0.849689876619335,0.985888870109163,0.818309890166276,0.872298705602135],[19.4974710626208,16.2080048132022,20.4856986189454,16.2127297359531,16.0142075366541],["11_37","9_46","10_39","2_25","1_91"],[4.08363369913757e-05,3.02504900737063e-05,4.43630255038438e-05,2.91417989129753e-05,3.06840791495533e-05],["STIP1","CCDC25","AUH","2","ENSG00000057252"],["ENSG00000168439","ENSG00000147419","ENSG00000148090","RP5-1180C10","ABL2"],["protein_coding","protein_coding","protein_coding",null,null],[-4.5322007803521,-3.75031318185057,4.68740996633579,-3.74372625050912,3.76995721786192],[11,9,13,9,12]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>genename<\/th>\n      <th>id_ensembl<\/th>\n      <th>gene_type<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="comparing-with-wingos-results" class="section level1">
+<h1>Comparing with Wingo’s results</h1>
+<div id="detailed-results" class="section level2">
+<h2>Detailed results</h2>
+<p>Comparing with AD1 from Suppl Table 4 <a
+href="https://www.nature.com/articles/s41467-022-31873-5s">Wingo_Nat_comm_2022</a></p>
+<pre><code>[1] &quot;overlapped&quot;</code></pre>
+<div id="htmlwidget-b3540f48f687887edb0c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3540f48f687887edb0c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["ENSG00000103811","ENSG00000108091","ENSG00000115828","ENSG00000135823","ENSG00000149927","ENSG00000159640","ENSG00000167397","ENSG00000172803"],[15,10,2,1,16,17,16,11],[79224683,61346166,37454286,180541021,29647342,61548948,30928970,65507605],["gene","gene","gene","gene","gene","gene","gene","gene"],[15,10,2,1,16,17,16,11],[39,39,25,91,24,37,24,37],[1,1,0,0,0,1,4,1],[0.999999653811057,0.985888870109163,0.818309890166276,0.872298705602135,0.825981816375387,0.996240332863336,0.958520587993043,0.953511819369293],[345.898461413826,20.4856986189454,16.2127297359531,16.0142075366541,31.1244988038685,25.4285236530473,477.88002656695,19.4974710626208],["15_39","10_39","2_25","1_91","16_24","17_37","16_24","11_37"],[0.000759785312213302,4.43630255038438e-05,2.91417989129753e-05,3.06840791495533e-05,5.64696722645025e-05,5.56451965003032e-05,0.00100615001615586,4.08363369913757e-05],["CTSH","CCDC6","QPCT","STX6","DOC2A","ACE","VKORC1","SNX32"],["ENSG00000173517","ENSG00000148090","RP5-1180C10","ABL2","ENSG00000103496","ENSG00000108592","ENSG00000140678","ENSG00000168439"],["protein_coding","protein_coding",null,null,"protein_coding","protein_coding","protein_coding","protein_coding"],[4.6173908830885,4.68740996633579,-3.74372625050912,3.76995721786192,-4.40542652585775,-5.40355935636608,4.90661449876859,-4.5322007803521],[4,13,9,12,8,5,5,11],["CTSH","CCDC6","QPCT","STX6","DOC2A","ACE","VKORC1","SNX32"],["cis","cis","cis","cis","cis","cis","cis","cis"],[4.7126,4.39918,-3.59743,3.72181,-4.4087,-5.5364,4.77368,-4.3567],[2.45e-06,1.09e-05,0.000321,0.000198,1.04e-05,3.09e-08,1.81e-06,1.32e-05],[0.000791894,0.002439085,0.034284643,0.026577682,0.002439085,2.25e-05,0.000658161,0.002742771],[0.962,0.97,0.207,0.178,0.944,0.98,0.768,0.981]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>genename<\/th>\n      <th>id_ensembl<\/th>\n      <th>gene_type<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,5,6,7,8,9,11,15,16,19,20,21,22]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre><code>[1] &quot;our unique genes&quot;</code></pre>
+<div id="htmlwidget-f75ed56b951ed5bc9e08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f75ed56b951ed5bc9e08">{"x":{"filter":"none","vertical":false,"data":[["2850","2908"],[9,16],["ENSG00000165025","ENSG00000153048"],[93463424,8752547],["gene","gene"],[9,16],[46,9],[0,1],[0.849689876619335,0.968287570877542],[16.2080048132022,18.3345939196521],["9_46","16_9"],[3.02504900737063e-05,3.89958208521016e-05],["SYK","CARHSP1"],["ENSG00000147419","ENSG00000170776"],["protein_coding","protein_coding"],[-3.75031318185057,4.46206332699143],[9,10]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>region_tag<\/th>\n      <th>PVE<\/th>\n      <th>genename<\/th>\n      <th>id_ensembl<\/th>\n      <th>gene_type<\/th>\n      <th>z<\/th>\n      <th>num_eqtl<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,3,5,6,7,8,9,11,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre><code>[1] &quot;wingo&#39;s unique genes&quot;</code></pre>
+<div id="htmlwidget-4d7183aa0eb9da18dc26" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4d7183aa0eb9da18dc26">{"x":{"filter":"none","vertical":false,"data":[["2","3","5","6","9","10","12","14","17","18"],["ENSG00000184227","ENSG00000137845","ENSG00000198087","ENSG00000168993","ENSG00000162755","ENSG00000103642","ENSG00000022277","ENSG00000099365","ENSG00000120594","ENSG00000116266"],["ACOT1","ADAM10","CD2AP","CPLX1","KLHDC9","LACTB","RTFDC1","STX1B","PLXDC2","STXBP3"],["cis","cis","cis","cis","cis","cis","cis","cis","trans","trans"],[-3.6618,5.0857,4.93877,3.71748,-3.54621,3.9108,4.57268,4.10666,null,null],[0.00025,3.66e-07,7.86e-07,0.000201,0.000391,9.2e-05,4.82e-06,4.01e-05,null,null],[0.030302083,0.000212939,0.000381079,0.026577682,0.037913967,0.014085684,0.001402138,0.006861818,null,null],[0.012,0.534,0.999,0.197,0.89,0.6,0.94,0.278,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Ensembl_gene_ID<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="plots-for-the-overlapped-genes" class="section level2">
+<h2>Plots for the overlapped genes</h2>
+<pre class="r"><code>source(&quot;/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_fusion.R&quot;)
+analysis_id &lt;- &quot;brain&quot;
+load(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData&quot;)
+alpha &lt;- 0.05
+ctwas_res$group &lt;- &quot;Expression&quot;
+ctwas_res[ctwas_res$type==&quot;SNP&quot;,]$group &lt;- &quot;SNP&quot;</code></pre>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;15_39&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;10_39&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;2_25&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;1_91&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;16_24&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;17_37&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;16_24&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;17_37&quot;, return_table=T,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel=&quot;both&quot;,
+                      legend_side=&quot;left&quot;,
+                      legend_panel=&quot;&quot;)</code></pre>
+<p><img src="figure/brain_jansen_ldukbb_fusion.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+[1] C
+
+attached base packages:
+[1] grid      stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+[1] Gviz_1.40.1          GenomicRanges_1.48.0 GenomeInfoDb_1.32.2 
+[4] IRanges_2.30.0       S4Vectors_0.34.0     BiocGenerics_0.42.0 
+[7] cowplot_1.1.1        ggplot2_3.3.5       
+
+loaded via a namespace (and not attached):
+  [1] colorspace_2.0-3            rjson_0.2.21               
+  [3] deldir_1.0-6                ellipsis_0.3.2             
+  [5] rprojroot_2.0.3             htmlTable_2.4.0            
+  [7] biovizBase_1.44.0           XVector_0.36.0             
+  [9] base64enc_0.1-3             fs_1.5.2                   
+ [11] dichromat_2.0-0.1           rstudioapi_0.13            
+ [13] farver_2.1.0                DT_0.22                    
+ [15] bit64_4.0.5                 AnnotationDbi_1.58.0       
+ [17] fansi_1.0.3                 xml2_1.3.3                 
+ [19] codetools_0.2-18            splines_4.2.0              
+ [21] cachem_1.0.6                knitr_1.39                 
+ [23] Formula_1.2-4               jsonlite_1.8.0             
+ [25] workflowr_1.7.0             Rsamtools_2.12.0           
+ [27] cluster_2.1.3               dbplyr_2.1.1               
+ [29] png_0.1-7                   compiler_4.2.0             
+ [31] httr_1.4.3                  backports_1.4.1            
+ [33] lazyeval_0.2.2              assertthat_0.2.1           
+ [35] Matrix_1.5-3                fastmap_1.1.0              
+ [37] cli_3.3.0                   later_1.3.0                
+ [39] htmltools_0.5.2             prettyunits_1.1.1          
+ [41] tools_4.2.0                 gtable_0.3.0               
+ [43] glue_1.6.2                  GenomeInfoDbData_1.2.8     
+ [45] dplyr_1.0.9                 rappdirs_0.3.3             
+ [47] Rcpp_1.0.8.3                Biobase_2.56.0             
+ [49] jquerylib_0.1.4             vctrs_0.4.1                
+ [51] Biostrings_2.64.0           rtracklayer_1.56.0         
+ [53] crosstalk_1.2.0             xfun_0.30                  
+ [55] stringr_1.4.0               lifecycle_1.0.1            
+ [57] ensembldb_2.20.2            restfulr_0.0.14            
+ [59] XML_3.99-0.14               zlibbioc_1.42.0            
+ [61] scales_1.2.0                BSgenome_1.64.0            
+ [63] VariantAnnotation_1.42.1    ProtGenerics_1.28.0        
+ [65] hms_1.1.1                   promises_1.2.0.1           
+ [67] MatrixGenerics_1.8.0        parallel_4.2.0             
+ [69] SummarizedExperiment_1.26.1 AnnotationFilter_1.20.0    
+ [71] RColorBrewer_1.1-3          yaml_2.3.5                 
+ [73] curl_4.3.2                  gridExtra_2.3              
+ [75] memoise_2.0.1               sass_0.4.1                 
+ [77] rpart_4.1.16                biomaRt_2.52.0             
+ [79] latticeExtra_0.6-30         stringi_1.7.6              
+ [81] RSQLite_2.3.1               highr_0.9                  
+ [83] BiocIO_1.6.0                checkmate_2.1.0            
+ [85] GenomicFeatures_1.48.3      filelock_1.0.2             
+ [87] BiocParallel_1.30.3         rlang_1.0.5                
+ [89] pkgconfig_2.0.3             matrixStats_0.62.0         
+ [91] bitops_1.0-7                evaluate_0.15              
+ [93] lattice_0.20-45             purrr_0.3.4                
+ [95] GenomicAlignments_1.32.0    htmlwidgets_1.5.4          
+ [97] labeling_0.4.2              bit_4.0.4                  
+ [99] tidyselect_1.1.2            magrittr_2.0.3             
+[101] R6_2.5.1                    generics_0.1.2             
+[103] Hmisc_4.7-1                 DelayedArray_0.22.0        
+[105] DBI_1.1.2                   foreign_0.8-82             
+[107] pillar_1.7.0                withr_2.5.0                
+[109] nnet_7.3-17                 survival_3.3-1             
+[111] KEGGREST_1.36.2             RCurl_1.98-1.7             
+[113] tibble_3.1.7                crayon_1.5.1               
+[115] interp_1.1-3                utf8_1.2.2                 
+[117] BiocFileCache_2.4.0         rmarkdown_2.14             
+[119] jpeg_0.1-9                  progress_1.2.2             
+[121] data.table_1.14.2           blob_1.2.3                 
+[123] git2r_0.30.1                digest_0.6.29              
+[125] httpuv_1.6.5                munsell_0.5.0              
+[127] bslib_0.3.1                </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

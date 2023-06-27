@@ -1,14 +1,14 @@
 ---
-title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: 1000G, Weights: fusion)"
+title: "Results for GCST90012877_buildGRCh37 -- latest ctwas package (LD REF: UKBB, Weights: fusion, TOP1)"
 author: "XSun"
-date: "2023-06-10"
+date: "2023-06-28"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE }
-results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo_latest_fusionwgts_1000g/brain_output/")
+results_dir <- paste0("/project2/guiming/xsun/proteome_alzheimer/6.brain_wingo_latest_fusionwgts_ukbb_top1/brain_output/")
 source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
 ```
@@ -242,24 +242,12 @@ load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RDa
 alpha <- 0.05
 ctwas_res$group <- "Expression"
 ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
+
 ```
 
 
 ```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="2_25", return_table=T,
-                      focus="ENSG00000115828.QPCT",
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="left",
-                      legend_panel="")
-
-```
-
-
-```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="17_37", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
                       rerun_ctwas=F,

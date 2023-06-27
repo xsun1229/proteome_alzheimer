@@ -242,7 +242,10 @@ load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RDa
 alpha <- 0.05
 ctwas_res$group <- "Expression"
 ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
+```
 
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="6_36", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -251,7 +254,10 @@ a <- locus_plot(region_tag="6_36", return_table=T,
                       label_panel="both",
                       legend_side="left",
                       legend_panel="")
+```
 
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="16_24", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -261,7 +267,10 @@ a <- locus_plot(region_tag="16_24", return_table=T,
                       legend_side="left",
                       legend_panel="")
 
+```
 
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="17_37", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -271,7 +280,10 @@ a <- locus_plot(region_tag="17_37", return_table=T,
                       legend_side="left",
                       legend_panel="")
 
+```
 
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="10_39", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -281,7 +293,10 @@ a <- locus_plot(region_tag="10_39", return_table=T,
                       legend_side="left",
                       legend_panel="")
 
+```
 
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="2_25", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
@@ -290,7 +305,10 @@ a <- locus_plot(region_tag="2_25", return_table=T,
                       label_panel="both",
                       legend_side="left",
                       legend_panel="")
+```
 
+
+```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="15_27", return_table=T,
                       focus=NULL,
                       label_genes=NULL,
