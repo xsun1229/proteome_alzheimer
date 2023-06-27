@@ -10,29 +10,42 @@ editor_options:
 
 # Analysis using brain eQTL
 
-[Results for GCST90012877_buildGRCh37 -- latest ctwas package, LD REF: UKBB, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion.html)
+## Wingo's GWAS (GCST90012877_buildGRCh37)
 
-[Results for GCST90012877_buildGRCh37 -- latest ctwas package, LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ld1kg_fusion.html)
+### LASSO
+
+#### Full GWAS
+
+[LD REF: UKBB, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion.html)
+
+[LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ld1kg_fusion.html)
 
 [Comparing the gene z-score, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/compare_ld_fusion.html)
 
-[Results for GCST90012877_buildGRCh37 -- latest ctwas package, GWAS: subset, LD REF: UKBB, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_subset_ukbb.html)
+#### GWAS subset
 
-[Results for GCST90012877_buildGRCh37 -- latest ctwas package, GWAS: subset, LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_subset_1kg.html)
+[LD REF: UKBB, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_subset_ukbb.html)
 
-[Comparing the gene z-score, GWAS: subset, weights: Fusion](https://xsun1229.github.io/proteome_alzheimer/compare_ld_subset_fusion.html)
+[LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_subset_1kg.html)
+
+[Comparing the gene z-score for different LD ref](https://xsun1229.github.io/proteome_alzheimer/compare_ld_subset_fusion.html)
 
 [Comparing the results from full GWAS and GWAS subset](https://xsun1229.github.io/proteome_alzheimer/compare_gwas_full_subset_ukbb_fusion.html)
 
 
-[Results for GCST90012877_buildGRCh37 -- latest ctwas package, GWAS: subset, LD REF: UKBB, weights: Fusion, top1](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ukbb_top1.html)
+### TOP1
 
-[Results for GCST90012877_buildGRCh37 -- latest ctwas package, GWAS: subset, LD REF: 1000G, weights: Fusion, top1](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_1kg_top1.html)
+[LD REF: UKBB, weights: Fusion, top1](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ukbb_top1.html)
 
+[LD REF: 1000G, weights: Fusion, top1](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_1kg_top1.html)
 
+## Jansen's GWAS 
 
-[Results for Jansen's GWAS -- latest ctwas package, GWAS: subset, LD REF: ukbb, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ldukbb_fusion.html)
+### LASSO
 
-[Results for Jansen's GWAS -- latest ctwas package, GWAS: subset, LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ld1kg_fusion.html)
+[LD REF: ukbb, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ldukbb_fusion.html)
 
+[LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ld1kg_fusion.html)
+
+[Comparing the gene z-score for different LD ref](https://xsun1229.github.io/proteome_alzheimer/compare_jansen_ukbb1kg_fusion.html)
 
