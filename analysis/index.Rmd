@@ -51,3 +51,6 @@ editor_options:
 
 [Comparing the gene z-score for different LD ref](https://xsun1229.github.io/proteome_alzheimer/compare_jansen_ukbb1kg_fusion.html)
 
+# Summary
+
+[6/28](https://uchicago.box.com/s/608h5ln41gd0b29nkdtl77tm0bcq8so0)
