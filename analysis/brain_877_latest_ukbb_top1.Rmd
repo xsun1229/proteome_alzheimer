@@ -200,6 +200,9 @@ hist(ctwas_gene_res$susie_pip, xlim=c(0,1), main="Distribution of Gene PIPs")
 
 print("Genes with susie pip >0.8")
 ctwas_gene_respip08 <- ctwas_gene_res[ctwas_gene_res$susie_pip > 0.8,]
+ctwas_gene_respip08$genename[ctwas_gene_respip08$type == "gene"] <- unlist(strsplit(ctwas_gene_respip08$id[ctwas_gene_respip08$type == "gene"],split = "[.]"))[seq(2,2*nrow(ctwas_gene_respip08[ctwas_gene_respip08$type == "gene",]), by = 2)]
+ctwas_gene_respip08$id_ensembl[ctwas_gene_respip08$type == "gene"] <- unlist(strsplit(ctwas_gene_respip08$id[ctwas_gene_respip08$type == "gene"],split = "[.]"))[seq(1,2*nrow(ctwas_gene_respip08[ctwas_gene_respip08$type == "gene",]), by = 2)]
+
 DT::datatable(ctwas_gene_respip08[order(-ctwas_gene_respip08$susie_pip),])
 ```
 
@@ -254,7 +257,8 @@ a <- locus_plot(region_tag="10_39", return_table=T,
                       rerun_load_only=F,
                       label_panel="both",
                       legend_side="left",
-                      legend_panel="")
+                      legend_panel="",
+                      draw_gene_track = T)
 ```
 
 
@@ -266,7 +270,8 @@ a <- locus_plot(region_tag="6_36", return_table=T,
                       rerun_load_only=F,
                       label_panel="both",
                       legend_side="left",
-                      legend_panel="")
+                      legend_panel="",
+                      draw_gene_track = T)
 ```
 
 
@@ -278,7 +283,8 @@ a <- locus_plot(region_tag="17_37", return_table=T,
                       rerun_load_only=F,
                       label_panel="both",
                       legend_side="left",
-                      legend_panel="")
+                      legend_panel="",
+                      draw_gene_track = T)
 
 ```
 
@@ -291,7 +297,8 @@ a <- locus_plot(region_tag="1_81", return_table=T,
                       rerun_load_only=F,
                       label_panel="both",
                       legend_side="left",
-                      legend_panel="")
+                      legend_panel="",
+                      draw_gene_track = T)
 ```
 
 
@@ -303,5 +310,6 @@ a <- locus_plot(region_tag="16_24", return_table=T,
                       rerun_load_only=F,
                       label_panel="both",
                       legend_side="left",
-                      legend_panel="")
+                      legend_panel="",
+                      draw_gene_track = T)
 ```

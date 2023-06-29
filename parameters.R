@@ -10,3 +10,4 @@ rerun_load_only=F
 legend_side="right"
 legend_panel="cTWAS"
 twas_ymax=NULL
+draw_gene_track=T
