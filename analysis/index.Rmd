@@ -8,11 +8,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Analysis using brain eQTL
+# Brain
 
 [weights stats](https://xsun1229.github.io/proteome_alzheimer/data_stat_brain_wingo.html)
 
-## Wingo's GWAS (GCST90012877_buildGRCh37)
+## Schwartz's GWAS (GCST90012877_buildGRCh37)
 
 ### LASSO
 
