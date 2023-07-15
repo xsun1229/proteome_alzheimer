@@ -54,3 +54,7 @@ editor_options:
 # Summary
 
 [6/28](https://uchicago.box.com/s/608h5ln41gd0b29nkdtl77tm0bcq8so0)
+
+# Diagosis
+
+[link](https://xsun1229.github.io/proteome_alzheimer/diagnose_gwas_ld.html)

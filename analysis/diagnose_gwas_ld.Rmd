@@ -1,0 +1,75 @@
+---
+title: "Diagnosis"
+author: "XSun"
+date: "2023-07-14"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE }
+library(ggplot2)
+library(gridExtra)
+library(eulerr)
+```
+
+
+# Comparing the GWAS data sets
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=5, fig.height=5}
+
+load("/project2/guiming/xsun/proteome_alzheimer/9.diagnose/results/zsnps_2gwas.rdata")
+
+# Create the Venn diagram
+jansen <- nrow(z_snp_jans)
+schwarz <- nrow(z_snp_sch)
+A_intersect_B <- 9478235
+
+venn_plot <- euler(c(A = jansen, B = schwarz, "A&B" = A_intersect_B))
+
+plot(venn_plot, quantities = TRUE,labels = c("jansen's", "schwarz's"),main = "overlapped variants")
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=10, fig.height=5}
+# distribution of the MAF
+z_snp_jans$EAF <- as.numeric(z_snp_jans$EAF)
+p1 <- ggplot(z_snp_jans, aes(x = EAF)) +
+  geom_histogram(fill = "steelblue", color = "white") +
+  labs(x = "EAF", y = "Frequency", title = "Histogram of effect allele frequency (Jansen's GWAS)")
+
+z_snp_sch$EAF <- as.numeric(z_snp_sch$EAF)
+p2 <- ggplot(z_snp_sch, aes(x = EAF)) +
+  geom_histogram(fill = "steelblue", color = "white") +
+  labs(x = "EAF", y = "Frequency", title = "Histogram of effect allele frequency (Schwarz's GWAS)")
+
+grid.arrange(p1, p2, nrow = 1)
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=10, fig.height=5}
+# comparing z-scores
+gwas_harmo <- readRDS("/project2/guiming/xsun/proteome_alzheimer/9.diagnose/results/gwas_harmonized.RDS")
+
+print("After harmonization, we have")
+
+#exposure sch outcome jansen
+gwas_harmo_005minus <- gwas_harmo[gwas_harmo$eaf.exposure < 0.05,]
+
+p3 <- ggplot(gwas_harmo_005minus, aes(x = zscore.exposure, y = zscore.outcome)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = "Comparing z-scores for variants with MAF < 0.05", x = "Schwarz's GWAS", y = "Jansen's GWAS")
+
+
+gwas_harmo_005plus <- gwas_harmo[gwas_harmo$eaf.exposure > 0.05,]
+
+p4 <- ggplot(gwas_harmo_005plus, aes(x = zscore.exposure, y = zscore.outcome)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = "Comparing z-scores for variants with MAF > 0.05", x = "Schwarz's GWAS", y = "Jansen's GWAS")
+
+grid.arrange(p3, p4, nrow = 1)
+```
+
