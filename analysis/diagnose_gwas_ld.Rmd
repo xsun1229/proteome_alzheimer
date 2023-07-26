@@ -16,6 +16,7 @@ library(eulerr)
 
 # Comparing the GWAS data sets
 
+## Venn diagram
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=5, fig.height=5}
 
@@ -31,6 +32,7 @@ venn_plot <- euler(c(A = jansen, B = schwarz, "A&B" = A_intersect_B))
 plot(venn_plot, quantities = TRUE,labels = c("jansen's", "schwarz's"),main = "overlapped variants")
 ```
 
+## Distribution of the effect allele frequencey
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=10, fig.height=5}
 # distribution of the MAF
@@ -47,6 +49,7 @@ p2 <- ggplot(z_snp_sch, aes(x = EAF)) +
 grid.arrange(p1, p2, nrow = 1)
 ```
 
+## Comparing Z scores
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=10, fig.height=5}
 # comparing z-scores
@@ -73,3 +76,68 @@ p4 <- ggplot(gwas_harmo_005plus, aes(x = zscore.exposure, y = zscore.outcome)) +
 grid.arrange(p3, p4, nrow = 1)
 ```
 
+## GWAS signal sparsity
+
+The number of independent signal for Jansen's GWAS: 29
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/jansen.jpg" width="50%">
+</figure>
+
+The number of independent signal for Schwarz's GWAS: 32
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/schwarz.jpg" width="50%">
+</figure>
+
+
+# Comparing the LD reference
+
+## Venn diagram
+
+```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=5, fig.height=5}
+
+load("/project2/guiming/xsun/proteome_alzheimer/9.diagnose/results/af_1kg.rdata")
+load("/project2/guiming/xsun/proteome_alzheimer/9.diagnose/results/af_ukbb.rdata")
+
+
+# Create the Venn diagram
+onekg <- nrow(df_var_1kg)
+ukbb <- nrow(df_var_ukbb)
+A_intersect_B <- 1161499
+
+venn_plot <- euler(c(A = onekg, B = ukbb, "A&B" = A_intersect_B))
+
+plot(venn_plot, quantities = TRUE,labels = c("1kg", "ukbb"),main = "overlapped variants")
+```
+
+## Distribution of the MAF
+
+```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=10, fig.height=5}
+# distribution of the MAF
+df_var_1kg$MAF <- as.numeric(df_var_1kg$MAF)
+p1 <- ggplot(df_var_1kg, aes(x = MAF)) +
+  geom_histogram(fill = "steelblue", color = "white") +
+  labs(x = "MAF", y = "Frequency", title = "Histogram of MAF (1KG)")
+
+df_var_ukbb$allele_freq <- as.numeric(df_var_ukbb$allele_freq)
+p2 <- ggplot(df_var_ukbb, aes(x = allele_freq)) +
+  geom_histogram(fill = "steelblue", color = "white") +
+  labs(x = "MAF", y = "Frequency", title = "Histogram of MAF (UKBB)")
+
+grid.arrange(p1, p2, nrow = 1)
+```
+
+## Comparing the MAF for the overlapped variants (after harmonization)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE , fig.width=10, fig.height=5}
+
+snp_harm <- readRDS("/project2/guiming/xsun/proteome_alzheimer/9.diagnose/results/ld_snp_harmonized.RDS")
+
+ggplot(snp_harm, aes(x = eaf.exposure, y = eaf.outcome)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
+  labs(title = "Comparing MAF for the overlapped variants", x = "1KG", y = "UKBB")
+
+grid.arrange(p1, p2, nrow = 1)
+```

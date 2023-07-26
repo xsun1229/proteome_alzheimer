@@ -20,9 +20,13 @@ editor_options:
 
 [LD REF: UKBB, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion.html)
 
+[Diagnosis: LD REF: UKBB, weights: Fusion, lasso, shared sigma2 for genes and snps](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_shared.html)
+
+
 [LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ld1kg_fusion.html)
 
 [Comparing the gene z-score, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/compare_ld_fusion.html)
+
 
 #### GWAS subset
 
@@ -48,6 +52,8 @@ editor_options:
 [LD REF: ukbb, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ldukbb_fusion.html)
 
 [LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ld1kg_fusion.html)
+
+[Diagnosis: LD REF: 1000G, weights: Fusion, lasso, shared sigma2 for genes and snps](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ld1kg_fusion_shared.html)
 
 [Comparing the gene z-score for different LD ref](https://xsun1229.github.io/proteome_alzheimer/compare_jansen_ukbb1kg_fusion.html)
 
