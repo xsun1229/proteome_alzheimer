@@ -372,7 +372,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -383,8 +383,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -397,9 +397,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
@@ -422,21 +422,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -527,15 +524,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree3c99d25762131cc980a818e9dcbb8e055ae7b2b4targetblank3c99d25a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree18656e5777d12d097a0d43626501af4db741e1e4targetblank18656e5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/3c99d25762131cc980a818e9dcbb8e055ae7b2b4" target="_blank">3c99d25</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/18656e5777d12d097a0d43626501af4db741e1e4" target="_blank">18656e5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree3c99d25762131cc980a818e9dcbb8e055ae7b2b4targetblank3c99d25a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree18656e5777d12d097a0d43626501af4db741e1e4targetblank18656e5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -545,7 +542,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/3c99d25762131cc980a818e9dcbb8e055ae7b2b4" target="_blank">3c99d25</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/18656e5777d12d097a0d43626501af4db741e1e4" target="_blank">18656e5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -561,16 +558,7 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
-
-Untracked files:
-    Untracked:  analysis/brain_877_latest_ldukbb_fusion_shared.Rmd
-    Untracked:  analysis/brain_jansen_ld1kg_fusion_shared.Rmd
-
-Unstaged changes:
-    Deleted:    VennDiagram.2023-07-14_21-33-26.log
-    Deleted:    VennDiagram.2023-07-14_21-33-46.log
-    Modified:   analysis/diagnose_gwas_ld.Rmd
-    Modified:   analysis/index.Rmd
+    Ignored:    analysis/figure/
 
 </code></pre>
 <p>
@@ -621,6 +609,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/18656e5777d12d097a0d43626501af4db741e1e4/analysis/diagnose_gwas_ld.Rmd" target="_blank">18656e5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-07-26
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/18656e5777d12d097a0d43626501af4db741e1e4/docs/diagnose_gwas_ld.html" target="_blank">18656e5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-07-26
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/xsun1229/proteome_alzheimer/blob/3c99d25762131cc980a818e9dcbb8e055ae7b2b4/analysis/diagnose_gwas_ld.Rmd" target="_blank">3c99d25</a>
 </td>
 <td>
@@ -659,6 +681,8 @@ update
 </div>
 <div id="comparing-the-gwas-data-sets" class="section level1">
 <h1>Comparing the GWAS data sets</h1>
+<div id="venn-diagram" class="section level2">
+<h2>Venn diagram</h2>
 <p><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -697,6 +721,10 @@ XSun
 </table>
 </div>
 </div>
+</div>
+<div id="distribution-of-the-effect-allele-frequencey"
+class="section level2">
+<h2>Distribution of the effect allele frequencey</h2>
 <p><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
@@ -735,6 +763,9 @@ XSun
 </table>
 </div>
 </div>
+</div>
+<div id="comparing-z-scores" class="section level2">
+<h2>Comparing Z scores</h2>
 <pre><code>[1] &quot;After harmonization, we have&quot;</code></pre>
 <p><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -775,10 +806,108 @@ XSun
 </div>
 </div>
 </div>
+<div id="gwas-signal-sparsity" class="section level2">
+<h2>GWAS signal sparsity</h2>
+<p>The number of independent signal for Jansen’s GWAS: 29</p>
+<figure class="half">
+<img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/jansen.jpg" width="50%">
+</figure>
+<p>The number of independent signal for Schwarz’s GWAS: 32</p>
+<figure class="half">
+<img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/schwarz.jpg" width="50%">
+</figure>
+</div>
+</div>
 <div id="comparing-the-ld-reference" class="section level1">
 <h1>Comparing the LD reference</h1>
+<div id="venn-diagram-1" class="section level2">
+<h2>Venn diagram</h2>
 <p><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/18656e5777d12d097a0d43626501af4db741e1e4/docs/figure/diagnose_gwas_ld.Rmd/unnamed-chunk-5-1.png" target="_blank">18656e5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="distribution-of-the-maf" class="section level2">
+<h2>Distribution of the MAF</h2>
 <p><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/18656e5777d12d097a0d43626501af4db741e1e4/docs/figure/diagnose_gwas_ld.Rmd/unnamed-chunk-6-1.png" target="_blank">18656e5</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-07-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div
+id="comparing-the-maf-for-the-overlapped-variants-after-harmonization"
+class="section level2">
+<h2>Comparing the MAF for the overlapped variants (after
+harmonization)</h2>
+<p><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /><img src="figure/diagnose_gwas_ld.Rmd/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -796,7 +925,12 @@ Matrix products: default
 BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
 
 locale:
-[1] C
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -820,6 +954,7 @@ loaded via a namespace (and not attached):
 [49] pkgconfig_2.0.3  ellipsis_0.3.2   polylabelr_0.2.0 assertthat_0.2.1
 [53] rmarkdown_2.14   rstudioapi_0.13  R6_2.5.1         git2r_0.30.1    
 [57] compiler_4.2.0  </code></pre>
+</div>
 </div>
 </div>
 
