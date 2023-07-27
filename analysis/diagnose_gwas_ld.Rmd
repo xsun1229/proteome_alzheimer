@@ -139,5 +139,4 @@ ggplot(snp_harm, aes(x = eaf.exposure, y = eaf.outcome)) +
   geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red") +
   labs(title = "Comparing MAF for the overlapped variants", x = "1KG", y = "UKBB")
 
-grid.arrange(p1, p2, nrow = 1)
 ```
