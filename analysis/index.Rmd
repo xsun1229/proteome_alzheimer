@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Brain
+# Brain pQTL
 
 [weights stats](https://xsun1229.github.io/proteome_alzheimer/data_stat_brain_wingo.html)
 
@@ -60,6 +60,16 @@ editor_options:
 [Diagnosis: LD REF: 1000G, weights: Fusion, lasso, removing the top locus](https://xsun1229.github.io/proteome_alzheimer/brain_jansen_ld1kg_fusion_remove.html)
 
 [Comparing the gene z-score for different LD ref](https://xsun1229.github.io/proteome_alzheimer/compare_jansen_ukbb1kg_fusion.html)
+
+
+# Joint analysis for brain eQTL and pQTL
+
+## Schwartz's GWAS (GCST90012877_buildGRCh37)
+
+### LASSO
+
+[LD REF: UKBB, weights: db weights converted from fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb.html)
+
 
 # Summary
 
