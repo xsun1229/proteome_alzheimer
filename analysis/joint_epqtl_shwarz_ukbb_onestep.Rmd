@@ -47,6 +47,9 @@ ctwas_snp_res <- data.frame(ctwas_snp_res)
 ctwas_res_s1 <- data.table::fread(paste0(results_dir, "/", analysis_id, "_ctwas.s1.susieIrss.txt"))
 n_snps <- sum(ctwas_res_s1$type=="SNP")/thin
 rm(ctwas_res_s1)
+
+print(sprintf("total number of gene in outputs: %s",nrow(ctwas_gene_res)))
+print(sprintf("total number of snp in outputs: %s",nrow(ctwas_snp_res)))
 ```
 
 
@@ -387,6 +390,9 @@ ctwas_snp_res <- data.frame(ctwas_snp_res)
 ctwas_res_s1 <- data.table::fread(paste0(results_dir, "/", analysis_id, "_ctwas.s1.susieIrss.txt"))
 n_snps <- sum(ctwas_res_s1$type=="SNP")/thin
 rm(ctwas_res_s1)
+
+print(sprintf("total number of gene in outputs: %s",nrow(ctwas_gene_res)))
+print(sprintf("total number of snp in outputs: %s",nrow(ctwas_snp_res)))
 ```
 
 

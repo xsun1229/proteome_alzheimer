@@ -441,10 +441,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -537,15 +537,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreedc6fbe1e746a87e8d3059c79d75f2178ca3d59b5targetblankdc6fbe1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree1a5980c2620eef610c7ad598438da704a1f596b0targetblank1a5980ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/dc6fbe1e746a87e8d3059c79d75f2178ca3d59b5" target="_blank">dc6fbe1</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/1a5980c2620eef610c7ad598438da704a1f596b0" target="_blank">1a5980c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreedc6fbe1e746a87e8d3059c79d75f2178ca3d59b5targetblankdc6fbe1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree1a5980c2620eef610c7ad598438da704a1f596b0targetblank1a5980ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -555,7 +555,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/dc6fbe1e746a87e8d3059c79d75f2178ca3d59b5" target="_blank">dc6fbe1</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/1a5980c2620eef610c7ad598438da704a1f596b0" target="_blank">1a5980c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -572,8 +572,9 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
 
-Untracked files:
-    Untracked:  analysis/joint_epqtl_shwarz_ukbb_onestep.Rmd
+Unstaged changes:
+    Modified:   analysis/joint_epqtl_shwarz_ukbb.Rmd
+    Modified:   analysis/joint_epqtl_shwarz_ukbb_onestep.Rmd
 
 </code></pre>
 <p>
@@ -588,10 +589,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/joint_epqtl_shwarz_ukbb_onestep.Rmd</code>) and HTML
+(<code>docs/joint_epqtl_shwarz_ukbb_onestep.html</code>) files. If
+you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/analysis/joint_epqtl_shwarz_ukbb_onestep.Rmd" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/joint_epqtl_shwarz_ukbb_onestep.html" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+<td>
+update
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -605,9 +671,48 @@ source(&quot;/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R&
 options(digits = 4)</code></pre>
 <div id="load-ctwas-results" class="section level2">
 <h2>Load ctwas results</h2>
+<pre><code>[1] &quot;total number of gene in outputs: 8448&quot;</code></pre>
+<pre><code>[1] &quot;total number of snp in outputs: 945416&quot;</code></pre>
 <div id="check-convergence-of-parameters" class="section level3">
 <h3>Check convergence of parameters</h3>
 <p><img src="figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-3-1.png" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#estimated group prior
 estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)</code></pre>
@@ -708,6 +813,43 @@ alpha &lt;- 0.05</code></pre>
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
 <p><img src="figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-9-1.png" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;1_91&quot;, return_table=F,xlim=NULL,
                       focus=NULL,
                       label_genes=NULL,
@@ -718,6 +860,43 @@ alpha &lt;- 0.05</code></pre>
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
 <p><img src="figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-10-1.png" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="removing-the-top-locus" class="section level1">
@@ -729,9 +908,48 @@ source(&quot;/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R&
 options(digits = 4)</code></pre>
 <div id="load-ctwas-results-1" class="section level2">
 <h2>Load ctwas results</h2>
+<pre><code>[1] &quot;total number of gene in outputs: 8437&quot;</code></pre>
+<pre><code>[1] &quot;total number of snp in outputs: 1154070&quot;</code></pre>
 <div id="check-convergence-of-parameters-1" class="section level3">
 <h3>Check convergence of parameters</h3>
 <p><img src="figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-13-1.png" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#estimated group prior
 estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)</code></pre>
@@ -852,6 +1070,43 @@ alpha &lt;- 0.05</code></pre>
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
 <p><img src="figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-19-1.png" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;15_37&quot;, return_table=F,xlim=NULL,
                       focus=NULL,
                       label_genes=NULL,
@@ -862,6 +1117,43 @@ alpha &lt;- 0.05</code></pre>
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
 <p><img src="figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/bfc2b57d93412155d6313a1ecaa2b5d117465728/docs/figure/joint_epqtl_shwarz_ukbb_onestep.Rmd/unnamed-chunk-20-1.png" target="_blank">bfc2b57</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -898,11 +1190,12 @@ loaded via a namespace (and not attached):
 [29] crosstalk_1.2.0   httpuv_1.6.5      fansi_1.0.3       highr_0.9        
 [33] Rcpp_1.0.8.3      promises_1.2.0.1  scales_1.2.0      DT_0.22          
 [37] jsonlite_1.8.0    farver_2.1.0      fs_1.5.2          digest_0.6.29    
-[41] stringi_1.7.6     dplyr_1.0.9       grid_4.2.0        rprojroot_2.0.3  
+[41] stringi_1.7.6     dplyr_1.0.9       rprojroot_2.0.3   grid_4.2.0       
 [45] cli_3.3.0         tools_4.2.0       magrittr_2.0.3    sass_0.4.1       
-[49] tibble_3.1.7      crayon_1.5.1      pkgconfig_2.0.3   Matrix_1.5-3     
-[53] ellipsis_0.3.2    data.table_1.14.2 assertthat_0.2.1  rmarkdown_2.14   
-[57] rstudioapi_0.13   R6_2.5.1          git2r_0.30.1      compiler_4.2.0   </code></pre>
+[49] tibble_3.1.7      crayon_1.5.1      whisker_0.4       pkgconfig_2.0.3  
+[53] Matrix_1.5-3      ellipsis_0.3.2    data.table_1.14.2 assertthat_0.2.1 
+[57] rmarkdown_2.14    rstudioapi_0.13   R6_2.5.1          git2r_0.30.1     
+[61] compiler_4.2.0   </code></pre>
 </div>
 </div>
 </div>
