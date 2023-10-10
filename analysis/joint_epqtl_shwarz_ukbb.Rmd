@@ -1,5 +1,5 @@
 ---
-title: "Joint analysis for brain eqtl and pqtl (2step setting, rerun, GWAS:shwarz, LD:ukbb)"
+title: "Joint analysis for brain eqtl and pqtl (2step setting, GWAS:shwarz, LD:ukbb)"
 author: "XSun"
 date: "2023-10-04"
 output: workflowr::wflow_html
