@@ -666,7 +666,7 @@ alpha <- 0.05
 ```
 
 ```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="17_15", return_table=F,xlim=NULL,
+a <- locus_plot(region_tag="11_47", return_table=F,xlim=NULL,
                       focus=NULL,
                       label_genes=NULL,
                       rerun_ctwas=F,
@@ -678,6 +678,31 @@ a <- locus_plot(region_tag="17_15", return_table=F,xlim=NULL,
 
 ```
 
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="16_9", return_table=F,xlim=NULL,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="right",
+                      legend_panel="cTWAS",
+                      draw_gene_track = F)
+
+```
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="16_9", return_table=F,xlim=NULL,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="right",
+                      legend_panel="cTWAS",
+                      draw_gene_track = F)
+
+```
 
 ```{r message=FALSE, warning=FALSE }
 a <- locus_plot(region_tag="15_37", return_table=F,xlim=NULL,
