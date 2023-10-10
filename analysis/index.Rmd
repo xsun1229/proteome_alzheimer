@@ -68,9 +68,14 @@ editor_options:
 
 ### LASSO
 
-[LD REF: UKBB, weights: db weights converted from fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb.html)
+[LD REF: UKBB, weights: db weights converted from fusion, lasso, 2 steps](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb.html)
+
+[LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in 2 steps, rerun](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun.html)
+
 
 [LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in one step](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_onestep.html)
+
+
 
 # Summary
 

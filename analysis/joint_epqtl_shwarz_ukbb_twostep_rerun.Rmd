@@ -1,5 +1,5 @@
 ---
-title: "Joint analysis for brain eqtl and pqtl (2step setting, rerun, GWAS:shwarz, LD:ukbb)"
+title: "Joint analysis for brain eqtl and pqtl (GWAS:shwarz, LD:ukbb)"
 author: "XSun"
 date: "2023-10-04"
 output: workflowr::wflow_html
@@ -12,7 +12,7 @@ editor_options:
 
 ```{r }
 analysis_id <- "brain"
-results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_fullgwas/"
+results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_fullgwas_2stepsrerun//"
 
 source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
@@ -355,7 +355,7 @@ a <- locus_plot(region_tag="1_91", return_table=F,xlim=NULL,
 
 ```{r }
 analysis_id <- "brain"
-results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_subgwas/"
+results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_subgwas_2stepsrerun//"
 
 source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
