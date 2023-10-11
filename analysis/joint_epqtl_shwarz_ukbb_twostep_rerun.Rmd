@@ -322,9 +322,6 @@ Comparing with AD1 from Suppl Table 4 [Wingo_Nat_comm_2022](https://www.nature.c
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 data_our <- df_gene[df_gene$combined_pip >0.8,]
-id <- unlist(strsplit(data_our$id,split = "[.]"))[seq(1,2*nrow(data_our), by=2)]
-data_our$genename <- unlist(strsplit(data_our$id,split = "[.]"))[seq(2,2*nrow(data_our), by=2)]
-data_our$id <- id
 
 data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo.txt",header = T)
 
