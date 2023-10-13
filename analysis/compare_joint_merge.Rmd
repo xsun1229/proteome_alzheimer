@@ -1,0 +1,32 @@
+---
+title: "Comparing joint analysis and single qtl analysis"
+author: "XSun"
+date: "2023-10-13"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Comparing LD merge = T &  LD merge = F 
+
+|               Settings              |        |                             |                  |                 Results                 |                                                                                                                 |                                                | Links |
+|:-----------------------------------:|:------:|:---------------------------:|:----------------:|:---------------------------------------:|:---------------------------------------------------------------------------------------------------------------:|:----------------------------------------------:|:-----:|
+| GWAS                                | LD ref | Prediction model            | LD block merging | # of genes with pip > 0.8               | # of overlapped genes                                                                                           | # of genes with combined pip > 0.8             |       |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein + expression | T                | Protein: 12 Expression: 11 23 in total  | Protein: 11 (RMDN1 not found in merge = F setting)  Expression: 9 (RMDN1, PRKD3 not found in merge = F setting) | 22 (expr pip and protein pip for RMDN1 are 1)  | [link](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun_ldmerget.html)     |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein + expression | F                | Protein: 20 Expression: 20 40 in total  |                                                                                                                 | 40                                             | [link](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun.html)     |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein              | T                | Protein: 11                             | Protein: 5                                                                                                      | -                                              | [link](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_remove.html)     |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein              | F                | Protein: 26                             |                                                                                                                 | -                                              | [link](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_remove_ldmergef.html)     |
+|                                     |        |                             |                  |                                         |                                                                                                                 |                                                |       |
+|                                     |        |                             |                  |                                         |                                                                                                                 |                                                |       |
+
+# Comparing joint and single
+
+|               Settings              |        |                             |                  |                 Results                 |                       |                                                |   |
+|:-----------------------------------:|:------:|:---------------------------:|:----------------:|:---------------------------------------:|:---------------------:|:----------------------------------------------:|---|
+| GWAS                                | LD ref | Prediction model            | LD block merging | # of genes with pip > 0.8               | # of overlapped genes | # of genes with combined pip > 0.8             |   |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein + expression | T                | Protein: 12 Expression: 11 23 in total  | Protein: 5            | 22 (expr pip and protein pip for RMDN1 are 1)  |   |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein              | T                | Protein: 11                             |                       |                                                |   |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein + expression | F                | Protein: 20 Expression: 20 40 in total  | Protein: 5            | 40                                             |   |
+| Schwartz’s (removing the top locus) | UKBB   | LASSO, protein              | F                | Protein: 26                             |                       |                                                |   |
+|                                     |        |                             |                  |                                         |                       |                                                |   |
+|                                     |        |                             |                  |                                         |                       |                                                |   |
