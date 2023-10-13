@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Brain pQTL
+# Brain pQTL (LD merge = T if not specified)
 
 [weights stats](https://xsun1229.github.io/proteome_alzheimer/data_stat_brain_wingo.html)
 
@@ -24,6 +24,8 @@ editor_options:
 
 
 [Diagnosis: LD REF: UKBB, weights: Fusion, lasso, removing the top locus](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_remove.html)
+
+[LD REF: UKBB, weights: Fusion, lasso, removing the top locus, LD merge = F ](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_remove_ldmergef.html)
 
 [LD REF: 1000G, weights: Fusion, lasso](https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ld1kg_fusion.html)
 
@@ -68,10 +70,9 @@ editor_options:
 
 ### LASSO
 
-[LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in 2 steps, fixed](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun.html)
+[LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in 2 steps, fixed, LD merge = F](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun.html)
 
-
-[LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in one step](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_onestep.html)
+[LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in 2 steps, fixed, LD merge = T](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun_ldmerget.html)
 
 
 

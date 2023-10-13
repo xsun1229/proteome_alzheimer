@@ -1,549 +1,17 @@
 ---
-title: "Joint analysis for brain eqtl and pqtl (2 step setting, fixed, GWAS:shwarz, LD:ukbb, LD merge = F)"
+title: "Joint analysis for brain eqtl and pqtl (2 step setting, fixed, GWAS:shwarz, LD:ukbb, LD merge = T)"
 author: "XSun"
-date: "2023-10-04"
+date: "2023-10-12"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
-
-
 # Removing the top locus 
 
 ```{r }
 analysis_id <- "brain"
-results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_subgwas_2stepsrerun/"
-
-source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
-options(digits = 4)
-
-```
-
-## Load ctwas results
-
-```{r echo=F}
-#load ctwas results
-ctwas_res <- data.table::fread(paste0(results_dir, "/", analysis_id, "_ctwas.susieIrss.txt"))
-
-#make unique identifier for regions
-ctwas_res$region_tag <- paste(ctwas_res$region_tag1, ctwas_res$region_tag2, sep="_")
-
-#load z scores for SNPs and collect sample size
-load(paste0(results_dir, "/", analysis_id, "_expr_z_snp.Rd"))
-
-sample_size <- z_snp$ss
-sample_size <- as.numeric(names(which.max(table(sample_size))))
-
-#compute PVE for each gene/SNP
-ctwas_res$PVE = ctwas_res$susie_pip*ctwas_res$mu2/sample_size
-
-#separate gene and SNP results
-ctwas_gene_res <- ctwas_res[ctwas_res$type != "SNP", ]
-ctwas_gene_res <- data.frame(ctwas_gene_res)
-ctwas_snp_res <- ctwas_res[ctwas_res$type == "SNP", ]
-ctwas_snp_res <- data.frame(ctwas_snp_res)
-
-#get number of SNPs from s1 results; adjust for thin argument
-ctwas_res_s1 <- data.table::fread(paste0(results_dir, "/", analysis_id, "_ctwas.s1.susieIrss.txt"))
-n_snps <- sum(ctwas_res_s1$type=="SNP")/thin
-rm(ctwas_res_s1)
-
-print(sprintf("total number of gene in outputs: %s",nrow(ctwas_gene_res)))
-print(sprintf("total number of snp in outputs: %s",nrow(ctwas_snp_res)))
-```
-
-
-### Check convergence of parameters
-
-```{r echo=F, out.width="70%"}
-library(ggplot2)
-library(cowplot)
-
-load(paste0(results_dir, "/", analysis_id, "_ctwas.s2.susieIrssres.Rd"))
-
-#estimated group prior (all iterations)
-estimated_group_prior_all <- group_prior_rec
-estimated_group_prior_all["SNP",] <- estimated_group_prior_all["SNP",]*thin #adjust parameter to account for thin argument
-
-#estimated group prior variance (all iterations)
-estimated_group_prior_var_all <- group_prior_var_rec
-
-#set group size
-group_size <- c(table(ctwas_gene_res$type), structure(n_snps, names="SNP"))
-group_size <- group_size[rownames(estimated_group_prior_all)]
-
-#estimated group PVE (all iterations)
-estimated_group_pve_all <- estimated_group_prior_var_all*estimated_group_prior_all*group_size/sample_size #check PVE calculation
-
-#estimated enrichment of genes (all iterations)
-estimated_enrichment_all <- t(sapply(rownames(estimated_group_prior_all)[rownames(estimated_group_prior_all)!="SNP"], function(x){estimated_group_prior_all[rownames(estimated_group_prior_all)==x,]/estimated_group_prior_all[rownames(estimated_group_prior_all)=="SNP"]}))
-
-title_size <- 6
-
-df <- data.frame(niter = rep(1:ncol(estimated_group_prior_all), nrow(estimated_group_prior_all)),
-                 value = unlist(lapply(1:nrow(estimated_group_prior_all), function(x){estimated_group_prior_all[x,]})),
-                 group = rep(rownames(estimated_group_prior_all), each=ncol(estimated_group_prior_all)))
-
-df$group[df$group=="722_brain_protein_lasso_harmo_drop_ambig"] <- "Protein"
-df$group[df$group=="888_brain_expr_lasso_harmo_drop_ambig"] <- "Expression"
-df$group <- as.factor(df$group)
-
-p_pi <- ggplot(df, aes(x=niter, y=value, group=group)) +
-  geom_line(aes(color=group)) +
-  geom_point(aes(color=group)) +
-  xlab("Iteration") + ylab(bquote(pi)) +
-  ggtitle("Proportion Causal") +
-  theme_cowplot()
-
-p_pi <- p_pi + theme(plot.title=element_text(size=title_size)) + 
-  expand_limits(y=0) + 
-  guides(color = guide_legend(title = "Group")) + theme (legend.title = element_text(size=6, face="bold"))
-
-df <- data.frame(niter = rep(1:ncol(estimated_group_prior_var_all), nrow(estimated_group_prior_var_all)),
-                 value = unlist(lapply(1:nrow(estimated_group_prior_var_all), function(x){estimated_group_prior_var_all[x,]})),
-                 group = rep(rownames(estimated_group_prior_var_all), each=ncol(estimated_group_prior_var_all)))
-
-df$group[df$group=="722_brain_protein_lasso_harmo_drop_ambig"] <- "Protein"
-df$group[df$group=="888_brain_expr_lasso_harmo_drop_ambig"] <- "Expression"
-df$group <- as.factor(df$group)
-
-p_sigma2 <- ggplot(df, aes(x=niter, y=value, group=group)) +
-  geom_line(aes(color=group)) +
-  geom_point(aes(color=group)) +
-  xlab("Iteration") + ylab(bquote(sigma^2)) +
-  ggtitle("Effect Size") +
-  theme_cowplot()
-
-p_sigma2 <- p_sigma2 + theme(plot.title=element_text(size=title_size)) + 
-  expand_limits(y=0) + 
-  guides(color = guide_legend(title = "Group")) + theme (legend.title = element_text(size=6, face="bold"))
-
-df <- data.frame(niter = rep(1:ncol(estimated_group_pve_all), nrow(estimated_group_pve_all)),
-                 value = unlist(lapply(1:nrow(estimated_group_pve_all), function(x){estimated_group_pve_all[x,]})),
-                 group = rep(rownames(estimated_group_pve_all), each=ncol(estimated_group_pve_all)))
-
-df$group[df$group=="722_brain_protein_lasso_harmo_drop_ambig"] <- "Protein"
-df$group[df$group=="888_brain_expr_lasso_harmo_drop_ambig"] <- "Expression"
-df$group <- as.factor(df$group)
-
-p_pve <- ggplot(df, aes(x=niter, y=value, group=group)) +
-  geom_line(aes(color=group)) +
-  geom_point(aes(color=group)) +
-  xlab("Iteration") + ylab(bquote(h^2[G])) +
-  ggtitle("PVE") +
-  theme_cowplot()
-
-p_pve <- p_pve + theme(plot.title=element_text(size=title_size)) + 
-  expand_limits(y=0) + 
-  guides(color = guide_legend(title = "Group")) + theme (legend.title = element_text(size=6, face="bold"))
-
-df <- data.frame(niter = rep(1:ncol(estimated_enrichment_all), nrow(estimated_enrichment_all)),
-                 value = unlist(lapply(1:nrow(estimated_enrichment_all), function(x){estimated_enrichment_all[x,]})),
-                 group = rep(rownames(estimated_enrichment_all), each=ncol(estimated_enrichment_all)))
-
-df$group[df$group=="722_brain_protein_lasso_harmo_drop_ambig"] <- "Protein"
-df$group[df$group=="888_brain_expr_lasso_harmo_drop_ambig"] <- "Expression"
-df$group <- as.factor(df$group)
-
-p_enrich <- ggplot(df, aes(x=niter, y=value, group=group)) +
-  geom_line(aes(color=group)) +
-  geom_point(aes(color=group)) +
-  xlab("Iteration") + ylab(bquote(pi[G]/pi[S])) +
-  ggtitle("Enrichment") +
-  theme_cowplot()
-
-p_enrich <- p_enrich + theme(plot.title=element_text(size=title_size)) + 
-  expand_limits(y=0) + 
-  guides(color = guide_legend(title = "Group")) + theme (legend.title = element_text(size=6, face="bold"))
-
-plot_grid(p_pi, p_sigma2, p_enrich, p_pve)
-```
-
-
-```{r}
-#estimated group prior
-estimated_group_prior <- estimated_group_prior_all[,ncol(group_prior_rec)]
-print(estimated_group_prior)
-
-#estimated group prior variance
-estimated_group_prior_var <- estimated_group_prior_var_all[,ncol(group_prior_var_rec)]
-print(estimated_group_prior_var)
-
-#estimated enrichment
-estimated_enrichment <- estimated_enrichment_all[ncol(group_prior_var_rec)]
-print(estimated_enrichment)
-
-#report sample size
-print(sample_size)
-
-#report group size
-print(group_size)
-
-#estimated group PVE
-estimated_group_pve <- estimated_group_pve_all[,ncol(group_prior_rec)]
-print(estimated_group_pve)
-
-#total PVE
-sum(estimated_group_pve)
-
-#attributable PVE
-estimated_group_pve/sum(estimated_group_pve)
-```
-
-```{r echo=FALSE}
-#add gene information to results
-ctwas_gene_res$gene_id <- sapply(ctwas_gene_res$id, function(x){unlist(strsplit(x, split="[|]"))[1]})
-ctwas_gene_res$group <- sapply(ctwas_gene_res$id, function(x){paste(unlist(strsplit(unlist(strsplit(x, split="[|]"))[2], "_"))[-1], collapse="_")})
-
-ctwas_gene_res$group[ctwas_gene_res$group=="888_brain_expr_lasso_harmo_drop_ambig"] <- "Expression"
-ctwas_gene_res$group[ctwas_gene_res$group=="722_brain_protein_lasso_harmo_drop_ambig"] <- "Protein"
-ctwas_gene_E_res <- ctwas_gene_res[ctwas_gene_res$group=="Expression",]
-ctwas_gene_P_res <- ctwas_gene_res[ctwas_gene_res$group=="Protein",]
-
-ctwas_gene_res <- rbind(ctwas_gene_E_res,ctwas_gene_P_res)
-#ctwas_gene_res <- na.omit(ctwas_gene_res)
-ctwas_gene_res$type <- "gene"
-
-
-load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list.RData")
-G_list$hgnc_symbol[G_list$hgnc_symbol==""] <- "-"
-G_list$tss <- G_list[,c("end_position", "start_position")][cbind(1:nrow(G_list),G_list$strand/2+1.5)]
-G_list_select <- G_list[!duplicated(G_list$ensembl_gene_id),]
-  
-merged_data <- merge(ctwas_gene_res, G_list_select, by.x = "gene_id", by.y = "ensembl_gene_id", all.x = TRUE)
-
-# Select relevant columns and rename if needed
-merged_data <- merged_data[, c("chrom", "id", "pos", "type", "region_tag1", "region_tag2", 
-                               "cs_index", "susie_pip", "mu2", "region_tag", "PVE", 
-                               "gene_id", "hgnc_symbol", "group","gene_biotype")]
-ctwas_gene_res <- merged_data
-names(ctwas_gene_res) <- c("chrom", "id", "pos", "type", "region_tag1", "region_tag2", 
-                               "cs_index", "susie_pip", "mu2", "region_tag", "PVE", 
-                               "gene_id", "genename", "group","gene_type")
-
-
-#ctwas_gene_res$gene_type <- G_list[sapply(ctwas_gene_res$genename, match, G_list$hgnc_symbol), "gene_biotype"]
-ctwas_gene_res <- na.omit(ctwas_gene_res)
-ctwas_gene_res <- ctwas_gene_res[ctwas_gene_res$gene_type=="protein_coding",]
-
-#add z scores to results
-load(paste0(results_dir, "/", analysis_id, "_expr_z_gene.Rd"))
-ctwas_gene_res$z <- z_gene[ctwas_gene_res$id,]$z
-
-z_snp <- z_snp[z_snp$id %in% ctwas_snp_res$id,]
-ctwas_snp_res$z <- z_snp$z[match(ctwas_snp_res$id, z_snp$id)]
-
-#merge gene and snp results with added information
-ctwas_snp_res$gene_id=NA
-ctwas_snp_res$group="SNP"
-#ctwas_snp_res$alt_name=NA
-ctwas_snp_res$genename=NA
-ctwas_snp_res$gene_type=NA
-
-ctwas_res <- rbind(ctwas_gene_res,
-                   ctwas_snp_res[,colnames(ctwas_gene_res)])
-
-#store columns to report
-report_cols <- colnames(ctwas_gene_res)[!(colnames(ctwas_gene_res) %in% c("type", "region_tag1", "region_tag2", "cs_index", "gene_type", "z_flag", "id", "chrom", "pos", "alt_name", "gene_id"))]
-first_cols <- c("genename", "gene_type", "gene_id", "group", "region_tag")
-report_cols <- c(first_cols, report_cols[!(report_cols %in% first_cols)])
-```
-
-## Top expression/protein
-
-```{r echo=F}
-#ctwas_gene_res <- readRDS(paste0(results_dir,"/",analysis_id,"_ctwas_gene_res.RDS"))
-ctwas_gene_res <- na.omit(ctwas_gene_res)
-ctwas_gene_res <- ctwas_gene_res[!duplicated(ctwas_gene_res),]
-#genes with PIP>0.8 or 20 highest PIPs
-#head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),c("genename","gene_id","susie_pip","group","region_tag")], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
-#head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
-
-aa <- head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),c("genename","gene_id","susie_pip","group","region_tag","z")], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
-DT::datatable(aa)
-#DT::datatable(aa[order(-aa$susie_pip),])
-
-aa$pvalue <- sapply(aa$z, function(x){-log10(2*pnorm(-abs(x)))})
-```
-
-
-## Top genes by combined PIP
-
-```{r echo=F}
-
-ctwas_gene_E_res <- ctwas_gene_res[ctwas_gene_res$group=="Expression",]
-ctwas_gene_P_res <- ctwas_gene_res[ctwas_gene_res$group=="Protein",]
-
-df_gene_E <- aggregate(ctwas_gene_E_res$susie_pip,by=list(ctwas_gene_E_res$genename), FUN=sum)
-colnames(df_gene_E) <- c("genename", "susie_pip")
-df_gene_E$group <- "Expression"
-
-df_gene_P <- aggregate(ctwas_gene_P_res$susie_pip,by=list(ctwas_gene_P_res$genename), FUN=sum)
-colnames(df_gene_P) <- c("genename", "susie_pip")
-df_gene_P$group <- "Protein"
-
-
-#aggregate by gene name
-df_gene <- aggregate(ctwas_gene_res$susie_pip, by=list(ctwas_gene_res$genename), FUN=sum)
-colnames(df_gene) <- c("genename", "combined_pip")
-df_gene$expression_pip <-0
-df_gene$protein_pip <-0
-
-#drop duplicated gene names
-#df_gene <- df_gene[!(df_gene$genename %in% names(which(table(ctwas_gene_res$genename)>2))),]
-for(i in df_gene$genename){
-  if(i %in% df_gene_E$genename){
-    df_gene[df_gene$genename==i,"expression_pip"] <- round(df_gene_E[df_gene_E$genename==i,"susie_pip"],4)
-  }
-}
-
-for(i in df_gene$genename){
-  if(i %in% df_gene_P$genename){
-    df_gene[df_gene$genename==i,"protein_pip"] <- round(df_gene_P[df_gene_P$genename==i,"susie_pip"],3)
-  }
-}
-
-
-df_gene$region_tag <- ctwas_gene_res[sapply(df_gene$genename, match, ctwas_gene_res$genename), "region_tag"]
-df_gene$combined_pip <- round(df_gene$combined_pip,4)
-#sort by combined PIP
-df_gene <- df_gene[order(-df_gene$combined_pip),]
-#genes with PIP>0.8 or 20 highest PIPs
-
-DT::datatable(df_gene[order(-df_gene$combined_pip),])
-```
-
-
-## Comparing with Wingo's results 
-
-Comparing with AD1 from Suppl Table 4 [Wingo_Nat_comm_2022](https://www.nature.com/articles/s41467-022-31873-5s)
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-data_our <- df_gene[df_gene$combined_pip >0.8,]
-
-data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo.txt",header = T)
-
-print("overlapped")
-data_overlap <- merge(data_our, data_wingo, by.x="genename", by.y = "Gene_symbol")
-DT::datatable(data_overlap)
-
-print("our unique genes")
-data_our_uniq <- data_our[!(data_our$genename%in%data_wingo$Gene_symbol),]
-DT::datatable(data_our_uniq)
-
-print("wingo's unique genes")
-data_wingo_uniq <- data_wingo[!(data_wingo$Gene_symbol%in%data_our$genename),]
-DT::datatable(data_wingo_uniq)
-```
-
-
-
-## Comparing with our earlier results(from pQTL) 
-
-earlier results are from https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_remove_ldmergef.html
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-#data_our <- df_gene[df_gene$combined_pip >0.8,]
-data_our <- ctwas_gene_P_res[ctwas_gene_P_res$susie_pip > 0.8,]
-load("/project2/guiming/xsun/proteome_alzheimer/2.brain_schwarz_latest_fusionwgts_ukbb_remove/brain_output/ctwas_gene_respip08.rdata")
-data_earlier <- ctwas_gene_respip08
-
-print("overlapped")
-data_overlap <- merge(data_our, data_earlier, by.x="genename", by.y = "genename")
-DT::datatable(data_overlap)
-
-print("unique genes from current analysis")
-data_our_uniq <- data_our[!(data_our$genename%in%data_earlier$genename),]
-DT::datatable(data_our_uniq)
-
-print("unique genes from earlier analysis")
-data_earlier_uniq <- data_earlier[!(data_earlier$genename%in%data_our$genename),]
-DT::datatable(data_earlier_uniq)
-
-full_earlier <- get(load("/project2/guiming/xsun/proteome_alzheimer/2.brain_schwarz_latest_fusionwgts_ukbb_remove/brain_output/ctwas_gene_res.rdata"))
-
-split_by_first_dot <- function(string) {
-  before_dot <- sub("\\..*", "", string)
-  after_dot <- sub(".*?\\.", "", string)
-  return(list(before_dot = before_dot, after_dot = after_dot))
-}
-
-# Apply the function to each element in the vector
-split_strings <- lapply(full_earlier$id, split_by_first_dot)
-
-index <- seq(2,nrow(full_earlier)*2,by=2)
-genename <- unlist(split_strings)[index]
-full_earlier$genename <- genename
-
-index <- seq(1,nrow(full_earlier)*2,by=2)
-ensembl <- unlist(split_strings)[index]
-full_earlier$id_ensembl<- ensembl
-
-merge_current_earlier <- merge(ctwas_gene_P_res,full_earlier, by.x = "gene_id",by.y = "id_ensembl")
-merge_current_earlier <- merge_current_earlier[,c("genename.x","gene_id","chrom.x","pos.x","susie_pip.x","mu2.x","PVE.x","z.x","susie_pip.y","mu2.y","PVE.y","z.y","num_eqtl")]
-colnames(merge_current_earlier) <- c("genename","id_ensembl","chrom","pos","susie_pip_joint","mu2_joint","PVE_joint","z_joint","susie_pip_sep","mu2_sep","PVE_sep","z_sep","num_eqtl")
-
-library(ggplot2)
-scatter_plot_susie <- ggplot(merge_current_earlier, aes(x = susie_pip_joint, y = susie_pip_sep)) +
-  geom_point() +
-  labs(x = "susie_pip_joint", y = "susie_pip_sep") +
-  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +  # Adding y=x line
-  theme_minimal()
-
-scatter_plot_z <- ggplot(merge_current_earlier, aes(x = z_joint, y = z_sep)) +
-  geom_point() +
-  labs(x = "z_joint", y = "z_sep") +
-  theme_minimal()
-
-library(gridExtra)
-grid.arrange(scatter_plot_susie, scatter_plot_z, ncol = 2)
-
-```
-
-## Locus plots
-
-```{r message=FALSE, warning=FALSE }
-source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_joint.R")
-analysis_id <- "brain"
-load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
-alpha <- 0.05
-```
-
-```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="16_9", return_table=F,xlim=NULL,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="right",
-                      legend_panel="cTWAS",
-                      draw_gene_track = F)
-
-```
-
-```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="17_36", return_table=F,xlim=NULL,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="right",
-                      legend_panel="cTWAS",
-                      draw_gene_track = F)
-
-```
-
-```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="16_9", return_table=F,xlim=NULL,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="right",
-                      legend_panel="cTWAS",
-                      draw_gene_track = F)
-
-```
-
-```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="15_37", return_table=F,xlim=NULL,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel="both",
-                      legend_side="right",
-                      legend_panel="cTWAS",
-                      draw_gene_track = F)
-
-
-```
-
-
-
-## GO enrichment analysis for genes with PIP>0.8
-
-```{r echo=FALSE, message=FALSE}
-#GO enrichment analysis
-library(enrichR)
-
-dbs <- c("GO_Biological_Process_2021", "GO_Cellular_Component_2021", "GO_Molecular_Function_2021")
-genes <- df_gene$genename[df_gene$combined_pip>0.8]
-```
-
-```{r}
-#number of genes for gene set enrichment
-length(genes)
-```
-
-```{r echo=F, message=FALSE}
-if (length(genes)>0){
-  GO_enrichment <- enrichr(genes, dbs)
-
-  for (db in dbs){
-    print(db)
-    df <- GO_enrichment[[db]]
-    print(plotEnrich(GO_enrichment[[db]]))
-    df <- df[df$Adjusted.P.value<0.05,c("Term", "Overlap", "Adjusted.P.value", "Genes")]
-    print(df)
-  }
-}
-
-```
-
-## DisGeNET enrichment analysis for genes with PIP>0.8
-```{r echo=F, message=FALSE}
-if (length(genes)>0){
-  library(disgenet2r)
-  
-  disgenet_api_key <- get_disgenet_api_key(
-                    email = "wesleycrouse@gmail.com", 
-                    password = "uchicago1" )
-  
-  Sys.setenv(DISGENET_API_KEY= disgenet_api_key)
-  
-  res_enrich <-disease_enrichment(entities=genes, vocabulary = "HGNC",
-                               database = "CURATED" )
-  
-  df <- res_enrich@qresult[1:10, c("Description", "FDR", "Ratio",  "BgRatio")]
-  print(df)
-}
-
-```
-
-
-## WebGestalt enrichment analysis for genes with PIP>0.8
-```{r echo=F, message=FALSE}
-if (length(genes)>0){
-  #WebGestalt enrichment
-  library(WebGestaltR)
-  
-  background <- ctwas_gene_res$genename
-  
-  #listGeneSet()
-  databases <- c("pathway_KEGG", "disease_GLAD4U", "disease_OMIM")
-  
-  enrichResult <- WebGestaltR(enrichMethod="ORA", organism="hsapiens",
-                              interestGene=genes, referenceGene=background,
-                              enrichDatabase=databases, interestGeneType="genesymbol",
-                              referenceGeneType="genesymbol", isOutput=F)
-  print(enrichResult[,c("description", "size", "overlap", "FDR", "database", "userId")])
-}
-
-```
-
-
-# Full gwas 
-
-```{r }
-analysis_id <- "brain"
-results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_fullgwas_2stepsrerun/"
+results_dir <- "/project2/guiming/xsun/proteome_alzheimer/15.brain_schwarz_ukbb_joint_newscript_diff_settings/brain_output_preharmo_hzt_subgwas_2stepsrerun_merget/"
 
 source("/project2/guiming/xsun/proteome_alzheimer/codes/ctwas_config_b37.R")
 options(digits = 4)
@@ -844,6 +312,95 @@ df_gene <- df_gene[order(-df_gene$combined_pip),]
 DT::datatable(df_gene[order(-df_gene$combined_pip),])
 ```
 
+
+## Comparing with Wingo's results 
+
+Comparing with AD1 from Suppl Table 4 [Wingo_Nat_comm_2022](https://www.nature.com/articles/s41467-022-31873-5s)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+data_our <- df_gene[df_gene$combined_pip >0.8,]
+
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo.txt",header = T)
+
+print("overlapped")
+data_overlap <- merge(data_our, data_wingo, by.x="genename", by.y = "Gene_symbol")
+DT::datatable(data_overlap)
+
+print("our unique genes")
+data_our_uniq <- data_our[!(data_our$genename%in%data_wingo$Gene_symbol),]
+DT::datatable(data_our_uniq)
+
+print("wingo's unique genes")
+data_wingo_uniq <- data_wingo[!(data_wingo$Gene_symbol%in%data_our$genename),]
+DT::datatable(data_wingo_uniq)
+```
+
+
+
+## Comparing with our earlier results(from pQTL) 
+
+earlier results are from https://xsun1229.github.io/proteome_alzheimer/brain_877_latest_ldukbb_fusion_remove.html
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+#data_our <- df_gene[df_gene$combined_pip >0.8,]
+data_our <- ctwas_gene_P_res[ctwas_gene_P_res$susie_pip > 0.8,]
+load("/project2/guiming/xsun/proteome_alzheimer/2.brain_schwarz_latest_fusionwgts_ukbb_remove/brain_output/ctwas_gene_respip08.rdata")
+data_earlier <- ctwas_gene_respip08
+
+print("overlapped")
+data_overlap <- merge(data_our, data_earlier, by.x="genename", by.y = "genename")
+DT::datatable(data_overlap)
+
+print("unique genes from current analysis")
+data_our_uniq <- data_our[!(data_our$genename%in%data_earlier$genename),]
+DT::datatable(data_our_uniq)
+
+print("unique genes from earlier analysis")
+data_earlier_uniq <- data_earlier[!(data_earlier$genename%in%data_our$genename),]
+DT::datatable(data_earlier_uniq)
+
+full_earlier <- get(load("/project2/guiming/xsun/proteome_alzheimer/2.brain_schwarz_latest_fusionwgts_ukbb_remove/brain_output/ctwas_gene_res.rdata"))
+
+split_by_first_dot <- function(string) {
+  before_dot <- sub("\\..*", "", string)
+  after_dot <- sub(".*?\\.", "", string)
+  return(list(before_dot = before_dot, after_dot = after_dot))
+}
+
+# Apply the function to each element in the vector
+split_strings <- lapply(full_earlier$id, split_by_first_dot)
+
+index <- seq(2,nrow(full_earlier)*2,by=2)
+genename <- unlist(split_strings)[index]
+full_earlier$genename <- genename
+
+index <- seq(1,nrow(full_earlier)*2,by=2)
+ensembl <- unlist(split_strings)[index]
+full_earlier$id_ensembl<- ensembl
+
+merge_current_earlier <- merge(ctwas_gene_P_res,full_earlier, by.x = "gene_id",by.y = "id_ensembl")
+merge_current_earlier <- merge_current_earlier[,c("genename.x","gene_id","chrom.x","pos.x","susie_pip.x","mu2.x","PVE.x","z.x","susie_pip.y","mu2.y","PVE.y","z.y","num_eqtl")]
+colnames(merge_current_earlier) <- c("genename","id_ensembl","chrom","pos","susie_pip_joint","mu2_joint","PVE_joint","z_joint","susie_pip_sep","mu2_sep","PVE_sep","z_sep","num_eqtl")
+
+library(ggplot2)
+scatter_plot_susie <- ggplot(merge_current_earlier, aes(x = susie_pip_joint, y = susie_pip_sep)) +
+  geom_point() +
+  labs(x = "susie_pip_joint", y = "susie_pip_sep") +
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +  # Adding y=x line
+  theme_minimal()
+
+scatter_plot_z <- ggplot(merge_current_earlier, aes(x = z_joint, y = z_sep)) +
+  geom_point() +
+  labs(x = "z_joint", y = "z_sep") +
+  theme_minimal()
+
+library(gridExtra)
+grid.arrange(scatter_plot_susie, scatter_plot_z, ncol = 2)
+
+```
+
 ## Locus plots
 
 ```{r message=FALSE, warning=FALSE }
@@ -853,9 +410,8 @@ load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RDa
 alpha <- 0.05
 ```
 
-
 ```{r message=FALSE, warning=FALSE }
-a <- locus_plot(region_tag="1_91", return_table=F,xlim=NULL,
+a <- locus_plot(region_tag="8_62", return_table=F,xlim=NULL,
                       focus=NULL,
                       label_genes=NULL,
                       rerun_ctwas=F,
@@ -865,6 +421,165 @@ a <- locus_plot(region_tag="1_91", return_table=F,xlim=NULL,
                       legend_panel="cTWAS",
                       draw_gene_track = F)
 
+```
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="16_9", return_table=F,xlim=NULL,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="right",
+                      legend_panel="cTWAS",
+                      draw_gene_track = F)
+
+```
+
+
+
+<!-- ## GO enrichment analysis for genes with PIP>0.8 -->
+
+<!-- ```{r echo=FALSE, message=FALSE} -->
+<!-- #GO enrichment analysis -->
+<!-- library(enrichR) -->
+
+<!-- dbs <- c("GO_Biological_Process_2021", "GO_Cellular_Component_2021", "GO_Molecular_Function_2021") -->
+<!-- genes <- df_gene$genename[df_gene$combined_pip>0.8] -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- #number of genes for gene set enrichment -->
+<!-- length(genes) -->
+<!-- ``` -->
+
+<!-- ```{r echo=F, message=FALSE} -->
+<!-- if (length(genes)>0){ -->
+<!--   GO_enrichment <- enrichr(genes, dbs) -->
+
+<!--   for (db in dbs){ -->
+<!--     print(db) -->
+<!--     df <- GO_enrichment[[db]] -->
+<!--     print(plotEnrich(GO_enrichment[[db]])) -->
+<!--     df <- df[df$Adjusted.P.value<0.05,c("Term", "Overlap", "Adjusted.P.value", "Genes")] -->
+<!--     print(df) -->
+<!--   } -->
+<!-- } -->
+
+<!-- ``` -->
+
+<!-- ## DisGeNET enrichment analysis for genes with PIP>0.8 -->
+<!-- ```{r echo=F, message=FALSE} -->
+<!-- if (length(genes)>0){ -->
+<!--   library(disgenet2r) -->
+
+<!--   disgenet_api_key <- get_disgenet_api_key( -->
+<!--                     email = "wesleycrouse@gmail.com",  -->
+<!--                     password = "uchicago1" ) -->
+
+<!--   Sys.setenv(DISGENET_API_KEY= disgenet_api_key) -->
+
+<!--   res_enrich <-disease_enrichment(entities=genes, vocabulary = "HGNC", -->
+<!--                                database = "CURATED" ) -->
+
+<!--   df <- res_enrich@qresult[1:10, c("Description", "FDR", "Ratio",  "BgRatio")] -->
+<!--   print(df) -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+<!-- ## WebGestalt enrichment analysis for genes with PIP>0.8 -->
+<!-- ```{r echo=F, message=FALSE} -->
+<!-- if (length(genes)>0){ -->
+<!--   #WebGestalt enrichment -->
+<!--   library(WebGestaltR) -->
+
+<!--   background <- ctwas_gene_res$genename -->
+
+<!--   #listGeneSet() -->
+<!--   databases <- c("pathway_KEGG", "disease_GLAD4U", "disease_OMIM") -->
+
+<!--   enrichResult <- WebGestaltR(enrichMethod="ORA", organism="hsapiens", -->
+<!--                               interestGene=genes, referenceGene=background, -->
+<!--                               enrichDatabase=databases, interestGeneType="genesymbol", -->
+<!--                               referenceGeneType="genesymbol", isOutput=F) -->
+<!--   print(enrichResult[,c("description", "size", "overlap", "FDR", "database", "userId")]) -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+
+
+## GO enrichment analysis for genes with PIP>0.8
+
+```{r echo=FALSE, message=FALSE}
+#GO enrichment analysis
+library(enrichR)
+
+dbs <- c("GO_Biological_Process_2021", "GO_Cellular_Component_2021", "GO_Molecular_Function_2021")
+genes <- df_gene$genename[df_gene$combined_pip>0.8]
+```
+
+```{r}
+#number of genes for gene set enrichment
+length(genes)
+```
+
+```{r echo=F, message=FALSE}
+if (length(genes)>0){
+  GO_enrichment <- enrichr(genes, dbs)
+
+  for (db in dbs){
+    print(db)
+    df <- GO_enrichment[[db]]
+    print(plotEnrich(GO_enrichment[[db]]))
+    df <- df[df$Adjusted.P.value<0.05,c("Term", "Overlap", "Adjusted.P.value", "Genes")]
+    print(df)
+  }
+}
+
+```
+
+## DisGeNET enrichment analysis for genes with PIP>0.8
+```{r echo=F, message=FALSE}
+if (length(genes)>0){
+  library(disgenet2r)
+  
+  disgenet_api_key <- get_disgenet_api_key(
+                    email = "wesleycrouse@gmail.com", 
+                    password = "uchicago1" )
+  
+  Sys.setenv(DISGENET_API_KEY= disgenet_api_key)
+  
+  res_enrich <-disease_enrichment(entities=genes, vocabulary = "HGNC",
+                               database = "CURATED" )
+  
+  df <- res_enrich@qresult[1:10, c("Description", "FDR", "Ratio",  "BgRatio")]
+  print(df)
+}
+
+```
+
+
+## WebGestalt enrichment analysis for genes with PIP>0.8
+```{r echo=F, message=FALSE}
+if (length(genes)>0){
+  #WebGestalt enrichment
+  library(WebGestaltR)
+  
+  background <- ctwas_gene_res$genename
+  
+  #listGeneSet()
+  databases <- c("pathway_KEGG", "disease_GLAD4U", "disease_OMIM")
+  
+  enrichResult <- WebGestaltR(enrichMethod="ORA", organism="hsapiens",
+                              interestGene=genes, referenceGene=background,
+                              enrichDatabase=databases, interestGeneType="genesymbol",
+                              referenceGeneType="genesymbol", isOutput=F)
+  print(enrichResult[,c("description", "size", "overlap", "FDR", "database", "userId")])
+}
 
 ```
 
