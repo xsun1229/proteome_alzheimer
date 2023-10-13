@@ -74,7 +74,7 @@ editor_options:
 
 [LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in 2 steps, fixed, LD merge = T](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_shwarz_ukbb_twostep_rerun_ldmerget.html)
 
-
+[Comparing joint analysis and single qtl analysis](https://xsun1229.github.io/proteome_alzheimer/compare_joint_merge.html)
 
 # Summary
 
