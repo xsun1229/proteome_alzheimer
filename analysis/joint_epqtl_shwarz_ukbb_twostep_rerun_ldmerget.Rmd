@@ -255,11 +255,11 @@ report_cols <- c(first_cols, report_cols[!(report_cols %in% first_cols)])
 ctwas_gene_res <- na.omit(ctwas_gene_res)
 ctwas_gene_res <- ctwas_gene_res[!duplicated(ctwas_gene_res),]
 #genes with PIP>0.8 or 20 highest PIPs
-head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),c("genename","gene_id","susie_pip","group","region_tag")], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
+#head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),c("genename","gene_id","susie_pip","group","region_tag")], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
 #head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
 
 aa <- head(ctwas_gene_res[order(-ctwas_gene_res$susie_pip),c("genename","gene_id","susie_pip","group","region_tag","z")], max(sum(ctwas_gene_res$susie_pip>0.8), 20))
-
+DT::datatable(aa)
 #DT::datatable(aa[order(-aa$susie_pip),])
 
 aa$pvalue <- sapply(aa$z, function(x){-log10(2*pnorm(-abs(x)))})
