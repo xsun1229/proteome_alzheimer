@@ -76,6 +76,13 @@ editor_options:
 
 [Comparing joint analysis and single qtl analysis](https://xsun1229.github.io/proteome_alzheimer/compare_joint_merge.html)
 
+## Jansen's GWAS 
+
+### LASSO
+
+[LD REF: UKBB, weights: db weights converted from fusion, lasso, parameter eatimation and fine-mapping in 2 steps, fixed, LD merge = T](https://xsun1229.github.io/proteome_alzheimer/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.html)
+
+
 # Summary
 
 [6/28](https://uchicago.box.com/s/608h5ln41gd0b29nkdtl77tm0bcq8so0)

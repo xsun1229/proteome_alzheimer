@@ -237,7 +237,7 @@ DT::datatable(data_wingo_uniq)
 
 
 
-## Plots for the overlapped genes
+## Plots  
 
 ```{r message=FALSE, warning=FALSE }
 source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_fusion.R")
@@ -260,4 +260,41 @@ ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
 <!--                       legend_panel="", -->
 <!--                       draw_gene_track = T) -->
 <!-- ``` -->
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="6_36", return_table=F,xlim=NULL,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="right",
+                      legend_panel="cTWAS",
+                      draw_gene_track = F)
 
+```
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="8_37", return_table=F,xlim=NULL,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="right",
+                      legend_panel="cTWAS",
+                      draw_gene_track = F)
+
+```
+
+```{r message=FALSE, warning=FALSE }
+a <- locus_plot(region_tag="10_51", return_table=F,xlim=NULL,
+                      focus=NULL,
+                      label_genes=NULL,
+                      rerun_ctwas=F,
+                      rerun_load_only=F,
+                      label_panel="both",
+                      legend_side="right",
+                      legend_panel="cTWAS",
+                      draw_gene_track = F)
+
+```
