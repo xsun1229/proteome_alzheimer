@@ -244,7 +244,7 @@ source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_fusion.R")
 analysis_id <- "brain"
 load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
 alpha <- 0.05
-ctwas_res$group <- "Expression"
+ctwas_res$group <- "Protein"
 ctwas_res[ctwas_res$type=="SNP",]$group <- "SNP"
 ```
 
