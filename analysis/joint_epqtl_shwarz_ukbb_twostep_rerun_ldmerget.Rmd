@@ -404,8 +404,9 @@ grid.arrange(scatter_plot_susie, scatter_plot_z, ncol = 2)
 ## Locus plots
 
 ```{r message=FALSE, warning=FALSE }
-source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_joint.R")
+source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_joint_multieqtl.R")
 analysis_id <- "brain"
+bigSNP <- bigsnpr::snp_attach(rdsfile = '/project2/xinhe/1kg/bigsnpr_QC/1000G_EUR_Phase3_QC.rds')
 G_list <- readRDS("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_hg19.Rd")
 alpha <- 0.05
 ```
