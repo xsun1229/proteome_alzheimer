@@ -381,7 +381,7 @@ step setting, fixed, GWAS:shwarz, LD:ukbb, LD merge = T)</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -392,8 +392,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -406,9 +406,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
@@ -431,18 +431,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -533,15 +536,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree225897086d11318091c63fe3d0fc9a0b6347d99ftargetblank2258970a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree56ec2028a8724318a492eeb19e3e75a5ace728f7targetblank56ec202a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/225897086d11318091c63fe3d0fc9a0b6347d99f" target="_blank">2258970</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/56ec2028a8724318a492eeb19e3e75a5ace728f7" target="_blank">56ec202</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree225897086d11318091c63fe3d0fc9a0b6347d99ftargetblank2258970a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree56ec2028a8724318a492eeb19e3e75a5ace728f7targetblank56ec202a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -551,7 +554,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/225897086d11318091c63fe3d0fc9a0b6347d99f" target="_blank">2258970</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/56ec2028a8724318a492eeb19e3e75a5ace728f7" target="_blank">56ec202</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -567,7 +570,11 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
-    Ignored:    analysis/figure/
+
+Unstaged changes:
+    Modified:   analysis/brain_877_latest_ldukbb_fusion_remove.Rmd
+    Modified:   analysis/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd
+    Modified:   analysis/joint_epqtl_shwarz_ukbb_twostep_rerun_ldmerget.Rmd
 
 </code></pre>
 <p>
@@ -615,6 +622,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/56ec2028a8724318a492eeb19e3e75a5ace728f7/docs/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.html" target="_blank">56ec202</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-25
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -790,7 +814,7 @@ href="https://www.nature.com/articles/s41467-022-31873-5s">Wingo_Nat_comm_2022</
 <h2>Locus plots</h2>
 <pre class="r"><code>source(&quot;/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_joint.R&quot;)
 analysis_id &lt;- &quot;brain&quot;
-load(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData&quot;)
+G_list &lt;- readRDS(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_hg19.Rd&quot;)
 alpha &lt;- 0.05</code></pre>
 <pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;1_95&quot;, return_table=F,xlim=NULL,
                       focus=NULL,
@@ -802,16 +826,43 @@ alpha &lt;- 0.05</code></pre>
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
 <p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;17_40&quot;, return_table=F,xlim=NULL,
-                      focus=NULL,
-                      label_genes=NULL,
-                      rerun_ctwas=F,
-                      rerun_load_only=F,
-                      label_panel=&quot;both&quot;,
-                      legend_side=&quot;right&quot;,
-                      legend_panel=&quot;cTWAS&quot;,
-                      draw_gene_track = F)</code></pre>
-<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/56ec2028a8724318a492eeb19e3e75a5ace728f7/docs/figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-10-1.png" target="_blank">56ec202</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="removing-the-top-locus" class="section level1">
@@ -827,7 +878,44 @@ options(digits = 4)</code></pre>
 <pre><code>[1] &quot;total number of snp in outputs: 1611522&quot;</code></pre>
 <div id="check-convergence-of-parameters-1" class="section level3">
 <h3>Check convergence of parameters</h3>
-<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/4befeb0be2652117ae756a037df680122581b5a1/docs/figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-13-1.png" target="_blank">4befeb0</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#estimated group prior
 estimated_group_prior &lt;- estimated_group_prior_all[,ncol(group_prior_rec)]
 print(estimated_group_prior)</code></pre>
@@ -911,7 +999,7 @@ href="https://www.nature.com/articles/s41467-022-31873-5s">Wingo_Nat_comm_2022</
 <h2>Locus plots</h2>
 <pre class="r"><code>source(&quot;/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_joint.R&quot;)
 analysis_id &lt;- &quot;brain&quot;
-load(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData&quot;)
+G_list &lt;- readRDS(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_hg19.Rd&quot;)
 alpha &lt;- 0.05</code></pre>
 <pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;1_95&quot;, return_table=F,xlim=NULL,
                       focus=NULL,
@@ -922,7 +1010,7 @@ alpha &lt;- 0.05</code></pre>
                       legend_side=&quot;right&quot;,
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
-<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>a &lt;- locus_plot(region_tag=&quot;2_76&quot;, return_table=F,xlim=NULL,
                       focus=NULL,
                       label_genes=NULL,
@@ -932,7 +1020,44 @@ alpha &lt;- 0.05</code></pre>
                       legend_side=&quot;right&quot;,
                       legend_panel=&quot;cTWAS&quot;,
                       draw_gene_track = F)</code></pre>
-<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/56ec2028a8724318a492eeb19e3e75a5ace728f7/docs/figure/joint_epqtl_jasen_ukbb_twostep_rerun_ldmerget.Rmd/unnamed-chunk-21-1.png" target="_blank">56ec202</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2023-10-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

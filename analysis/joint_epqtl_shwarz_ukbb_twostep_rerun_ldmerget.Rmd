@@ -406,7 +406,7 @@ grid.arrange(scatter_plot_susie, scatter_plot_z, ncol = 2)
 ```{r message=FALSE, warning=FALSE }
 source("/project2/guiming/xsun/proteome_alzheimer/codes/locus_plot_joint.R")
 analysis_id <- "brain"
-load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
+G_list <- readRDS("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_hg19.Rd")
 alpha <- 0.05
 ```
 
