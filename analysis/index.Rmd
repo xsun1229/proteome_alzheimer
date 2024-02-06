@@ -8,6 +8,17 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Re-run 1 02/04/2024 
+
+## Jansen's GWAS, LD merge = T
+
+[link to results](https://xsun1229.github.io/proteome_alzheimer/jansen_0204.html)
+
+## Jansen's GWAS, LD merge = F
+
+[link to results](https://xsun1229.github.io/proteome_alzheimer/jansen_0204_mergef.html)
+
+
 # Brain pQTL (LD merge = T if not specified)
 
 [weights stats](https://xsun1229.github.io/proteome_alzheimer/data_stat_brain_wingo.html)

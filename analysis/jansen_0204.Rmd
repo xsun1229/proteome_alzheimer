@@ -1,0 +1,236 @@
+---
+title: "Jansen's GWAS (Merge = T)"
+author: "XSun"
+date: "2024-02-04"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+---
+
+# Overview
+
+## Traits
+
+Full GWAS (/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.RDS) and top locus removed GWAS  (/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.topremoved.RDS)
+
+## Settings
+
+1. preharmonize snp z score: harmonize_z=T, strand_ambig_action_z=“drop”
+
+2. impute gene z-scores for both sets of prediction weights by chromosome harmonize_z = F (we have pre-harmonized) harmonize_wgt = T strand_ambig_action_wgt=“drop”;  scale_by_ld_variance=F (since the weight file was converted from FUSION format) 
+
+3. ctwas_rss parameter estimation & fine mapping LD merge=T, group_prior_var_structure = “idependent”
+
+4. Resourse requested: single qtl : --cpus-per-task=3 --mem=120G; joint analysis: --cpus-per-task=1 --mem=200G
+
+
+## Functions used
+
+```{r}
+library(ctwas)
+library(data.table)
+library(DT)
+thin <- 0.1
+load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
+G_list <- G_list[!duplicated(G_list$hgnc_symbol),]
+process_para <- function(ctwas_parameters) {
+  
+  para <- cbind(ctwas_parameters$group_size,
+                  ctwas_parameters$group_prior,
+                  ctwas_parameters$group_prior_var,
+                  c(NA, ctwas_parameters$enrichment),
+                  ctwas_parameters$group_pve)
+  para <- as.data.frame(cbind(rownames(para), para))
+  colnames(para) <- c("group","group_size","group_prior","group_prior_var","enrichment","group_pve")
+  return(para)
+}
+
+process_data <- function(weight, outputdir, outname, z_gene, display_datatable = TRUE) {
+  
+  if(!exists("G_list")) {
+    load("/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData")
+  }
+  
+  # Splitting and constructing weight file paths
+  weight <- unlist(strsplit(weight, split=","))
+  weight <- paste0("/project2/guiming/xsun/proteome_alzheimer/data_weights/", weight, ".db")
+
+  # Reading cTWAS results
+  ctwas_res <- fread(paste0(outputdir, outname, ".susieIrss.txt"))
+
+  #separate gene and SNP results
+  ctwas_gene_res <- ctwas_res[ctwas_res$type != "SNP", ]
+  ctwas_gene_res <- data.frame(ctwas_gene_res)
+  #####
+  # ctwas_snp_res <- ctwas_res[ctwas_res$type == "SNP", ]
+  # ctwas_snp_res <- data.frame(ctwas_snp_res)
+  
+  ctwas_gene_res$gene_type <- G_list[sapply(ctwas_gene_res$id, match, G_list$ensembl_gene_id), "gene_biotype"]
+  ctwas_gene_res$genename <- G_list[sapply(ctwas_gene_res$id, match, G_list$ensembl_gene_id), "hgnc_symbol"]
+
+  # Adding z values
+  ctwas_gene_res$z <- z_gene$z[match(ctwas_gene_res$id, z_gene$id)]
+
+  # Sorting and displaying datatable if required
+  ctwas_gene_res <- ctwas_gene_res[order(-ctwas_gene_res$susie_pip),]
+  if (display_datatable) {
+    datatable(ctwas_gene_res[ctwas_gene_res$type != "SNP" & ctwas_gene_res$susie_pip > 0.8,])
+  }
+  
+  return(ctwas_gene_res)
+}
+
+
+
+```
+
+# Full GWAS
+
+## eqtl
+
+```{r fig.height=10,fig.width=20}
+outputdir <- "/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_fullgwas/output/AD_expr/"
+outname <- "AD_ctwas"
+gwas_n <- 472868
+weight <- "wingo_888_brain_expr_lasso"
+  
+  
+load(paste0(outputdir,outname,"_z_snp.Rd"))
+load(paste0(outputdir,outname,"_z_gene.Rd"))
+
+ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot
+
+para <- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
+
+df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
+
+
+print("comparing with Wingo's study")
+
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
+print("overlapped")
+data_overlap <- merge(df_gene_pip08, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
+DT::datatable(data_overlap)
+```
+
+## pqtl
+
+```{r fig.height=10,fig.width=20}
+outputdir <- "/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_fullgwas/output/AD_protein/"
+outname <- "AD_ctwas"
+gwas_n <- 472868
+weight <- "wingo_722_brain_protein_lasso"
+  
+  
+load(paste0(outputdir,outname,"_z_snp.Rd"))
+load(paste0(outputdir,outname,"_z_gene.Rd"))
+
+ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot
+
+para <- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
+
+df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
+
+
+print("comparing with Wingo's study")
+
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
+DT::datatable(data_wingo,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Wingo\'s results'))
+
+data_overlap <- merge(df_gene_pip08, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
+DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Overlapped'))
+```
+
+
+
+# Top locus removed
+
+## eqtl
+
+```{r fig.height=10,fig.width=20}
+outputdir <- "/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_topremoved/output/AD_expr/"
+outname <- "AD_ctwas"
+gwas_n <- 472868
+weight <- "wingo_888_brain_expr_lasso"
+  
+  
+load(paste0(outputdir,outname,"_z_snp.Rd"))
+load(paste0(outputdir,outname,"_z_gene.Rd"))
+
+ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot
+
+para <- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
+
+df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
+
+
+print("comparing with Wingo's study")
+
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
+print("overlapped")
+data_overlap <- merge(df_gene_pip08, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
+DT::datatable(data_overlap)
+```
+
+## pqtl
+
+```{r fig.height=10,fig.width=20}
+outputdir <- "/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_topremoved/output/AD_protein/"
+outname <- "AD_ctwas"
+gwas_n <- 472868
+weight <- "wingo_722_brain_protein_lasso"
+  
+  
+load(paste0(outputdir,outname,"_z_snp.Rd"))
+load(paste0(outputdir,outname,"_z_gene.Rd"))
+
+ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot
+
+para <- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
+
+df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
+
+
+print("comparing with Wingo's study")
+
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
+DT::datatable(data_wingo,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Wingo\'s results'))
+
+data_overlap <- merge(df_gene_pip08, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
+DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Overlapped'))
+```
+
+

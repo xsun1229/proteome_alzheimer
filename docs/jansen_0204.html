@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="XSun" />
+
+<meta name="date" content="2024-02-04" />
+
+<title>Jansen’s GWAS (Merge = T)</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.22/datatables.js"></script>
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">proteome_alzheimer</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/xsun1229/proteome_alzheimer">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Jansen’s GWAS (Merge = T)</h1>
+<h4 class="author">XSun</h4>
+<h4 class="date">2024-02-04</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-02-06
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has staged changes. To know which version of the
+R Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230414code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230414)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230414code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230414)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreea8f34af34cd25c7f58627e2cf6db3030da327293targetblanka8f34afa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/a8f34af34cd25c7f58627e2cf6db3030da327293" target="_blank">a8f34af</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreea8f34af34cd25c7f58627e2cf6db3030da327293targetblanka8f34afa"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/a8f34af34cd25c7f58627e2cf6db3030da327293" target="_blank">a8f34af</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+
+Unstaged changes:
+    Modified:   analysis/jansen_0204.Rmd
+    Modified:   analysis/jansen_0204_mergef.Rmd
+
+Staged changes:
+    Modified:   analysis/index.Rmd
+    New:        analysis/jansen_0204.Rmd
+    New:        analysis/jansen_0204_mergef.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<div id="traits" class="section level2">
+<h2>Traits</h2>
+<p>Full GWAS
+(/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.RDS) and top
+locus removed GWAS
+(/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.topremoved.RDS)</p>
+</div>
+<div id="settings" class="section level2">
+<h2>Settings</h2>
+<ol style="list-style-type: decimal">
+<li><p>preharmonize snp z score: harmonize_z=T,
+strand_ambig_action_z=“drop”</p></li>
+<li><p>impute gene z-scores for both sets of prediction weights by
+chromosome harmonize_z = F (we have pre-harmonized) harmonize_wgt = T
+strand_ambig_action_wgt=“drop”; scale_by_ld_variance=F (since the weight
+file was converted from FUSION format)</p></li>
+<li><p>ctwas_rss parameter estimation &amp; fine mapping LD merge=T,
+group_prior_var_structure = “idependent”</p></li>
+<li><p>Resourse requested: single qtl : –cpus-per-task=3 –mem=120G;
+joint analysis: –cpus-per-task=1 –mem=200G</p></li>
+</ol>
+</div>
+<div id="functions-used" class="section level2">
+<h2>Functions used</h2>
+<pre class="r"><code>library(ctwas)
+library(data.table)
+library(DT)
+thin &lt;- 0.1
+load(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData&quot;)
+G_list &lt;- G_list[!duplicated(G_list$hgnc_symbol),]
+process_para &lt;- function(ctwas_parameters) {
+  
+  para &lt;- cbind(ctwas_parameters$group_size,
+                  ctwas_parameters$group_prior,
+                  ctwas_parameters$group_prior_var,
+                  c(NA, ctwas_parameters$enrichment),
+                  ctwas_parameters$group_pve)
+  para &lt;- as.data.frame(cbind(rownames(para), para))
+  colnames(para) &lt;- c(&quot;group&quot;,&quot;group_size&quot;,&quot;group_prior&quot;,&quot;group_prior_var&quot;,&quot;enrichment&quot;,&quot;group_pve&quot;)
+  return(para)
+}
+
+process_data &lt;- function(weight, outputdir, outname, z_gene, display_datatable = TRUE) {
+  
+  if(!exists(&quot;G_list&quot;)) {
+    load(&quot;/project2/guiming/xsun/proteome_alzheimer/data_others/G_list_processed.RData&quot;)
+  }
+  
+  # Splitting and constructing weight file paths
+  weight &lt;- unlist(strsplit(weight, split=&quot;,&quot;))
+  weight &lt;- paste0(&quot;/project2/guiming/xsun/proteome_alzheimer/data_weights/&quot;, weight, &quot;.db&quot;)
+
+  # Reading cTWAS results
+  ctwas_res &lt;- fread(paste0(outputdir, outname, &quot;.susieIrss.txt&quot;))
+
+  #separate gene and SNP results
+  ctwas_gene_res &lt;- ctwas_res[ctwas_res$type != &quot;SNP&quot;, ]
+  ctwas_gene_res &lt;- data.frame(ctwas_gene_res)
+  #####
+  # ctwas_snp_res &lt;- ctwas_res[ctwas_res$type == &quot;SNP&quot;, ]
+  # ctwas_snp_res &lt;- data.frame(ctwas_snp_res)
+  
+  ctwas_gene_res$gene_type &lt;- G_list[sapply(ctwas_gene_res$id, match, G_list$ensembl_gene_id), &quot;gene_biotype&quot;]
+  ctwas_gene_res$genename &lt;- G_list[sapply(ctwas_gene_res$id, match, G_list$ensembl_gene_id), &quot;hgnc_symbol&quot;]
+
+  # Adding z values
+  ctwas_gene_res$z &lt;- z_gene$z[match(ctwas_gene_res$id, z_gene$id)]
+
+  # Sorting and displaying datatable if required
+  ctwas_gene_res &lt;- ctwas_gene_res[order(-ctwas_gene_res$susie_pip),]
+  if (display_datatable) {
+    datatable(ctwas_gene_res[ctwas_gene_res$type != &quot;SNP&quot; &amp; ctwas_gene_res$susie_pip &gt; 0.8,])
+  }
+  
+  return(ctwas_gene_res)
+}</code></pre>
+</div>
+</div>
+<div id="full-gwas" class="section level1">
+<h1>Full GWAS</h1>
+<div id="eqtl" class="section level2">
+<h2>eqtl</h2>
+<pre class="r"><code>outputdir &lt;- &quot;/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_fullgwas/output/AD_expr/&quot;
+outname &lt;- &quot;AD_ctwas&quot;
+gwas_n &lt;- 472868
+weight &lt;- &quot;wingo_888_brain_expr_lasso&quot;
+  
+  
+load(paste0(outputdir,outname,&quot;_z_snp.Rd&quot;))
+load(paste0(outputdir,outname,&quot;_z_gene.Rd&quot;))
+
+ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot</code></pre>
+<p><img src="figure/jansen_0204.Rmd/unnamed-chunk-2-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>para &lt;- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
+<div id="htmlwidget-e580bcebcc2166761c08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","gene"],["SNP","gene"],["7228970","6809"],["6.71518616210697e-05","0.0176537946928197"],["3.54542845425787","6.88805741738773"],[null,"262.893600663494"],["0.0036396806505568","0.00175096812053246"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 &lt;- df_gene[df_gene$susie_pip &gt;0.8,]
+
+
+print(&quot;comparing with Wingo&#39;s study&quot;)</code></pre>
+<pre><code>[1] &quot;comparing with Wingo&#39;s study&quot;</code></pre>
+<pre class="r"><code>data_wingo &lt;- read.table(&quot;/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt&quot;,header = T)
+print(&quot;overlapped&quot;)</code></pre>
+<pre><code>[1] &quot;overlapped&quot;</code></pre>
+<pre class="r"><code>data_overlap &lt;- merge(df_gene_pip08, data_wingo, by.x=&quot;id&quot;, by.y = &quot;Ensembl_gene_ID&quot;)
+DT::datatable(data_overlap)</code></pre>
+<div id="htmlwidget-f110db3ae422a0420019" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f110db3ae422a0420019">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["ENSG00000108091","ENSG00000137845","ENSG00000198087"],[10,15,6],[61227930,58893251,47324617],["gene","gene","gene"],["gene","gene","gene"],[10,15,6],[41,26,36],[1,3,1],[0.95318072224653,0.999999998095571,0.999999999998796],[21.1222301206769,283.482614680126,399.87643950112],["protein_coding","protein_coding","protein_coding"],["CCDC6","ADAM10","CD2AP"],[4.48556283834482,4.08034356126328,5.98699573790261],["CCDC6","ADAM10","CD2AP"],["cis","cis","cis"],[4.39918,5.0857,4.93877],[1.09e-05,3.66e-07,7.86e-07],[0.002439085,0.000212939,0.000381079],[0.97,0.534,0.999]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>QTLtype<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,6,7,8,9,10,13,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="pqtl" class="section level2">
+<h2>pqtl</h2>
+<pre class="r"><code>outputdir &lt;- &quot;/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_fullgwas/output/AD_protein/&quot;
+outname &lt;- &quot;AD_ctwas&quot;
+gwas_n &lt;- 472868
+weight &lt;- &quot;wingo_722_brain_protein_lasso&quot;
+  
+  
+load(paste0(outputdir,outname,&quot;_z_snp.Rd&quot;))
+load(paste0(outputdir,outname,&quot;_z_gene.Rd&quot;))
+
+ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot</code></pre>
+<p><img src="figure/jansen_0204.Rmd/unnamed-chunk-3-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>para &lt;- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
+<div id="htmlwidget-b3540f48f687887edb0c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3540f48f687887edb0c">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","gene"],["SNP","gene"],["7228970","2932"],["7.2798213447927e-05","0.0606497394493731"],["4.66772948841012","4.33512511134326"],[null,"833.121261866628"],["0.00519472901827556","0.0016302515274312"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 &lt;- df_gene[df_gene$susie_pip &gt;0.8,]
+
+
+print(&quot;comparing with Wingo&#39;s study&quot;)</code></pre>
+<pre><code>[1] &quot;comparing with Wingo&#39;s study&quot;</code></pre>
+<pre class="r"><code>data_wingo &lt;- read.table(&quot;/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt&quot;,header = T)
+DT::datatable(data_wingo,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Wingo\&#39;s results&#39;))</code></pre>
+<div id="htmlwidget-f75ed56b951ed5bc9e08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f75ed56b951ed5bc9e08">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Wingo's results<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["ENSG00000159640","ENSG00000184227","ENSG00000137845","ENSG00000108091","ENSG00000198087","ENSG00000168993","ENSG00000103811","ENSG00000149927","ENSG00000162755","ENSG00000103642","ENSG00000115828","ENSG00000022277","ENSG00000172803","ENSG00000099365","ENSG00000135823","ENSG00000167397","ENSG00000120594","ENSG00000116266"],["ACE","ACOT1","ADAM10","CCDC6","CD2AP","CPLX1","CTSH","DOC2A","KLHDC9","LACTB","QPCT","RTFDC1","SNX32","STX1B","STX6","VKORC1","PLXDC2","STXBP3"],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","trans"],[-5.5364,-3.6618,5.0857,4.39918,4.93877,3.71748,4.7126,-4.4087,-3.54621,3.9108,-3.59743,4.57268,-4.3567,4.10666,3.72181,4.77368,null,null],[3.09e-08,0.00025,3.66e-07,1.09e-05,7.86e-07,0.000201,2.45e-06,1.04e-05,0.000391,9.2e-05,0.000321,4.82e-06,1.32e-05,4.01e-05,0.000198,1.81e-06,null,null],[2.25e-05,0.030302083,0.000212939,0.002439085,0.000381079,0.026577682,0.000791894,0.002439085,0.037913967,0.014085684,0.034284643,0.001402138,0.002742771,0.006861818,0.026577682,0.000658161,null,null],[0.98,0.012,0.534,0.97,0.999,0.197,0.962,0.944,0.89,0.6,0.207,0.94,0.981,0.278,0.178,0.768,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Ensembl_gene_ID<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>data_overlap &lt;- merge(df_gene_pip08, data_wingo, by.x=&quot;id&quot;, by.y = &quot;Ensembl_gene_ID&quot;)
+DT::datatable(data_overlap,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Overlapped&#39;))</code></pre>
+<div id="htmlwidget-4d7183aa0eb9da18dc26" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4d7183aa0eb9da18dc26">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Overlapped<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["ENSG00000103811","ENSG00000108091","ENSG00000115828","ENSG00000135823","ENSG00000137845","ENSG00000149927","ENSG00000159640","ENSG00000167397","ENSG00000172803","ENSG00000198087"],[15,10,2,1,15,16,17,16,11,6],[79224683,61346166,37454286,180541021,58914632,29647342,61548948,30928970,65507605,47432637],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[15,10,2,1,15,16,17,16,11,6],[39,39,25,91,27,24,37,24,37,36],[1,1,0,0,3,0,1,1,1,0],[0.999999907169157,0.987160516281483,0.833088641214945,0.877272625189204,0.84007563110945,0.879373337682118,0.996538417555556,0.986775879717997,0.957956148776259,0.930043495396875],[335.854449087,20.5674868081034,16.0963329053019,15.9977365582714,263.445597193533,29.358631027664,25.4186359154544,444.700154406806,19.5578972291521,24.5147756446047],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["CTSH","CCDC6","QPCT","STX6","ADAM10","DOC2A","ACE","VKORC1","SNX32","CD2AP"],[4.6173908830885,4.68740996633579,-3.74372625050913,3.76995721786192,4.94594943584328,-4.40542652585775,-5.40355935636608,4.90661449876859,-4.5322007803521,5.52221082555495],["CTSH","CCDC6","QPCT","STX6","ADAM10","DOC2A","ACE","VKORC1","SNX32","CD2AP"],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis"],[4.7126,4.39918,-3.59743,3.72181,5.0857,-4.4087,-5.5364,4.77368,-4.3567,4.93877],[2.45e-06,1.09e-05,0.000321,0.000198,3.66e-07,1.04e-05,3.09e-08,1.81e-06,1.32e-05,7.86e-07],[0.000791894,0.002439085,0.034284643,0.026577682,0.000212939,0.002439085,2.25e-05,0.000658161,0.002742771,0.000381079],[0.962,0.97,0.207,0.178,0.534,0.944,0.98,0.768,0.981,0.999]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>QTLtype<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,6,7,8,9,10,13,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="top-locus-removed" class="section level1">
+<h1>Top locus removed</h1>
+<div id="eqtl-1" class="section level2">
+<h2>eqtl</h2>
+<pre class="r"><code>outputdir &lt;- &quot;/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_topremoved/output/AD_expr/&quot;
+outname &lt;- &quot;AD_ctwas&quot;
+gwas_n &lt;- 472868
+weight &lt;- &quot;wingo_888_brain_expr_lasso&quot;
+  
+  
+load(paste0(outputdir,outname,&quot;_z_snp.Rd&quot;))
+load(paste0(outputdir,outname,&quot;_z_gene.Rd&quot;))
+
+ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot</code></pre>
+<p><img src="figure/jansen_0204.Rmd/unnamed-chunk-4-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>para &lt;- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
+<div id="htmlwidget-b338d87cf65df4317178" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b338d87cf65df4317178">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","gene"],["SNP","gene"],["7226260","6802"],["7.43045885010047e-05","0.0158741781311295"],["3.48099536986832","7.38203686866227"],[null,"213.636579535258"],["0.00395268983647322","0.001685637411408"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 &lt;- df_gene[df_gene$susie_pip &gt;0.8,]
+
+
+print(&quot;comparing with Wingo&#39;s study&quot;)</code></pre>
+<pre><code>[1] &quot;comparing with Wingo&#39;s study&quot;</code></pre>
+<pre class="r"><code>data_wingo &lt;- read.table(&quot;/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt&quot;,header = T)
+print(&quot;overlapped&quot;)</code></pre>
+<pre><code>[1] &quot;overlapped&quot;</code></pre>
+<pre class="r"><code>data_overlap &lt;- merge(df_gene_pip08, data_wingo, by.x=&quot;id&quot;, by.y = &quot;Ensembl_gene_ID&quot;)
+DT::datatable(data_overlap)</code></pre>
+<div id="htmlwidget-7d5f48f8a3d9f14f5771" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7d5f48f8a3d9f14f5771">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["ENSG00000108091","ENSG00000137845","ENSG00000198087"],[10,15,6],[61227930,58893251,47324617],["gene","gene","gene"],["gene","gene","gene"],[10,15,6],[41,26,36],[1,1,1],[0.949611725029555,0.969272083937224,0.999999999999845],[21.4028072115219,178.804801518407,417.214649616573],["protein_coding","protein_coding","protein_coding"],["CCDC6","ADAM10","CD2AP"],[4.48556283834482,4.08034356126328,5.98699573790261],["CCDC6","ADAM10","CD2AP"],["cis","cis","cis"],[4.39918,5.0857,4.93877],[1.09e-05,3.66e-07,7.86e-07],[0.002439085,0.000212939,0.000381079],[0.97,0.534,0.999]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>QTLtype<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,6,7,8,9,10,13,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="pqtl-1" class="section level2">
+<h2>pqtl</h2>
+<pre class="r"><code>outputdir &lt;- &quot;/project2/guiming/xsun/proteome_alzheimer/18.jansen_0202_topremoved/output/AD_protein/&quot;
+outname &lt;- &quot;AD_ctwas&quot;
+gwas_n &lt;- 472868
+weight &lt;- &quot;wingo_722_brain_protein_lasso&quot;
+  
+  
+load(paste0(outputdir,outname,&quot;_z_snp.Rd&quot;))
+load(paste0(outputdir,outname,&quot;_z_gene.Rd&quot;))
+
+ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot</code></pre>
+<p><img src="figure/jansen_0204.Rmd/unnamed-chunk-5-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>para &lt;- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
+<div id="htmlwidget-20ff36fa2d52b665fda5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-20ff36fa2d52b665fda5">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","gene"],["SNP","gene"],["7226260","2928"],["8.13250720080519e-05","0.0595853390135479"],["4.37993010853114","4.47967601852027"],[null,"732.681048319864"],["0.00544333790717774","0.00165278806279616"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 &lt;- df_gene[df_gene$susie_pip &gt;0.8,]
+
+
+print(&quot;comparing with Wingo&#39;s study&quot;)</code></pre>
+<pre><code>[1] &quot;comparing with Wingo&#39;s study&quot;</code></pre>
+<pre class="r"><code>data_wingo &lt;- read.table(&quot;/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt&quot;,header = T)
+DT::datatable(data_wingo,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Wingo\&#39;s results&#39;))</code></pre>
+<div id="htmlwidget-0e9ff92f35b7afbcbe9b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0e9ff92f35b7afbcbe9b">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Wingo's results<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["ENSG00000159640","ENSG00000184227","ENSG00000137845","ENSG00000108091","ENSG00000198087","ENSG00000168993","ENSG00000103811","ENSG00000149927","ENSG00000162755","ENSG00000103642","ENSG00000115828","ENSG00000022277","ENSG00000172803","ENSG00000099365","ENSG00000135823","ENSG00000167397","ENSG00000120594","ENSG00000116266"],["ACE","ACOT1","ADAM10","CCDC6","CD2AP","CPLX1","CTSH","DOC2A","KLHDC9","LACTB","QPCT","RTFDC1","SNX32","STX1B","STX6","VKORC1","PLXDC2","STXBP3"],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","trans"],[-5.5364,-3.6618,5.0857,4.39918,4.93877,3.71748,4.7126,-4.4087,-3.54621,3.9108,-3.59743,4.57268,-4.3567,4.10666,3.72181,4.77368,null,null],[3.09e-08,0.00025,3.66e-07,1.09e-05,7.86e-07,0.000201,2.45e-06,1.04e-05,0.000391,9.2e-05,0.000321,4.82e-06,1.32e-05,4.01e-05,0.000198,1.81e-06,null,null],[2.25e-05,0.030302083,0.000212939,0.002439085,0.000381079,0.026577682,0.000791894,0.002439085,0.037913967,0.014085684,0.034284643,0.001402138,0.002742771,0.006861818,0.026577682,0.000658161,null,null],[0.98,0.012,0.534,0.97,0.999,0.197,0.962,0.944,0.89,0.6,0.207,0.94,0.981,0.278,0.178,0.768,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Ensembl_gene_ID<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>data_overlap &lt;- merge(df_gene_pip08, data_wingo, by.x=&quot;id&quot;, by.y = &quot;Ensembl_gene_ID&quot;)
+DT::datatable(data_overlap,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Overlapped&#39;))</code></pre>
+<div id="htmlwidget-832fb589a7cffca8642f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-832fb589a7cffca8642f">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Overlapped<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["ENSG00000103811","ENSG00000108091","ENSG00000115828","ENSG00000135823","ENSG00000137845","ENSG00000149927","ENSG00000159640","ENSG00000167397","ENSG00000172803","ENSG00000198087"],[15,10,2,1,15,16,17,16,11,6],[79224683,61346166,37454286,180541021,58914632,29647342,61548948,30928970,65507605,47432637],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],["gene","gene","gene","gene","gene","gene","gene","gene","gene","gene"],[15,10,2,1,15,16,17,16,11,6],[39,39,25,91,27,24,37,24,37,36],[1,1,0,0,1,0,1,1,1,0],[0.9999999856005,0.987491482642836,0.825863582281895,0.870112764426839,0.999687358712844,0.898522601508944,0.996607350993614,0.998899961698265,0.957479515908198,0.937175214554391],[329.485536184847,20.7879648788719,16.3773235344389,16.2458997410704,256.307833935806,28.7038389138204,25.6739827223281,430.611518523478,19.7292596597254,24.5585719934174],["protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding","protein_coding"],["CTSH","CCDC6","QPCT","STX6","ADAM10","DOC2A","ACE","VKORC1","SNX32","CD2AP"],[4.6173908830885,4.68740996633579,-3.74372625050913,3.76995721786192,4.94594943584328,-4.40542652585775,-5.40355935636608,4.90661449876859,-4.5322007803521,5.52221082555495],["CTSH","CCDC6","QPCT","STX6","ADAM10","DOC2A","ACE","VKORC1","SNX32","CD2AP"],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis"],[4.7126,4.39918,-3.59743,3.72181,5.0857,-4.4087,-5.5364,4.77368,-4.3567,4.93877],[2.45e-06,1.09e-05,0.000321,0.000198,3.66e-07,1.04e-05,3.09e-08,1.81e-06,1.32e-05,7.86e-07],[0.000791894,0.002439085,0.034284643,0.026577682,0.000212939,0.002439085,2.25e-05,0.000658161,0.002742771,0.000381079],[0.962,0.97,0.207,0.178,0.534,0.944,0.98,0.768,0.981,0.999]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>chrom<\/th>\n      <th>pos<\/th>\n      <th>type<\/th>\n      <th>QTLtype<\/th>\n      <th>region_tag1<\/th>\n      <th>region_tag2<\/th>\n      <th>cs_index<\/th>\n      <th>susie_pip<\/th>\n      <th>mu2<\/th>\n      <th>gene_type<\/th>\n      <th>genename<\/th>\n      <th>z<\/th>\n      <th>Gene_symbol<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,6,7,8,9,10,13,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] cowplot_1.1.1     ggplot2_3.3.5     DT_0.22           data.table_1.14.2
+[5] ctwas_0.1.40     
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.0  xfun_0.41         bslib_0.3.1       lattice_0.20-45  
+ [5] pgenlibr_0.3.3    colorspace_2.0-3  vctrs_0.6.5       generics_0.1.2   
+ [9] htmltools_0.5.2   yaml_2.3.5        utf8_1.2.2        rlang_1.1.2      
+[13] jquerylib_0.1.4   later_1.3.0       pillar_1.9.0      glue_1.6.2       
+[17] withr_2.5.0       foreach_1.5.2     lifecycle_1.0.4   stringr_1.5.1    
+[21] munsell_0.5.0     gtable_0.3.0      workflowr_1.7.0   htmlwidgets_1.5.4
+[25] codetools_0.2-18  evaluate_0.15     labeling_0.4.2    knitr_1.39       
+[29] fastmap_1.1.0     crosstalk_1.2.0   httpuv_1.6.5      fansi_1.0.3      
+[33] highr_0.9         logging_0.10-108  Rcpp_1.0.8.3      promises_1.2.0.1 
+[37] scales_1.2.0      jsonlite_1.8.0    farver_2.1.0      fs_1.5.2         
+[41] digest_0.6.29     stringi_1.7.6     dplyr_1.1.4       grid_4.2.0       
+[45] rprojroot_2.0.3   cli_3.6.1         tools_4.2.0       magrittr_2.0.3   
+[49] sass_0.4.1        tibble_3.2.1      pkgconfig_2.0.3   Matrix_1.5-3     
+[53] rmarkdown_2.25    rstudioapi_0.13   iterators_1.0.14  R6_2.5.1         
+[57] git2r_0.30.1      compiler_4.2.0   </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
