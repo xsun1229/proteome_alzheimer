@@ -234,6 +234,12 @@ DT::datatable(data_wingo,caption = htmltools::tags$caption( style = 'caption-sid
 
 data_overlap <- merge(df_gene_pip08, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
 DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Overlapped'))
+
+
+gene_check <- c("STX6")
+print(sprintf("check several genes %s",gene_check))
+DT::datatable(df_gene[df_gene$genename %in% gene_check,],caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;',))
+
 ```
 
 
@@ -277,6 +283,10 @@ DT::datatable(data_wingo,caption = htmltools::tags$caption( style = 'caption-sid
 
 data_overlap <- merge(combined_pip08, data_wingo, by.x="genename", by.y = "Gene_symbol")
 DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Overlapped'))
+
+gene_check <- c("STX6")
+print(sprintf("check several genes %s",gene_check))
+DT::datatable(df_gene[df_gene$genename %in% gene_check,],caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;',))
 ```
 
 

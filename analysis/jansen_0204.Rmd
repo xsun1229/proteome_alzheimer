@@ -112,7 +112,7 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
-
+DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
 
 print("comparing with Wingo's study")
 
@@ -147,7 +147,7 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
-
+DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
 
 print("comparing with Wingo's study")
 
@@ -187,7 +187,7 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
-
+DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
 
 print("comparing with Wingo's study")
 
@@ -222,7 +222,7 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
-
+DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
 
 print("comparing with Wingo's study")
 
