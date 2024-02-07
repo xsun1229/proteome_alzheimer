@@ -114,10 +114,6 @@ combine_pip <- function(ctwas_gene_res) {
 
 # Full GWAS
 
-## eqtl
-
-TO BE ADDED
-
 ## pqtl
 
 ```{r fig.height=10,fig.width=20}
@@ -196,11 +192,9 @@ DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-s
 
 # Top locus removed
 
-## eqtl
-
-TO BE ADDED
-
 ## pqtl
+
+### results
 
 ```{r fig.height=10,fig.width=20}
 outputdir <- "/project2/guiming/xsun/proteome_alzheimer/19.jansen_0204_topremoved_mergef/output/AD_protein/"
@@ -226,24 +220,26 @@ df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname,
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
 DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
+```
 
-print("comparing with Wingo's study")
+### Comparing with Wingo's study
 
+```{r }
 data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
-DT::datatable(data_wingo,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Wingo\'s results'))
 
-data_overlap <- merge(df_gene_pip08, data_wingo, by.x="id", by.y = "Ensembl_gene_ID")
-DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Overlapped'))
+susie_pip_wingo <- df_gene[df_gene$genename %in%data_wingo$Gene_symbol,]
+data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol")
 
+print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8)))
 
-gene_check <- c("STX6")
-print(sprintf("check several genes %s",gene_check))
-DT::datatable(df_gene[df_gene$genename %in% gene_check,],caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;',))
+DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al'))
 
 ```
 
 
 ## joint analysis: eqtl & pqtl
+
+### Results 
 
 ```{r fig.height=10,fig.width=20}
 outputdir <- "/project2/guiming/xsun/proteome_alzheimer/19.jansen_0204_topremoved_mergef/output/AD_epjoint/"
@@ -275,19 +271,20 @@ DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption
 
 df_gene_comb08 <- df_gene[df_gene$genename %in% combined_pip08$genename,]
 DT::datatable(df_gene_comb08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for genes with combined pip > 0.8'))
-
-print("comparing with Wingo's study")
-
-data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/1.brain_wingo/data/AD1_wingo.txt",header = T)
-DT::datatable(data_wingo,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Wingo\'s results'))
-
-data_overlap <- merge(combined_pip08, data_wingo, by.x="genename", by.y = "Gene_symbol")
-DT::datatable(data_overlap,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Overlapped'))
-
-gene_check <- c("STX6")
-print(sprintf("check several genes %s",gene_check))
-DT::datatable(df_gene[df_gene$genename %in% gene_check,],caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;',))
 ```
+
+### Comparing with Wingo's study
+
+```{r fig.height=10,fig.width=20}
+
+susie_pip_wingo <- combined_pip[combined_pip$genename %in%data_wingo$Gene_symbol,]
+data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol")
+
+print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$total_susie_pip >0.8)))
+
+DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al'))
+```
+
 
 
 ## Compare the results for pqtl analysis and joint analysis
