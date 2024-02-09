@@ -544,15 +544,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreead00c49eca5fb532b1c5d4043043282369fb7177targetblankad00c49a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree27a81024fd8e9fc995ba0ead9b7a4ab055bad2cdtargetblank27a8102a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/ad00c49eca5fb532b1c5d4043043282369fb7177" target="_blank">ad00c49</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd" target="_blank">27a8102</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertreead00c49eca5fb532b1c5d4043043282369fb7177targetblankad00c49a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree27a81024fd8e9fc995ba0ead9b7a4ab055bad2cdtargetblank27a8102a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +562,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/ad00c49eca5fb532b1c5d4043043282369fb7177" target="_blank">ad00c49</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd" target="_blank">27a8102</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -627,6 +627,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd/analysis/jansen_0204_mergef.Rmd" target="_blank">27a8102</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-02-08
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd/docs/jansen_0204_mergef.html" target="_blank">27a8102</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-02-08
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1006,6 +1040,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd/docs/figure/jansen_0204_mergef.Rmd/unnamed-chunk-4-1.png" target="_blank">27a8102</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-02-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/xsun1229/proteome_alzheimer/blob/5f34a49b5d657a5bf8ff4775f6d477688d9fb7b0/docs/figure/jansen_0204_mergef.Rmd/unnamed-chunk-4-1.png" target="_blank">5f34a49</a>
 </td>
 <td>
@@ -1054,13 +1099,17 @@ data_merge &lt;- merge(susie_pip_wingo, data_wingo, by.x=&quot;genename&quot;, b
 data_merge_pwas &lt;- data_merge[data_merge$method ==&quot;pwas&quot;,]
 print(sprintf(&quot;There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip &gt; 0.8&quot;,nrow(data_merge_pwas),nrow(data_merge_pwas[complete.cases(data_merge_pwas),]),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip &gt;0.8)))</code></pre>
 <pre><code>[1] &quot;There are 18 genes reported by Wingo pwas, 15 of them are included in ctwas analysis, 7 of them have combined susie pip &gt; 0.8&quot;</code></pre>
+<pre class="r"><code>gene_wingo_all &lt;- data_merge[!duplicated(data_merge$genename),]
+
+print(sprintf(&quot;There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip &gt; 0.8&quot;,nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip &gt;0.8)))</code></pre>
+<pre><code>[1] &quot;There are 40 genes reported by Wingo pwas + twas, 10 of them have combined susie pip &gt; 0.8&quot;</code></pre>
 <pre class="r"><code>DT::datatable(data_merge,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;ctwas results for the genes reported by Wingo et al (both twas and pwas)&#39;))</code></pre>
 <div id="htmlwidget-7d5f48f8a3d9f14f5771" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-7d5f48f8a3d9f14f5771">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">ctwas results for the genes reported by Wingo et al (both twas and pwas)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["AC122129.1","ACE","ACOT1","ACOT1","ADAM10","ADAM10","CCDC6","CCDC6","CD2AP","CD2AP","CPLX1","CTSH","DOC2A","EED","ERCC2","FAM57B","FCER1G","GALNT10","GATS","HSD3B7","INCA1","ITGAX","KAT8","KLHDC9","LACTB","NBEAL1","NDUFAF6","PLXDC2","POLR2E","QPCT","RTFDC1","SETD1A","SLTM","SNX32","SNX32","STX1B","STX4","STX6","STX6","STXBP3","TMEM259","TREM2","VKORC1","WDR55","YPEL3","ZNF646"],[null,1.4297345813117,0.359775620830137,0.359775620830137,1.73535219461961,1.73535219461961,1.02427744722536,1.02427744722536,1.291785449997,1.291785449997,0.540887902001804,0.999999291012812,8.29336599394992e-14,0.925743769556865,0.0893073338234717,null,0.520093269607621,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0655519327435429,0.363030050997814,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.541088075363684,null,1.36978495213214e-09,0.739203910806957,0.823970192617407,0.823970192617407,5.55111512312578e-15,1.54432022725359e-13,0.645820090772967,0.645820090772967,0.140293139924423,0.0647513916584407,0.99677405650611,0.913033670652071,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.443968247904555,0.206253415743676,0.206253415743676,0.999988235842459,0.999988235842459,0.286605603525584,0.286605603525584,0.962378954412052,0.962378954412052,0.0745632972467071,9.40910682700746e-11,0,0.925743769556865,0,null,0.406676462317253,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0223165641024239,0.0268377866984395,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.0980878306573828,null,1.36978495213214e-09,0.739203910806957,0.279106372336488,0.279106372336488,0,1.29674049276218e-13,0.160895178284219,0.160895178284219,0,0.0647513916584407,0.99677405650611,0,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.985766333407147,0.153522205086461,0.153522205086461,0.735363958777154,0.735363958777154,0.737671843699775,0.737671843699775,0.329406495584949,0.329406495584949,0.466324604755097,0.999999290918721,8.29336599394992e-14,0,0.0893073338234717,null,0.113416807290368,0,null,0,0,0,0,0.043235368641119,0.336192264299375,0,0,0,0,0.443000244706301,null,0,0,0.544863820280919,0.544863820280919,5.55111512312578e-15,2.4757973449141e-14,0.484924912488748,0.484924912488748,0.140293139924423,0,0,0.913033670652071,0,0,0],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis"],[3.62521,-5.5364,-3.6618,-3.93599,3.64604,5.0857,4.31,4.39918,6.017745,4.93877,3.71748,4.7126,-4.4087,-7.8963,4.28147,3.70832,-4.45901,3.86,-3.75043,-3.90315,3.96685,3.97214,-5.41383,-3.54621,3.9108,3.83525,3.695906,null,4.56478,-3.59743,4.57268,-4.50771,3.93578,-4.4354,-4.3567,4.10666,4.03187,3.63187,3.72181,null,-3.69749,-3.95148,4.77368,3.76,-4.6462,-5.00203],[0.000289,3.09e-08,0.00025,8.29e-05,0.000266,3.66e-07,1.65e-05,1.09e-05,1.77e-09,7.86e-07,0.000201,2.45e-06,1.04e-05,2.87e-15,1.86e-05,0.000209,8.23e-06,0.000113,0.000177,9.49e-05,7.28e-05,7.12e-05,6.17e-08,0.000391,9.2e-05,0.000125,0.000219,null,5e-06,0.000321,4.82e-06,6.55e-06,8.29e-05,9.19e-06,1.32e-05,4.01e-05,5.53e-05,0.000281,0.000198,null,0.000218,7.77e-05,1.81e-06,0.000172,3.38e-06,5.67e-07],[0.048371375,2.25e-05,0.030302083,0.02220062,0.0481316216216216,0.000212939,0.00789053571428571,0.002439085,1.975025e-06,0.000381079,0.026577682,0.000791894,0.002439085,4.8036625e-12,0.0083018,0.0418915714285714,0.00459165416666667,0.0260874137931034,0.03703171875,0.0233846785714286,0.0221543636363636,0.0221543636363636,5.90116428571429e-05,0.037913967,0.014085684,0.0278958333333333,0.0418915714285714,null,0.0033475,0.034284643,0.001402138,0.00398656818181818,0.02220062,0.00473285,0.002742771,0.006861818,0.018511675,0.0482383333333333,0.026577682,null,0.0418915714285714,0.02220062,0.000658161,0.03703171875,0.00251434444444444,0.000474508125],[0.181,0.98,0.012,0.068,0.028,0.534,0.977,0.97,0.99,0.999,0.197,0.962,0.944,0.98,0,0.523,0.927,0.989,0.71,0.635,0,0.002,0.76,0.89,0.6,0.725,0.555,null,0.039,0.207,0.94,0.415,0.675,0.98,0.981,0.278,0.44,0.221,0.178,null,0.901,0.321,0.768,0.091,0.831,0.733],["twas","pwas","pwas","twas","twas","pwas","twas","pwas","twas","pwas","pwas","pwas","pwas","twas","twas","twas","twas","twas","twas","twas","twas","twas","twas","pwas","pwas","twas","twas","pwas","twas","pwas","pwas","twas","twas","twas","pwas","pwas","twas","twas","pwas","pwas","twas","twas","pwas","twas","twas","twas"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>total_susie_pip<\/th>\n      <th>pip_wingo_888_brain_expr_lasso<\/th>\n      <th>pip_wingo_722_brain_protein_lasso<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n      <th>method<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>df_our_uniq &lt;- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
-DT::datatable(data_merge,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;genes with combined susie pip &gt; 0.8 but were not reported by wingo et al&#39;))</code></pre>
+DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;genes with combined susie pip &gt; 0.8 but were not reported by wingo et al&#39;))</code></pre>
 <div id="htmlwidget-20ff36fa2d52b665fda5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-20ff36fa2d52b665fda5">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">genes with combined susie pip &gt; 0.8 but were not reported by wingo et al<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["AC122129.1","ACE","ACOT1","ACOT1","ADAM10","ADAM10","CCDC6","CCDC6","CD2AP","CD2AP","CPLX1","CTSH","DOC2A","EED","ERCC2","FAM57B","FCER1G","GALNT10","GATS","HSD3B7","INCA1","ITGAX","KAT8","KLHDC9","LACTB","NBEAL1","NDUFAF6","PLXDC2","POLR2E","QPCT","RTFDC1","SETD1A","SLTM","SNX32","SNX32","STX1B","STX4","STX6","STX6","STXBP3","TMEM259","TREM2","VKORC1","WDR55","YPEL3","ZNF646"],[null,1.4297345813117,0.359775620830137,0.359775620830137,1.73535219461961,1.73535219461961,1.02427744722536,1.02427744722536,1.291785449997,1.291785449997,0.540887902001804,0.999999291012812,8.29336599394992e-14,0.925743769556865,0.0893073338234717,null,0.520093269607621,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0655519327435429,0.363030050997814,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.541088075363684,null,1.36978495213214e-09,0.739203910806957,0.823970192617407,0.823970192617407,5.55111512312578e-15,1.54432022725359e-13,0.645820090772967,0.645820090772967,0.140293139924423,0.0647513916584407,0.99677405650611,0.913033670652071,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.443968247904555,0.206253415743676,0.206253415743676,0.999988235842459,0.999988235842459,0.286605603525584,0.286605603525584,0.962378954412052,0.962378954412052,0.0745632972467071,9.40910682700746e-11,0,0.925743769556865,0,null,0.406676462317253,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0223165641024239,0.0268377866984395,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.0980878306573828,null,1.36978495213214e-09,0.739203910806957,0.279106372336488,0.279106372336488,0,1.29674049276218e-13,0.160895178284219,0.160895178284219,0,0.0647513916584407,0.99677405650611,0,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.985766333407147,0.153522205086461,0.153522205086461,0.735363958777154,0.735363958777154,0.737671843699775,0.737671843699775,0.329406495584949,0.329406495584949,0.466324604755097,0.999999290918721,8.29336599394992e-14,0,0.0893073338234717,null,0.113416807290368,0,null,0,0,0,0,0.043235368641119,0.336192264299375,0,0,0,0,0.443000244706301,null,0,0,0.544863820280919,0.544863820280919,5.55111512312578e-15,2.4757973449141e-14,0.484924912488748,0.484924912488748,0.140293139924423,0,0,0.913033670652071,0,0,0],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis"],[3.62521,-5.5364,-3.6618,-3.93599,3.64604,5.0857,4.31,4.39918,6.017745,4.93877,3.71748,4.7126,-4.4087,-7.8963,4.28147,3.70832,-4.45901,3.86,-3.75043,-3.90315,3.96685,3.97214,-5.41383,-3.54621,3.9108,3.83525,3.695906,null,4.56478,-3.59743,4.57268,-4.50771,3.93578,-4.4354,-4.3567,4.10666,4.03187,3.63187,3.72181,null,-3.69749,-3.95148,4.77368,3.76,-4.6462,-5.00203],[0.000289,3.09e-08,0.00025,8.29e-05,0.000266,3.66e-07,1.65e-05,1.09e-05,1.77e-09,7.86e-07,0.000201,2.45e-06,1.04e-05,2.87e-15,1.86e-05,0.000209,8.23e-06,0.000113,0.000177,9.49e-05,7.28e-05,7.12e-05,6.17e-08,0.000391,9.2e-05,0.000125,0.000219,null,5e-06,0.000321,4.82e-06,6.55e-06,8.29e-05,9.19e-06,1.32e-05,4.01e-05,5.53e-05,0.000281,0.000198,null,0.000218,7.77e-05,1.81e-06,0.000172,3.38e-06,5.67e-07],[0.048371375,2.25e-05,0.030302083,0.02220062,0.0481316216216216,0.000212939,0.00789053571428571,0.002439085,1.975025e-06,0.000381079,0.026577682,0.000791894,0.002439085,4.8036625e-12,0.0083018,0.0418915714285714,0.00459165416666667,0.0260874137931034,0.03703171875,0.0233846785714286,0.0221543636363636,0.0221543636363636,5.90116428571429e-05,0.037913967,0.014085684,0.0278958333333333,0.0418915714285714,null,0.0033475,0.034284643,0.001402138,0.00398656818181818,0.02220062,0.00473285,0.002742771,0.006861818,0.018511675,0.0482383333333333,0.026577682,null,0.0418915714285714,0.02220062,0.000658161,0.03703171875,0.00251434444444444,0.000474508125],[0.181,0.98,0.012,0.068,0.028,0.534,0.977,0.97,0.99,0.999,0.197,0.962,0.944,0.98,0,0.523,0.927,0.989,0.71,0.635,0,0.002,0.76,0.89,0.6,0.725,0.555,null,0.039,0.207,0.94,0.415,0.675,0.98,0.981,0.278,0.44,0.221,0.178,null,0.901,0.321,0.768,0.091,0.831,0.733],["twas","pwas","pwas","twas","twas","pwas","twas","pwas","twas","pwas","pwas","pwas","pwas","twas","twas","twas","twas","twas","twas","twas","twas","twas","twas","pwas","pwas","twas","twas","pwas","twas","pwas","pwas","twas","twas","twas","pwas","pwas","twas","twas","pwas","pwas","twas","twas","pwas","twas","twas","twas"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>total_susie_pip<\/th>\n      <th>pip_wingo_888_brain_expr_lasso<\/th>\n      <th>pip_wingo_722_brain_protein_lasso<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n      <th>method<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-20ff36fa2d52b665fda5">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">genes with combined susie pip &gt; 0.8 but were not reported by wingo et al<\/caption>","data":[["1","2","3"],["CARHSP1","ICA1L","RIN3"],[0.874654979940112,0.99281577777483,0.941598396191033],[0.0915874010023421,0.990262960370354,0.941598396191033],[0.78306757893777,0.0025528174044761,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>total_susie_pip<\/th>\n      <th>pip_wingo_888_brain_expr_lasso<\/th>\n      <th>pip_wingo_722_brain_protein_lasso<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -1107,6 +1156,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd/docs/figure/jansen_0204_mergef.Rmd/unnamed-chunk-6-1.png" target="_blank">27a8102</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-02-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/xsun1229/proteome_alzheimer/blob/880f584ddfbc36a7da0d6ad5f7b9bb554d1f3ec0/docs/figure/jansen_0204_mergef.Rmd/unnamed-chunk-6-1.png" target="_blank">880f584</a>
@@ -1169,6 +1229,43 @@ ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
 
 ctwas_parameters$convergence_plot</code></pre>
 <p><img src="figure/jansen_0204_mergef.Rmd/unnamed-chunk-8-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/27a81024fd8e9fc995ba0ead9b7a4ab055bad2cd/docs/figure/jansen_0204_mergef.Rmd/unnamed-chunk-8-1.png" target="_blank">27a8102</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-02-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>para &lt;- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
@@ -1204,13 +1301,17 @@ data_merge &lt;- merge(susie_pip_wingo, data_wingo, by.x=&quot;genename&quot;, b
 data_merge_pwas &lt;- data_merge[data_merge$method ==&quot;pwas&quot;,]
 print(sprintf(&quot;There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip &gt; 0.8&quot;,nrow(data_merge_pwas),nrow(data_merge_pwas[complete.cases(data_merge_pwas),]),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip &gt;0.8)))</code></pre>
 <pre><code>[1] &quot;There are 18 genes reported by Wingo pwas, 15 of them are included in ctwas analysis, 7 of them have combined susie pip &gt; 0.8&quot;</code></pre>
+<pre class="r"><code>gene_wingo_all &lt;- data_merge[!duplicated(data_merge$genename),]
+
+print(sprintf(&quot;There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip &gt; 0.8&quot;,nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip &gt;0.8)))</code></pre>
+<pre><code>[1] &quot;There are 40 genes reported by Wingo pwas + twas, 10 of them have combined susie pip &gt; 0.8&quot;</code></pre>
 <pre class="r"><code>DT::datatable(data_merge,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;ctwas results for the genes reported by Wingo et al (both twas and pwas)&#39;))</code></pre>
 <div id="htmlwidget-7a1cf51dccd6d6db137c" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-7a1cf51dccd6d6db137c">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">ctwas results for the genes reported by Wingo et al (both twas and pwas)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["AC122129.1","ACE","ACOT1","ACOT1","ADAM10","ADAM10","CCDC6","CCDC6","CD2AP","CD2AP","CPLX1","CTSH","DOC2A","EED","ERCC2","FAM57B","FCER1G","GALNT10","GATS","HSD3B7","INCA1","ITGAX","KAT8","KLHDC9","LACTB","NBEAL1","NDUFAF6","PLXDC2","POLR2E","QPCT","RTFDC1","SETD1A","SLTM","SNX32","SNX32","STX1B","STX4","STX6","STX6","STXBP3","TMEM259","TREM2","VKORC1","WDR55","YPEL3","ZNF646"],[null,1.4297345813117,0.359775620830137,0.359775620830137,1.73535219461961,1.73535219461961,1.02427744722536,1.02427744722536,1.291785449997,1.291785449997,0.540887902001804,0.999999291012812,8.29336599394992e-14,0.925743769556865,0.0893073338234717,null,0.520093269607621,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0655519327435429,0.363030050997814,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.541088075363684,null,1.36978495213214e-09,0.739203910806957,0.823970192617407,0.823970192617407,5.55111512312578e-15,1.54432022725359e-13,0.645820090772967,0.645820090772967,0.140293139924423,0.0647513916584407,0.99677405650611,0.913033670652071,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.443968247904555,0.206253415743676,0.206253415743676,0.999988235842459,0.999988235842459,0.286605603525584,0.286605603525584,0.962378954412052,0.962378954412052,0.0745632972467071,9.40910682700746e-11,0,0.925743769556865,0,null,0.406676462317253,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0223165641024239,0.0268377866984395,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.0980878306573828,null,1.36978495213214e-09,0.739203910806957,0.279106372336488,0.279106372336488,0,1.29674049276218e-13,0.160895178284219,0.160895178284219,0,0.0647513916584407,0.99677405650611,0,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.985766333407147,0.153522205086461,0.153522205086461,0.735363958777154,0.735363958777154,0.737671843699775,0.737671843699775,0.329406495584949,0.329406495584949,0.466324604755097,0.999999290918721,8.29336599394992e-14,0,0.0893073338234717,null,0.113416807290368,0,null,0,0,0,0,0.043235368641119,0.336192264299375,0,0,0,0,0.443000244706301,null,0,0,0.544863820280919,0.544863820280919,5.55111512312578e-15,2.4757973449141e-14,0.484924912488748,0.484924912488748,0.140293139924423,0,0,0.913033670652071,0,0,0],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis"],[3.62521,-5.5364,-3.6618,-3.93599,3.64604,5.0857,4.31,4.39918,6.017745,4.93877,3.71748,4.7126,-4.4087,-7.8963,4.28147,3.70832,-4.45901,3.86,-3.75043,-3.90315,3.96685,3.97214,-5.41383,-3.54621,3.9108,3.83525,3.695906,null,4.56478,-3.59743,4.57268,-4.50771,3.93578,-4.4354,-4.3567,4.10666,4.03187,3.63187,3.72181,null,-3.69749,-3.95148,4.77368,3.76,-4.6462,-5.00203],[0.000289,3.09e-08,0.00025,8.29e-05,0.000266,3.66e-07,1.65e-05,1.09e-05,1.77e-09,7.86e-07,0.000201,2.45e-06,1.04e-05,2.87e-15,1.86e-05,0.000209,8.23e-06,0.000113,0.000177,9.49e-05,7.28e-05,7.12e-05,6.17e-08,0.000391,9.2e-05,0.000125,0.000219,null,5e-06,0.000321,4.82e-06,6.55e-06,8.29e-05,9.19e-06,1.32e-05,4.01e-05,5.53e-05,0.000281,0.000198,null,0.000218,7.77e-05,1.81e-06,0.000172,3.38e-06,5.67e-07],[0.048371375,2.25e-05,0.030302083,0.02220062,0.0481316216216216,0.000212939,0.00789053571428571,0.002439085,1.975025e-06,0.000381079,0.026577682,0.000791894,0.002439085,4.8036625e-12,0.0083018,0.0418915714285714,0.00459165416666667,0.0260874137931034,0.03703171875,0.0233846785714286,0.0221543636363636,0.0221543636363636,5.90116428571429e-05,0.037913967,0.014085684,0.0278958333333333,0.0418915714285714,null,0.0033475,0.034284643,0.001402138,0.00398656818181818,0.02220062,0.00473285,0.002742771,0.006861818,0.018511675,0.0482383333333333,0.026577682,null,0.0418915714285714,0.02220062,0.000658161,0.03703171875,0.00251434444444444,0.000474508125],[0.181,0.98,0.012,0.068,0.028,0.534,0.977,0.97,0.99,0.999,0.197,0.962,0.944,0.98,0,0.523,0.927,0.989,0.71,0.635,0,0.002,0.76,0.89,0.6,0.725,0.555,null,0.039,0.207,0.94,0.415,0.675,0.98,0.981,0.278,0.44,0.221,0.178,null,0.901,0.321,0.768,0.091,0.831,0.733],["twas","pwas","pwas","twas","twas","pwas","twas","pwas","twas","pwas","pwas","pwas","pwas","twas","twas","twas","twas","twas","twas","twas","twas","twas","twas","pwas","pwas","twas","twas","pwas","twas","pwas","pwas","twas","twas","twas","pwas","pwas","twas","twas","pwas","pwas","twas","twas","pwas","twas","twas","twas"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>total_susie_pip<\/th>\n      <th>pip_wingo_888_brain_expr_lasso<\/th>\n      <th>pip_wingo_722_brain_protein_lasso<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n      <th>method<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <pre class="r"><code>df_our_uniq &lt;- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
-DT::datatable(data_merge,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;genes with combined susie pip &gt; 0.8 but were not reported by wingo et al&#39;))</code></pre>
+DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;genes with combined susie pip &gt; 0.8 but were not reported by wingo et al&#39;))</code></pre>
 <div id="htmlwidget-6437cc178a33fdc25cd7" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6437cc178a33fdc25cd7">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">genes with combined susie pip &gt; 0.8 but were not reported by wingo et al<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["AC122129.1","ACE","ACOT1","ACOT1","ADAM10","ADAM10","CCDC6","CCDC6","CD2AP","CD2AP","CPLX1","CTSH","DOC2A","EED","ERCC2","FAM57B","FCER1G","GALNT10","GATS","HSD3B7","INCA1","ITGAX","KAT8","KLHDC9","LACTB","NBEAL1","NDUFAF6","PLXDC2","POLR2E","QPCT","RTFDC1","SETD1A","SLTM","SNX32","SNX32","STX1B","STX4","STX6","STX6","STXBP3","TMEM259","TREM2","VKORC1","WDR55","YPEL3","ZNF646"],[null,1.4297345813117,0.359775620830137,0.359775620830137,1.73535219461961,1.73535219461961,1.02427744722536,1.02427744722536,1.291785449997,1.291785449997,0.540887902001804,0.999999291012812,8.29336599394992e-14,0.925743769556865,0.0893073338234717,null,0.520093269607621,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0655519327435429,0.363030050997814,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.541088075363684,null,1.36978495213214e-09,0.739203910806957,0.823970192617407,0.823970192617407,5.55111512312578e-15,1.54432022725359e-13,0.645820090772967,0.645820090772967,0.140293139924423,0.0647513916584407,0.99677405650611,0.913033670652071,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.443968247904555,0.206253415743676,0.206253415743676,0.999988235842459,0.999988235842459,0.286605603525584,0.286605603525584,0.962378954412052,0.962378954412052,0.0745632972467071,9.40910682700746e-11,0,0.925743769556865,0,null,0.406676462317253,0.407377955653545,null,1.15655557908489e-07,0.0739180165359407,1.83186799063151e-14,0.964018815873973,0.0223165641024239,0.0268377866984395,0.21732614990456,0.7665271724926,0.0385461640942646,0.141729139312986,0.0980878306573828,null,1.36978495213214e-09,0.739203910806957,0.279106372336488,0.279106372336488,0,1.29674049276218e-13,0.160895178284219,0.160895178284219,0,0.0647513916584407,0.99677405650611,0,0.114257444829625,2.90878432451791e-14,0.0264542533990573],[null,0.985766333407147,0.153522205086461,0.153522205086461,0.735363958777154,0.735363958777154,0.737671843699775,0.737671843699775,0.329406495584949,0.329406495584949,0.466324604755097,0.999999290918721,8.29336599394992e-14,0,0.0893073338234717,null,0.113416807290368,0,null,0,0,0,0,0.043235368641119,0.336192264299375,0,0,0,0,0.443000244706301,null,0,0,0.544863820280919,0.544863820280919,5.55111512312578e-15,2.4757973449141e-14,0.484924912488748,0.484924912488748,0.140293139924423,0,0,0.913033670652071,0,0,0],["cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","cis","trans","cis","cis","cis","cis","cis","cis"],[3.62521,-5.5364,-3.6618,-3.93599,3.64604,5.0857,4.31,4.39918,6.017745,4.93877,3.71748,4.7126,-4.4087,-7.8963,4.28147,3.70832,-4.45901,3.86,-3.75043,-3.90315,3.96685,3.97214,-5.41383,-3.54621,3.9108,3.83525,3.695906,null,4.56478,-3.59743,4.57268,-4.50771,3.93578,-4.4354,-4.3567,4.10666,4.03187,3.63187,3.72181,null,-3.69749,-3.95148,4.77368,3.76,-4.6462,-5.00203],[0.000289,3.09e-08,0.00025,8.29e-05,0.000266,3.66e-07,1.65e-05,1.09e-05,1.77e-09,7.86e-07,0.000201,2.45e-06,1.04e-05,2.87e-15,1.86e-05,0.000209,8.23e-06,0.000113,0.000177,9.49e-05,7.28e-05,7.12e-05,6.17e-08,0.000391,9.2e-05,0.000125,0.000219,null,5e-06,0.000321,4.82e-06,6.55e-06,8.29e-05,9.19e-06,1.32e-05,4.01e-05,5.53e-05,0.000281,0.000198,null,0.000218,7.77e-05,1.81e-06,0.000172,3.38e-06,5.67e-07],[0.048371375,2.25e-05,0.030302083,0.02220062,0.0481316216216216,0.000212939,0.00789053571428571,0.002439085,1.975025e-06,0.000381079,0.026577682,0.000791894,0.002439085,4.8036625e-12,0.0083018,0.0418915714285714,0.00459165416666667,0.0260874137931034,0.03703171875,0.0233846785714286,0.0221543636363636,0.0221543636363636,5.90116428571429e-05,0.037913967,0.014085684,0.0278958333333333,0.0418915714285714,null,0.0033475,0.034284643,0.001402138,0.00398656818181818,0.02220062,0.00473285,0.002742771,0.006861818,0.018511675,0.0482383333333333,0.026577682,null,0.0418915714285714,0.02220062,0.000658161,0.03703171875,0.00251434444444444,0.000474508125],[0.181,0.98,0.012,0.068,0.028,0.534,0.977,0.97,0.99,0.999,0.197,0.962,0.944,0.98,0,0.523,0.927,0.989,0.71,0.635,0,0.002,0.76,0.89,0.6,0.725,0.555,null,0.039,0.207,0.94,0.415,0.675,0.98,0.981,0.278,0.44,0.221,0.178,null,0.901,0.321,0.768,0.091,0.831,0.733],["twas","pwas","pwas","twas","twas","pwas","twas","pwas","twas","pwas","pwas","pwas","pwas","twas","twas","twas","twas","twas","twas","twas","twas","twas","twas","pwas","pwas","twas","twas","pwas","twas","pwas","pwas","twas","twas","twas","pwas","pwas","twas","twas","pwas","pwas","twas","twas","pwas","twas","twas","twas"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>total_susie_pip<\/th>\n      <th>pip_wingo_888_brain_expr_lasso<\/th>\n      <th>pip_wingo_722_brain_protein_lasso<\/th>\n      <th>cis.trans<\/th>\n      <th>PWAS_Z<\/th>\n      <th>PWAS_p.value<\/th>\n      <th>PWAS_FDR_p.value<\/th>\n      <th>COLOC_PP4<\/th>\n      <th>method<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-6437cc178a33fdc25cd7">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">genes with combined susie pip &gt; 0.8 but were not reported by wingo et al<\/caption>","data":[["1","2","3"],["CARHSP1","ICA1L","RIN3"],[0.874654979940112,0.99281577777483,0.941598396191033],[0.0915874010023421,0.990262960370354,0.941598396191033],[0.78306757893777,0.0025528174044761,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>total_susie_pip<\/th>\n      <th>pip_wingo_888_brain_expr_lasso<\/th>\n      <th>pip_wingo_722_brain_protein_lasso<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="compare-the-results-for-pqtl-analysis-and-joint-analysis"

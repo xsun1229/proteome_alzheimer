@@ -215,10 +215,14 @@ data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_s
 data_merge_pwas <- data_merge[data_merge$method =="pwas",]
 print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),nrow(data_merge_pwas[complete.cases(data_merge_pwas),]),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
 
+gene_wingo_all <- data_merge[!duplicated(data_merge$genename),]
+
+print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
+
 DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al (both twas and pwas)'))
 
 df_our_uniq <- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
-DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
+DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
 ```
 
 # Top locus removed
@@ -324,10 +328,14 @@ data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_s
 data_merge_pwas <- data_merge[data_merge$method =="pwas",]
 print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),nrow(data_merge_pwas[complete.cases(data_merge_pwas),]),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
 
+gene_wingo_all <- data_merge[!duplicated(data_merge$genename),]
+
+print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
+
 DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al (both twas and pwas)'))
 
 df_our_uniq <- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
-DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
+DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
 ```
 
 ## Compare the results for pqtl analysis and joint analysis
