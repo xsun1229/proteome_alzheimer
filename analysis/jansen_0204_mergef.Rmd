@@ -257,7 +257,7 @@ df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
 DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
 ```
 
-### Comparing with Wingo's study
+### Comparing with Wingo's PWAS
 
 ```{r }
 data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_pwas.txt",header = T)
@@ -355,3 +355,21 @@ DT::datatable(df_uniq_ep,caption = htmltools::tags$caption( style = 'caption-sid
 
 ```
 
+## Venn diagrammes for comparison
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn1.jpg" width="150%">
+</figure>
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn2.jpg" width="150%">
+</figure>
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn3.jpg" width="150%">
+</figure>
+
+
+# Top locus removed for parameter estimation, full gwas for fine-mapping
+
+Got the same retults as the 'Top locus removed' setting.
