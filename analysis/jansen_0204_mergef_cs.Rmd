@@ -24,6 +24,8 @@ Full GWAS (/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.RDS) and t
 
 4. Resourse requested: single qtl : --cpus-per-task=5 --mem=56G; joint analysis: --cpus-per-task=5 --mem=56G
 
+5. Filtering using credible sets
+
 ## Functions used
 
 ```{r message=FALSE}
@@ -84,7 +86,7 @@ process_data <- function(weight, outputdir, outname, z_gene, display_datatable =
   # Sorting and displaying datatable if required
   ctwas_gene_res <- ctwas_gene_res[order(-ctwas_gene_res$susie_pip),]
   if (display_datatable) {
-    datatable(ctwas_gene_res[ctwas_gene_res$type != "SNP" & ctwas_gene_res$susie_pip > 0.8,])
+    datatable(ctwas_gene_res[ctwas_gene_res$type != "SNP" & ctwas_gene_res$susie_pip > 0.8&ctwas_gene_res$cs_index!=0,])
   }
   
   return(ctwas_gene_res)
@@ -140,11 +142,11 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
-df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8 & df_gene$cs_index !=0,]
 DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
 ```
 
-### Comparing with Wingo's study
+### Comparing with Wingo's pwas
 
 ```{r }
 data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_pwas.txt",header = T)
@@ -152,7 +154,7 @@ data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/
 susie_pip_wingo <- df_gene[df_gene$genename %in%data_wingo$Gene_symbol,]
 data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol")
 
-print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8)))
+print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8, %s of them are in credible sets",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8),sum(data_merge$cs_index!=0)))
 
 DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al'))
 
@@ -186,16 +188,18 @@ para <- process_para(ctwas_parameters)
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
 
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+genes_included <- df_gene$genename
+df_gene <- df_gene[df_gene$cs_index !=0,]
 
 combined_pip <- combine_pip(df_gene)
 combined_pip08 <- combined_pip[combined_pip$total_susie_pip > 0.8,]
-DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Genes with combined pip > 0.8'))
+DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Genes with combined pip > 0.8 & in credible sets'))
 
 df_gene_comb08 <- df_gene[df_gene$genename %in% combined_pip08$genename,]
 DT::datatable(df_gene_comb08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for genes with combined pip > 0.8'))
 ```
 
-### Comparing with Wingo's study
+### Comparing with Wingo's pwas & twas
 
 ```{r fig.height=10,fig.width=20}
 
@@ -213,11 +217,11 @@ susie_pip_wingo <- combined_pip[combined_pip$genename %in%data_wingo$Gene_symbol
 data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol",all.y = T)
 
 data_merge_pwas <- data_merge[data_merge$method =="pwas",]
-print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),nrow(data_merge_pwas[complete.cases(data_merge_pwas),]),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
+print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),sum(data_merge_pwas$genename%in%genes_included),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
 
 gene_wingo_all <- data_merge[!duplicated(data_merge$genename),]
 
-print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
+print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8 & in credible sets",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
 
 DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al (both twas and pwas)'))
 
@@ -253,8 +257,8 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
-df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8,]
-DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8 & df_gene$cs_index !=0,]
+DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8 & in credible sets'))
 ```
 
 ### Comparing with Wingo's PWAS
@@ -265,7 +269,7 @@ data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/
 susie_pip_wingo <- df_gene[df_gene$genename %in%data_wingo$Gene_symbol,]
 data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol")
 
-print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8)))
+print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8, %s of them are in credible sets",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8),sum(data_merge$cs_index!=0)))
 
 DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al'))
 
@@ -299,16 +303,18 @@ para <- process_para(ctwas_parameters)
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
 
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+genes_included <- df_gene$genename
+df_gene <- df_gene[df_gene$cs_index !=0,]
 
 combined_pip <- combine_pip(df_gene)
 combined_pip08 <- combined_pip[combined_pip$total_susie_pip > 0.8,]
-DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Genes with combined pip > 0.8'))
+DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Genes with combined pip > 0.8 & in credible sets'))
 
 df_gene_comb08 <- df_gene[df_gene$genename %in% combined_pip08$genename,]
 DT::datatable(df_gene_comb08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for genes with combined pip > 0.8'))
 ```
 
-### Comparing with Wingo's study
+### Comparing with Wingo's twas & pwas
 
 ```{r fig.height=10,fig.width=20}
 
@@ -326,11 +332,11 @@ susie_pip_wingo <- combined_pip[combined_pip$genename %in%data_wingo$Gene_symbol
 data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol",all.y = T)
 
 data_merge_pwas <- data_merge[data_merge$method =="pwas",]
-print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),nrow(data_merge_pwas[complete.cases(data_merge_pwas),]),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
+print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),sum(data_merge_pwas$genename%in%genes_included),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
 
 gene_wingo_all <- data_merge[!duplicated(data_merge$genename),]
 
-print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
+print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8 & in credible sets",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
 
 DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al (both twas and pwas)'))
 
@@ -358,15 +364,15 @@ DT::datatable(df_uniq_ep,caption = htmltools::tags$caption( style = 'caption-sid
 ## Venn diagrammes for comparison
 
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn1.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn4.jpg" width="150%">
 </figure>
 
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn2.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn5.jpg" width="150%">
 </figure>
 
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn3.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn6.jpg" width="150%">
 </figure>
 
 

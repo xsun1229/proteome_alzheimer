@@ -18,6 +18,10 @@ editor_options:
 
 [link to results](https://xsun1229.github.io/proteome_alzheimer/jansen_0204_mergef.html)
 
+## Jansen's GWAS, LD merge = F, credible set filtered
+
+[link to results](https://xsun1229.github.io/proteome_alzheimer/jansen_0204_mergef_cs.html)
+
 
 # Brain pQTL (LD merge = T if not specified)
 
