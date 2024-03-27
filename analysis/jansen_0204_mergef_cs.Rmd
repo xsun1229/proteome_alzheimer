@@ -147,6 +147,22 @@ combine_pip_Cerebellum <- function(ctwas_gene_res) {
 
 }
 
+
+plotPieChartWithProportions <- function(para) {
+  # Extract group names and pve values
+  names <- as.character(para$group)
+  numbers <- as.numeric(para$group_pve)
+  
+  # Calculate proportions
+  proportions <- round(numbers / sum(numbers) * 100, 2)
+  
+  # Create labels with proportions
+  labels <- paste(names, "-", proportions, "%")
+  
+  # Create pie chart with labels showing proportions
+  pie(numbers, labels = labels, main = "Group PVE Proportions")
+}
+
 ```
 
 
@@ -175,7 +191,7 @@ ctwas_parameters$convergence_plot
 para <- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-
+plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8 & df_gene$cs_index !=0,]
@@ -222,7 +238,7 @@ ctwas_parameters$convergence_plot
 para <- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-
+plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included <- df_gene$genename
 df_gene <- df_gene[df_gene$cs_index !=0,]
@@ -290,7 +306,7 @@ ctwas_parameters$convergence_plot
 para <- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-
+plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8 & df_gene$cs_index !=0,]
@@ -337,7 +353,7 @@ ctwas_parameters$convergence_plot
 para <- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-
+plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included <- df_gene$genename
 df_gene <- df_gene[df_gene$cs_index !=0,]
@@ -423,7 +439,7 @@ ctwas_parameters$convergence_plot
 para <- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-
+plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included <- df_gene$genename
 df_gene <- df_gene[df_gene$cs_index !=0,]
@@ -512,7 +528,7 @@ ctwas_parameters$convergence_plot
 para <- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-
+plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included <- df_gene$genename
 df_gene <- df_gene[df_gene$cs_index !=0,]

@@ -410,7 +410,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-03-21
+<strong>Last updated:</strong> 2024-03-27
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -544,15 +544,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree7c2cc5d8561269b4ee91d8e0dadd21f10e23f9d4targetblank7c2cc5da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree66fd534fa16b30da04f8ca86c3aa2b27a44720edtargetblank66fd534a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/7c2cc5d8561269b4ee91d8e0dadd21f10e23f9d4" target="_blank">7c2cc5d</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/66fd534fa16b30da04f8ca86c3aa2b27a44720ed" target="_blank">66fd534</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree7c2cc5d8561269b4ee91d8e0dadd21f10e23f9d4targetblank7c2cc5da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree66fd534fa16b30da04f8ca86c3aa2b27a44720edtargetblank66fd534a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +562,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/7c2cc5d8561269b4ee91d8e0dadd21f10e23f9d4" target="_blank">7c2cc5d</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/66fd534fa16b30da04f8ca86c3aa2b27a44720ed" target="_blank">66fd534</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -578,10 +578,6 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
-
-Untracked files:
-    Untracked:  output/venn7.jpg
-    Untracked:  output/venn8.jpg
 
 Unstaged changes:
     Modified:   analysis/jansen_0204_mergef_cs.Rmd
@@ -630,6 +626,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/66fd534fa16b30da04f8ca86c3aa2b27a44720ed/analysis/jansen_0204_mergef_cs.Rmd" target="_blank">66fd534</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/66fd534fa16b30da04f8ca86c3aa2b27a44720ed/docs/jansen_0204_mergef_cs.html" target="_blank">66fd534</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -814,6 +844,22 @@ combine_pip_Cerebellum &lt;- function(ctwas_gene_res) {
 
   return(combined_pip)
 
+}
+
+
+plotPieChartWithProportions &lt;- function(para) {
+  # Extract group names and pve values
+  names &lt;- as.character(para$group)
+  numbers &lt;- as.numeric(para$group_pve)
+  
+  # Calculate proportions
+  proportions &lt;- round(numbers / sum(numbers) * 100, 2)
+  
+  # Create labels with proportions
+  labels &lt;- paste(names, &quot;-&quot;, proportions, &quot;%&quot;)
+  
+  # Create pie chart with labels showing proportions
+  pie(numbers, labels = labels, main = &quot;Group PVE Proportions&quot;)
 }</code></pre>
 </div>
 </div>
@@ -880,6 +926,8 @@ XSun
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
 <div id="htmlwidget-e580bcebcc2166761c08" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","gene"],["SNP","gene"],["7228970","2932"],["4.62984251063993e-06","0.0874895465826045"],["208.115381810546","3.12444732968598"],[null,"18896.8731401863"],["0.0147301407088368","0.0016949364303211"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>plotPieChartWithProportions(para)</code></pre>
+<p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-2-3.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 &lt;- df_gene[df_gene$susie_pip &gt;0.8 &amp; df_gene$cs_index !=0,]
@@ -964,6 +1012,8 @@ XSun
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
 <div id="htmlwidget-f75ed56b951ed5bc9e08" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-f75ed56b951ed5bc9e08">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso"],["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso"],["7226260","2928","6802"],["0.000148890107828207","0.0302102991763044","0.0146283580154446"],["3.45273528159476","3.45408316555279","4.79961449994407"],[null,"202.903333317226","98.2493614171005"],["0.00785602370213103","0.000646128597526484","0.0010099471306989"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>plotPieChartWithProportions(para)</code></pre>
+<p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-4-3.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included &lt;- df_gene$genename
 df_gene &lt;- df_gene[df_gene$cs_index !=0,]
@@ -1073,6 +1123,8 @@ XSun
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
 <div id="htmlwidget-0e9ff92f35b7afbcbe9b" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-0e9ff92f35b7afbcbe9b">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","gene"],["SNP","gene"],["7226260","2928"],["0.000159331665840218","0.0475723200190516"],["3.54150918116554","3.58365524028296"],[null,"298.574170854138"],["0.00862311398387579","0.00105562994455791"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>plotPieChartWithProportions(para)</code></pre>
+<p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-6-3.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 
 df_gene_pip08 &lt;- df_gene[df_gene$susie_pip &gt;0.8 &amp; df_gene$cs_index !=0,]
@@ -1157,6 +1209,8 @@ XSun
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
 <div id="htmlwidget-5e1a33ab6379f3b2eae7" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-5e1a33ab6379f3b2eae7">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso"],["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso"],["7226260","2928","6802"],["0.000148890107828207","0.0302102991763044","0.0146283580154446"],["3.45273528159476","3.45408316555279","4.79961449994407"],[null,"202.903333317226","98.2493614171005"],["0.00785602370213103","0.000646128597526484","0.0010099471306989"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>plotPieChartWithProportions(para)</code></pre>
+<p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-8-3.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included &lt;- df_gene$genename
 df_gene &lt;- df_gene[df_gene$cs_index !=0,]
@@ -1243,11 +1297,50 @@ ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
 
 ctwas_parameters$convergence_plot</code></pre>
 <p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-11-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/66fd534fa16b30da04f8ca86c3aa2b27a44720ed/docs/figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-11-1.png" target="_blank">66fd534</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-03-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>para &lt;- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
 <div id="htmlwidget-927470e873a132bc276e" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-927470e873a132bc276e">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso","mashr_Brain_Cortex"],["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso","mashr_Brain_Cortex"],["7226260","2928","6802","22560"],["0.000149063324407039","0.0298044911030073","0.0139348323688078","7.32924561689833e-05"],["3.50899059291143","3.55715077989675","5.06692510389597","4.95599904877923"],[null,"199.945165731189","93.4826351434154","0.491686714089696"],["0.00799331015254684","0.000656470375163719","0.00101564734080322","1.73296447620632e-05"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>plotPieChartWithProportions(para)</code></pre>
+<p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-11-3.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included &lt;- df_gene$genename
 df_gene &lt;- df_gene[df_gene$cs_index !=0,]
@@ -1333,11 +1426,50 @@ ctwas_parameters &lt;- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
 
 ctwas_parameters$convergence_plot</code></pre>
 <p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-13-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/66fd534fa16b30da04f8ca86c3aa2b27a44720ed/docs/figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-13-1.png" target="_blank">66fd534</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-03-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>para &lt;- process_para(ctwas_parameters)
 
 DT::datatable(para,caption = htmltools::tags$caption( style = &#39;caption-side: left; text-align: left; color:black;  font-size:150% ;&#39;,&#39;Parameters&#39;))</code></pre>
 <div id="htmlwidget-160c1ad3b5fd12492e34" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-160c1ad3b5fd12492e34">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: left; text-align: left; color:black;  font-size:150% ;\">Parameters<\/caption>","data":[["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso","mashr_Brain_Cerebellum"],["SNP","wingo_722_brain_protein_lasso","wingo_888_brain_expr_lasso","mashr_Brain_Cerebellum"],["7226260","2928","6802","26415"],["0.000150878126026292","0.0304167839486462","0.0127680437906375","0.000311075591305005"],["3.34622303082894","3.50544965594393","5.24218883810678","12.3072963161296"],[null,"201.598367833292","84.6248831882534","2.06176733167269"],["0.00771533562893168","0.000660219236944589","0.000962794780299598","0.000213864786230618"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>group<\/th>\n      <th>group_size<\/th>\n      <th>group_prior<\/th>\n      <th>group_prior_var<\/th>\n      <th>enrichment<\/th>\n      <th>group_pve<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>plotPieChartWithProportions(para)</code></pre>
+<p><img src="figure/jansen_0204_mergef_cs.Rmd/unnamed-chunk-13-3.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>df_gene &lt;- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included &lt;- df_gene$genename
 df_gene &lt;- df_gene[df_gene$cs_index !=0,]
