@@ -340,7 +340,19 @@ DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-sid
 
 df_our_uniq <- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
 DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
+
+
 ```
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/RIN3_epqtl.jpg" width="150%">
+</figure>
+
+  
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/ICA1L_pqtl.jpg" width="150%">
+</figure>
+
 
 ## Compare the results for pqtl analysis and e+p QTL joint analysis
 
@@ -452,6 +464,10 @@ DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-sid
 
 df_our_uniq <- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
 DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
+
+
+
+
 ```
 
 
