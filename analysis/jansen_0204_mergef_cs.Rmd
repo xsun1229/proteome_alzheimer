@@ -92,21 +92,74 @@ process_data <- function(weight, outputdir, outname, z_gene, display_datatable =
   return(ctwas_gene_res)
 }
 
+# combine_pip <- function(ctwas_gene_res) {
+#   
+#   ctwas_gene_res <- ctwas_gene_res
+#     
+#   combined_pip <- ctwas_gene_res %>%
+#   dplyr::filter(!is.na(genename)) %>% # Exclude rows where genename is NA
+#   group_by(genename) %>%
+#   summarise(
+#     total_susie_pip = sum(susie_pip, na.rm = TRUE), # Adding na.rm = TRUE to sum function
+#     pip_wingo_888_brain_expr_lasso = sum(susie_pip[type == "wingo_888_brain_expr_lasso"], na.rm = TRUE),
+#     pip_wingo_722_brain_protein_lasso = sum(susie_pip[type == "wingo_722_brain_protein_lasso"], na.rm = TRUE)
+#   )
+# 
+#   return(combined_pip)
+# 
+# }
+
+# combine_pip <- function(ctwas_gene_res) {
+#   
+#   # Summarize susie_pip by genename
+#   susie_pip_summary <- ctwas_gene_res %>%
+#     dplyr::filter(!is.na(genename)) %>%
+#     dplyr::group_by(genename) %>%
+#     dplyr::summarise(
+#       total_susie_pip = sum(susie_pip, na.rm = TRUE),
+#       pip_wingo_888_brain_expr_lasso = sum(susie_pip[type == "wingo_888_brain_expr_lasso"], na.rm = TRUE),
+#       pip_wingo_722_brain_protein_lasso = sum(susie_pip[type == "wingo_722_brain_protein_lasso"], na.rm = TRUE),
+#       .groups = 'drop'
+#     )
+#   
+#   # Select the first occurrence of other attributes for each genename
+#   first_occurrence_attributes <- ctwas_gene_res %>%
+#     dplyr::arrange(genename, susie_pip) %>%
+#     dplyr::distinct(genename, .keep_all = TRUE)
+#   
+#   # Merge the summaries with the first occurrence attributes
+#   combined_pip <- dplyr::left_join(susie_pip_summary, first_occurrence_attributes, by = "genename") %>%
+#     dplyr::select(genename, region_tag1, region_tag2, chrom, pos, cs_index, total_susie_pip, pip_wingo_888_brain_expr_lasso, pip_wingo_722_brain_protein_lasso)
+#   
+#   return(combined_pip)
+# }
+
 combine_pip <- function(ctwas_gene_res) {
   
-  ctwas_gene_res <- ctwas_gene_res
-    
-  combined_pip <- ctwas_gene_res %>%
-  dplyr::filter(!is.na(genename)) %>% # Exclude rows where genename is NA
-  group_by(genename) %>%
-  summarise(
-    total_susie_pip = sum(susie_pip, na.rm = TRUE), # Adding na.rm = TRUE to sum function
-    pip_wingo_888_brain_expr_lasso = sum(susie_pip[type == "wingo_888_brain_expr_lasso"], na.rm = TRUE),
-    pip_wingo_722_brain_protein_lasso = sum(susie_pip[type == "wingo_722_brain_protein_lasso"], na.rm = TRUE)
-  )
-
+  # Summarize susie_pip by genename
+  susie_pip_summary <- ctwas_gene_res %>%
+    dplyr::filter(!is.na(genename)) %>%
+    dplyr::group_by(genename) %>%
+    dplyr::summarise(
+      total_susie_pip = sum(susie_pip, na.rm = TRUE),
+      pip_wingo_888_brain_expr_lasso = sum(susie_pip[type == "wingo_888_brain_expr_lasso"], na.rm = TRUE),
+      pip_wingo_722_brain_protein_lasso = sum(susie_pip[type == "wingo_722_brain_protein_lasso"], na.rm = TRUE),
+      .groups = 'drop'
+    )
+  
+  # Shuffle rows with the same genename and cs_index to handle ties randomly
+  # Then, select the first occurrence of other attributes for each genename with the largest cs_index
+  set.seed(123) # Ensure reproducibility for the random selection
+  first_occurrence_attributes <- ctwas_gene_res %>%
+    dplyr::mutate(random_order = sample(seq_len(n()))) %>%
+    dplyr::arrange(genename, desc(cs_index), random_order) %>%
+    dplyr::distinct(genename, .keep_all = TRUE)
+  
+  # Merge the summaries with the first occurrence attributes
+  combined_pip <- dplyr::left_join(susie_pip_summary, first_occurrence_attributes, by = "genename") %>%
+    dplyr::select(genename, region_tag1, region_tag2, chrom, pos, cs_index, total_susie_pip, pip_wingo_888_brain_expr_lasso, pip_wingo_722_brain_protein_lasso)
+  
   return(combined_pip)
-
 }
 
 
@@ -166,120 +219,6 @@ plotPieChartWithProportions <- function(para) {
 ```
 
 
-# Full GWAS
-
-## pqtl
-
-### results
-
-```{r fig.height=10,fig.width=20}
-outputdir <- "/project2/guiming/xsun/proteome_alzheimer/19.jansen_0204_fullgwas_mergef/output/AD_protein/"
-outname <- "AD_ctwas"
-gwas_n <- 472868
-weight <- "wingo_722_brain_protein_lasso"
-  
-  
-load(paste0(outputdir,outname,"_z_snp.Rd"))
-load(paste0(outputdir,outname,"_z_gene.Rd"))
-
-ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
-                                               outname = outname,
-                                               gwas_n = gwas_n,
-                                               thin = thin)
-ctwas_parameters$convergence_plot
-
-para <- process_para(ctwas_parameters)
-
-DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-plotPieChartWithProportions(para)
-df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
-
-df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8 & df_gene$cs_index !=0,]
-DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
-```
-
-### Comparing with Wingo's pwas
-
-```{r }
-data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_pwas.txt",header = T)
-
-susie_pip_wingo <- df_gene[df_gene$genename %in%data_wingo$Gene_symbol,]
-data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol")
-
-print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8, %s of them are in credible sets",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8),sum(data_merge$cs_index!=0)))
-
-DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al'))
-
-```
-
-
-## joint analysis: eqtl & pqtl
-
-### Results 
-
-```{r fig.height=10,fig.width=20}
-outputdir <- "/project2/guiming/xsun/proteome_alzheimer/19.jansen_0204_topremoved_mergef/output/AD_epjoint/"
-outname <- "AD_ctwas"
-gwas_n <- 472868
-weight <- "wingo_722_brain_protein_lasso,wingo_888_brain_expr_lasso"
-  
-  
-load(paste0(outputdir,outname,"_z_snp.Rd"))
-
-load(paste0(outputdir,outname,"_z_gene.Rd"))
-
-ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
-                                               outname = outname,
-                                               gwas_n = gwas_n,
-                                               thin = thin)
-
-ctwas_parameters$convergence_plot
-
-para <- process_para(ctwas_parameters)
-
-DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
-plotPieChartWithProportions(para)
-df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
-genes_included <- df_gene$genename
-df_gene <- df_gene[df_gene$cs_index !=0,]
-
-combined_pip <- combine_pip(df_gene)
-combined_pip08 <- combined_pip[combined_pip$total_susie_pip > 0.8,]
-DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Genes with combined pip > 0.8 & in credible sets'))
-
-df_gene_comb08 <- df_gene[df_gene$genename %in% combined_pip08$genename,]
-DT::datatable(df_gene_comb08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for genes with combined pip > 0.8'))
-```
-
-### Comparing with Wingo's pwas & twas
-
-```{r fig.height=10,fig.width=20}
-
-data_wingo_pwas <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_pwas.txt",header = T)
-data_wingo_pwas <- data_wingo_pwas[,c("Gene_symbol","cis.trans","PWAS_Z","PWAS_p.value","PWAS_FDR_p.value","COLOC_PP4")]
-data_wingo_pwas$method <- "pwas"
-data_wingo_twas <- readxl::read_excel("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_twas.xlsx")
-data_wingo_twas <- data_wingo_twas[,-ncol(data_wingo_twas)]
-data_wingo_twas$method <- "twas"
-colnames(data_wingo_twas) <- colnames(data_wingo_pwas)
-
-data_wingo <- rbind(data_wingo_pwas,data_wingo_twas)
-
-susie_pip_wingo <- combined_pip[combined_pip$genename %in%data_wingo$Gene_symbol,]
-data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol",all.y = T)
-
-data_merge_pwas <- data_merge[data_merge$method =="pwas",]
-print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),sum(data_merge_pwas$genename%in%genes_included),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
-
-gene_wingo_all <- data_merge[!duplicated(data_merge$genename),]
-
-print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8 & in credible sets",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
-
-DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al (both twas and pwas)'))
-
-df_our_uniq <- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
-DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
-```
 
 # Top locus removed
 
@@ -327,6 +266,13 @@ DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-sid
 
 ```
 
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/VKORC1_pqtl.jpg" width="150%">
+</figure>
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/pqtl_ld.png" width="150%">
+</figure>
 
 ## joint analysis: eqtl & pqtl
 
@@ -356,7 +302,7 @@ DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: lef
 plotPieChartWithProportions(para)
 df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
 genes_included <- df_gene$genename
-df_gene <- df_gene[df_gene$cs_index !=0,]
+#df_gene <- df_gene[df_gene$cs_index !=0,]
 
 combined_pip <- combine_pip(df_gene)
 combined_pip08 <- combined_pip[combined_pip$total_susie_pip > 0.8,]
@@ -413,6 +359,14 @@ DT::datatable(df_uniq_ep,caption = htmltools::tags$caption( style = 'caption-sid
 
 ```
 
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/VKORC1_epqtl_eqtltrack.jpg" width="150%">
+</figure>
+
+<figure class="half">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/eqtl_ld.png" width="150%">
+</figure>
 
 ## joint analysis: eqtl & pqtl & sqtl from cortex
 
@@ -596,15 +550,15 @@ DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-si
 ## Venn diagrammes for comparison
 
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn4.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/pqtl_pwas.jpg" width="150%">
 </figure>
 
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn5.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/epqtl_tpwas_comapre.jpg" width="150%">
 </figure>
 
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/venn6.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/pqtl_epqtl_compare.jpg" width="150%">
 </figure>
 
 <figure class="half">
@@ -618,3 +572,118 @@ DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-si
 # Top locus removed for parameter estimation, full gwas for fine-mapping
 
 Got the same retults as the 'Top locus removed' setting.
+
+# Full GWAS
+
+## pqtl
+
+### results
+
+```{r fig.height=10,fig.width=20}
+outputdir <- "/project2/guiming/xsun/proteome_alzheimer/19.jansen_0204_fullgwas_mergef/output/AD_protein/"
+outname <- "AD_ctwas"
+gwas_n <- 472868
+weight <- "wingo_722_brain_protein_lasso"
+  
+  
+load(paste0(outputdir,outname,"_z_snp.Rd"))
+load(paste0(outputdir,outname,"_z_gene.Rd"))
+
+ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+ctwas_parameters$convergence_plot
+
+para <- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
+plotPieChartWithProportions(para)
+df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+
+df_gene_pip08 <- df_gene[df_gene$susie_pip >0.8 & df_gene$cs_index !=0,]
+DT::datatable(df_gene_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with susie pip >0.8'))
+```
+
+### Comparing with Wingo's pwas
+
+```{r }
+data_wingo <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_pwas.txt",header = T)
+
+susie_pip_wingo <- df_gene[df_gene$genename %in%data_wingo$Gene_symbol,]
+data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol")
+
+print(sprintf("There are %s genes reported by Wingo, %s of them are included in ctwas analysis, %s of them have susie pip > 0.8, %s of them are in credible sets",nrow(data_wingo),nrow(susie_pip_wingo),sum(susie_pip_wingo$susie_pip >0.8),sum(data_merge$cs_index!=0)))
+
+DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al'))
+
+```
+
+
+## joint analysis: eqtl & pqtl
+
+### Results 
+
+```{r fig.height=10,fig.width=20}
+outputdir <- "/project2/guiming/xsun/proteome_alzheimer/19.jansen_0204_topremoved_mergef/output/AD_epjoint/"
+outname <- "AD_ctwas"
+gwas_n <- 472868
+weight <- "wingo_722_brain_protein_lasso,wingo_888_brain_expr_lasso"
+  
+  
+load(paste0(outputdir,outname,"_z_snp.Rd"))
+
+load(paste0(outputdir,outname,"_z_gene.Rd"))
+
+ctwas_parameters <- ctwas:::ctwas_summarize_parameters(outputdir = outputdir,
+                                               outname = outname,
+                                               gwas_n = gwas_n,
+                                               thin = thin)
+
+ctwas_parameters$convergence_plot
+
+para <- process_para(ctwas_parameters)
+
+DT::datatable(para,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Parameters'))
+plotPieChartWithProportions(para)
+df_gene <- process_data(weight = weight,outputdir = outputdir,outname = outname, z_gene =z_gene,)
+genes_included <- df_gene$genename
+df_gene <- df_gene[df_gene$cs_index !=0,]
+
+combined_pip <- combine_pip(df_gene)
+combined_pip08 <- combined_pip[combined_pip$total_susie_pip > 0.8,]
+DT::datatable(combined_pip08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Genes with combined pip > 0.8 & in credible sets'))
+
+df_gene_comb08 <- df_gene[df_gene$genename %in% combined_pip08$genename,]
+DT::datatable(df_gene_comb08,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','Details for genes with combined pip > 0.8'))
+```
+
+### Comparing with Wingo's pwas & twas
+
+```{r fig.height=10,fig.width=20}
+
+data_wingo_pwas <- read.table("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_pwas.txt",header = T)
+data_wingo_pwas <- data_wingo_pwas[,c("Gene_symbol","cis.trans","PWAS_Z","PWAS_p.value","PWAS_FDR_p.value","COLOC_PP4")]
+data_wingo_pwas$method <- "pwas"
+data_wingo_twas <- readxl::read_excel("/project2/guiming/xsun/proteome_alzheimer/data_others/AD1_wingo_twas.xlsx")
+data_wingo_twas <- data_wingo_twas[,-ncol(data_wingo_twas)]
+data_wingo_twas$method <- "twas"
+colnames(data_wingo_twas) <- colnames(data_wingo_pwas)
+
+data_wingo <- rbind(data_wingo_pwas,data_wingo_twas)
+
+susie_pip_wingo <- combined_pip[combined_pip$genename %in%data_wingo$Gene_symbol,]
+data_merge <- merge(susie_pip_wingo, data_wingo, by.x="genename", by.y = "Gene_symbol",all.y = T)
+
+data_merge_pwas <- data_merge[data_merge$method =="pwas",]
+print(sprintf("There are %s genes reported by Wingo pwas, %s of them are included in ctwas analysis, %s of them have combined susie pip > 0.8",nrow(data_merge_pwas),sum(data_merge_pwas$genename%in%genes_included),sum(data_merge_pwas[complete.cases(data_merge_pwas),]$total_susie_pip >0.8)))
+
+gene_wingo_all <- data_merge[!duplicated(data_merge$genename),]
+
+print(sprintf("There are %s genes reported by Wingo pwas + twas, %s of them have combined susie pip > 0.8 & in credible sets",nrow(gene_wingo_all),sum(gene_wingo_all[complete.cases(gene_wingo_all),]$total_susie_pip >0.8)))
+
+DT::datatable(data_merge,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','ctwas results for the genes reported by Wingo et al (both twas and pwas)'))
+
+df_our_uniq <- combined_pip08[!combined_pip08$genename %in%data_merge$genename,]
+DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-side: left; text-align: left; color:black;  font-size:150% ;','genes with combined susie pip > 0.8 but were not reported by wingo et al'))
+```
