@@ -350,7 +350,7 @@ DT::datatable(df_our_uniq,caption = htmltools::tags$caption( style = 'caption-si
 
   
 <figure class="half">
-    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/ICA1L_pqtl.jpg" width="150%">
+    <img src="https://github.com/xsun1229/proteome_alzheimer/raw/master/output/ICA1L_epqtl.jpg" width="150%">
 </figure>
 
 
