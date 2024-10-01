@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="XSun" />
+
+<meta name="date" content="2024-10-01" />
+
+<title>Jasen’s GWAS</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.22/datatables.js"></script>
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">proteome_alzheimer</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/xsun1229/proteome_alzheimer">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Jasen’s GWAS</h1>
+<h4 class="author">XSun</h4>
+<h4 class="date">2024-10-01</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-10-01
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>proteome_alzheimer/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230414code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230414)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230414code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230414)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2targetblank8fd5b1ba">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2" target="_blank">8fd5b1b</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2targetblank8fd5b1ba"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2" target="_blank">8fd5b1b</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    analysis/figure/
+
+Untracked files:
+    Untracked:  analysis/jansen_1001.Rmd
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<div id="trait" class="section level2">
+<h2>Trait</h2>
+<p>Top locus removed GWAS
+(/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.topremoved.RDS)</p>
+</div>
+<div id="settings" class="section level2">
+<h2>Settings</h2>
+<ol style="list-style-type: decimal">
+<li>Weight processing:</li>
+</ol>
+<p>PredictDB:</p>
+<p>all the PredictDB are converted from FUSION weights</p>
+<ul>
+<li>drop_strand_ambig = TRUE,</li>
+<li>scale_by_ld_variance = F (FUSION converted weights)</li>
+<li>load_predictdb_LD = F</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Parameter estimation and fine-mapping</li>
+</ol>
+<ul>
+<li>niter_prefit = 5,</li>
+<li>niter = 30(default),</li>
+<li>L: pre-estimated,</li>
+<li>group_prior_var_structure = “shared_type”,</li>
+<li>maxSNP = 20000,</li>
+<li>min_nonSNP_PIP = 0.5</li>
+</ul>
+<pre class="r"><code>library(ctwas)
+library(EnsDb.Hsapiens.v86)
+
+ens_db &lt;- EnsDb.Hsapiens.v86
+
+gwas_n &lt;- 472868
+E_S_A_mapping &lt;- readRDS(&quot;/project2/xinhe/shared_data/multigroup_ctwas/weights/mapping_files/Munro_mapping.RDS&quot;)
+
+sum_pve_across_types &lt;- function(ctwas_parameters) {
+  # Round the group_pve values
+  pve &lt;- round(ctwas_parameters$group_pve, 4)
+  pve &lt;- as.data.frame(pve)
+
+  # Extract SNP PVE for later use
+  SNP_pve &lt;- pve[&quot;SNP&quot;, ]
+
+  # Add type and context columns
+  pve$type &lt;- sapply(rownames(pve), function(x) { unlist(strsplit(x, &quot;[|]&quot;))[1] })
+  pve$context &lt;- sapply(rownames(pve), function(x) { unlist(strsplit(x, &quot;[|]&quot;))[2] })
+
+  # Remove rows with NA values and sort
+  pve &lt;- na.omit(pve)
+  pve &lt;- pve[order(rownames(pve)), ]
+
+  # Aggregate PVE by type
+  df_pve &lt;- aggregate(pve$pve, by = list(pve$type), FUN = sum)
+  colnames(df_pve) &lt;- c(&quot;type&quot;, &quot;total_pve&quot;)
+  df_pve$total_pve &lt;- round(df_pve$total_pve, 4)
+
+  # Add context-specific columns
+  for (context in unique(pve$context)) {
+    context_pve &lt;- aggregate(pve$pve, by = list(pve$type, pve$context), FUN = sum)
+    context_pve &lt;- context_pve[context_pve$Group.2 == context, ]
+    colnames(context_pve)[3] &lt;- context
+    df_pve &lt;- merge(df_pve, context_pve[, c(&quot;Group.1&quot;, context)], by.x = &quot;type&quot;, by.y = &quot;Group.1&quot;, all.x = TRUE)
+  }
+
+  # Insert SNP PVE
+  SNP_row &lt;- c(&quot;SNP&quot;, SNP_pve, rep(0, ncol(df_pve) - 2))
+  df_pve &lt;- rbind(df_pve, SNP_row)
+
+  # Convert to numeric except for the type column
+  df_pve[, -1] &lt;- lapply(df_pve[, -1], as.numeric)
+
+  # Sum all rows and add a sum_pve row
+  sum_row &lt;- colSums(df_pve[, -1], na.rm = TRUE)
+  sum_row &lt;- c(&quot;total_pve&quot;, sum_row)
+  df_pve &lt;- rbind(df_pve, sum_row)
+
+  # Clean up row names and return
+  row.names(df_pve) &lt;- NULL
+  return(df_pve)
+}</code></pre>
+</div>
+</div>
+<div id="pqtl" class="section level1">
+<h1>pQTL</h1>
+<pre class="r"><code>trait &lt;- &quot;AD_protein&quot;
+
+results_dir_protein &lt;- &quot;/project/xinhe/xsun/AD/1.jansen/output/protein/&quot;
+
+weights_protein &lt;- readRDS(paste0(results_dir_protein,trait,&quot;.preprocessed.weights.RDS&quot;))
+region_info_protein &lt;- readRDS(paste0(results_dir_protein,trait,&quot;.region_info.RDS&quot;))
+snp_map_protein &lt;- readRDS(paste0(results_dir_protein,trait,&quot;.snp_map.RDS&quot;))
+LD_map_protein &lt;- readRDS(paste0(results_dir_protein,trait,&quot;.LD_map.RDS&quot;))
+ctwas_res_protein &lt;- readRDS(paste0(results_dir_protein,trait,&quot;.ctwas.res.RDS&quot;))
+
+z_gene_protein &lt;- ctwas_res_protein$z_gene
+param_protein &lt;- ctwas_res_protein$param
+finemap_res_protein &lt;- ctwas_res_protein$finemap_res
+boundary_genes_protein &lt;- ctwas_res_protein$boundary_genes
+region_data_protein &lt;- ctwas_res_protein$region_data
+screen_res_protein &lt;- ctwas_res_protein$screen_res
+
+make_convergence_plots(param_protein, gwas_n)</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ctwas_parameters_protein &lt;- summarize_param(param_protein, gwas_n)
+
+para_protein &lt;- sum_pve_across_types(ctwas_parameters_protein)
+DT::datatable(para_protein,caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Heritability contribution by contexts&#39;),options = list(pageLength = 10) )</code></pre>
+<div id="htmlwidget-e580bcebcc2166761c08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e580bcebcc2166761c08">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Heritability contribution by contexts<\/caption>","data":[["1","2","3"],["brain","SNP","total_pve"],["0.0012","0.0085","0.0097"],["0.0012","0","0.0012"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>type<\/th>\n      <th>total_pve<\/th>\n      <th>pQTL<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>finemap_res_protein &lt;- ctwas_res_protein$finemap_res
+
+finemap_res_protein$molecular_id &lt;- get_molecular_ids(finemap_res_protein)
+
+
+finemap_res_protein &lt;- anno_finemap_res(finemap_res_protein,
+                              snp_map = snp_map_protein,
+                              mapping_table = E_S_A_mapping,
+                              add_gene_annot = TRUE,
+                              map_by = &quot;molecular_id&quot;,
+                              drop_unmapped = TRUE,
+                              add_position = TRUE,
+                              use_gene_pos = &quot;mid&quot;)</code></pre>
+<pre><code>2024-10-01 12:51:32 INFO::Annotating fine-mapping result ...
+2024-10-01 12:51:32 INFO::Map molecular traits to genes
+2024-10-01 12:51:32 INFO::Drop 5 unmapped molecular IDs
+2024-10-01 12:51:34 INFO::Add gene positions
+2024-10-01 12:51:34 INFO::Add SNP positions</code></pre>
+<pre class="r"><code>combined_pip_by_type_protein &lt;- combine_gene_pips(finemap_res =finemap_res_protein,
+                                  group_by = &quot;gene_name&quot;,
+                                  by = &quot;type&quot;, 
+                                  method = &quot;combine_cs&quot;,
+                                  filter_cs = T )</code></pre>
+<pre><code>2024-10-01 12:51:47 INFO::Limit gene results to credible sets</code></pre>
+<pre class="r"><code>DT::datatable(combined_pip_by_type_protein[combined_pip_by_type_protein$combined_pip&gt;0.8,],caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Combined PIP by omics, credible set filtered&#39;),options = list(pageLength = 10) )</code></pre>
+<div id="htmlwidget-f110db3ae422a0420019" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f110db3ae422a0420019">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Combined PIP by omics, credible set filtered<\/caption>","data":[["1","2","3","4","5","6"],["VKORC1","ACE","CTSH","CCDC6","SNX32","ADAM10"],[0.997703185118038,0.990680411273773,0.976143230414021,0.965375109991746,0.914405387583922,0.905233043587765],[0.997703185118038,0.990680411273773,0.976143230414021,0.965375109991746,0.914405387583922,0.905233043587765]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>gene_name<\/th>\n      <th>pQTL_pip<\/th>\n      <th>combined_pip<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>There are some boundary genes with high pip (PIP &gt; 0.5)</p>
+<pre class="r"><code>boundary_genes_protein &lt;- ctwas_res_protein$boundary_genes
+
+high_PIP_finemap_gene_res_protein &lt;- subset(ctwas_res_protein$finemap_res, group != &quot;SNP&quot; &amp; susie_pip &gt; 0.5 &amp; cs_index != 0)
+high_PIP_genes_protein &lt;- unique(high_PIP_finemap_gene_res_protein$id)
+
+selected_boundary_genes &lt;- boundary_genes_protein[boundary_genes_protein$id %in% high_PIP_genes_protein, , drop=FALSE]
+
+DT::datatable(selected_boundary_genes,caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Boundary genes with high PIPs&#39;),options = list(pageLength = 10) )</code></pre>
+<div id="htmlwidget-b3540f48f687887edb0c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3540f48f687887edb0c">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Boundary genes with high PIPs<\/caption>","data":[["377"],[11],["ENSG00000172803|brain_pQTL"],[65507605],[66066993],["ENSG00000172803"],["brain_pQTL"],[63804569],[68005825],["11_63804569_65898631;11_65898631_68005825"],[2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>p0<\/th>\n      <th>p1<\/th>\n      <th>molecular_id<\/th>\n      <th>weight_name<\/th>\n      <th>region_start<\/th>\n      <th>region_stop<\/th>\n      <th>region_id<\/th>\n      <th>n_regions<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[1,3,4,7,8,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>We merge the regions that the boundary genes span</p>
+<pre class="r"><code>print(&quot;before region merging&quot;)</code></pre>
+<pre><code>[1] &quot;before region merging&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_protein,
+               region_id = &quot;11_63804569_65898631&quot;,
+               ens_db = ens_db,
+               weights = weights_protein,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:51:48 INFO::Limit to protein coding genes
+2024-10-01 12:51:48 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 12:51:48 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 12:51:48 INFO::Range of locus: chr11:63805235-65896962
+2024-10-01 12:51:49 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 12:51:49 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
+<pre><code>[1] &quot;after region merging&quot;</code></pre>
+<pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_protein.rdata&quot;)
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = &quot;11_63804569_68005825&quot;,
+               ens_db = ens_db,
+               weights = weights_protein,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:51:52 INFO::Limit to protein coding genes
+2024-10-01 12:51:52 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 12:51:52 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 12:51:52 INFO::Range of locus: chr11:63805235-68005480
+2024-10-01 12:51:52 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564,66066993
+2024-10-01 12:51:52 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="eqtl-pqtl-joint" class="section level1">
+<h1>eQTL + pQTL joint</h1>
+<pre class="r"><code>trait &lt;- &quot;AD_ep&quot;
+
+results_dir_epjoint &lt;- &quot;/project/xinhe/xsun/AD/1.jansen/output/epjoint/&quot;
+
+weights_epjoint &lt;- readRDS(paste0(results_dir_epjoint,trait,&quot;.preprocessed.weights.RDS&quot;))
+region_info_epjoint &lt;- readRDS(paste0(results_dir_epjoint,trait,&quot;.region_info.RDS&quot;))
+snp_map_epjoint &lt;- readRDS(paste0(results_dir_epjoint,trait,&quot;.snp_map.RDS&quot;))
+LD_map_epjoint &lt;- readRDS(paste0(results_dir_epjoint,trait,&quot;.LD_map.RDS&quot;))
+ctwas_res_epjoint &lt;- readRDS(paste0(results_dir_epjoint,trait,&quot;.ctwas.res.RDS&quot;))
+
+z_gene_epjoint &lt;- ctwas_res_epjoint$z_gene
+param_epjoint &lt;- ctwas_res_epjoint$param
+finemap_res_epjoint &lt;- ctwas_res_epjoint$finemap_res
+boundary_genes_epjoint &lt;- ctwas_res_epjoint$boundary_genes
+region_data_epjoint &lt;- ctwas_res_epjoint$region_data
+screen_res_epjoint &lt;- ctwas_res_epjoint$screen_res
+
+make_convergence_plots(param_epjoint, gwas_n)</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ctwas_parameters_epjoint &lt;- summarize_param(param_epjoint, gwas_n)
+
+para_epjoint &lt;- sum_pve_across_types(ctwas_parameters_epjoint)
+DT::datatable(para_epjoint,caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Heritability contribution by contexts&#39;),options = list(pageLength = 10) )</code></pre>
+<div id="htmlwidget-f75ed56b951ed5bc9e08" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f75ed56b951ed5bc9e08">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Heritability contribution by contexts<\/caption>","data":[["1","2","3"],["brain","SNP","total_pve"],["0.0018","0.0077","0.0095"],["0.001","0","0.001"],["8e-04","0","8e-04"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>type<\/th>\n      <th>total_pve<\/th>\n      <th>eQTL<\/th>\n      <th>pQTL<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>finemap_res_epjoint &lt;- ctwas_res_epjoint$finemap_res
+
+finemap_res_epjoint$molecular_id &lt;- get_molecular_ids(finemap_res_epjoint)
+
+
+finemap_res_epjoint &lt;- anno_finemap_res(finemap_res_epjoint,
+                              snp_map = snp_map_epjoint,
+                              mapping_table = E_S_A_mapping,
+                              add_gene_annot = TRUE,
+                              map_by = &quot;molecular_id&quot;,
+                              drop_unmapped = TRUE,
+                              add_position = TRUE,
+                              use_gene_pos = &quot;mid&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:10 INFO::Annotating fine-mapping result ...
+2024-10-01 12:52:10 INFO::Map molecular traits to genes
+2024-10-01 12:52:10 INFO::Drop 18 unmapped molecular IDs
+2024-10-01 12:52:11 INFO::Add gene positions
+2024-10-01 12:52:11 INFO::Add SNP positions</code></pre>
+<pre class="r"><code>combined_pip_by_type_epjoint &lt;- combine_gene_pips(finemap_res =finemap_res_epjoint,
+                                  group_by = &quot;gene_name&quot;,
+                                  by = &quot;type&quot;, 
+                                  method = &quot;combine_cs&quot;,
+                                  filter_cs = T )</code></pre>
+<pre><code>2024-10-01 12:52:20 INFO::Limit gene results to credible sets</code></pre>
+<pre class="r"><code>DT::datatable(combined_pip_by_type_epjoint[combined_pip_by_type_epjoint$combined_pip&gt;0.8,],caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Combined PIP by omics, credible set filtered&#39;),options = list(pageLength = 10) )</code></pre>
+<div id="htmlwidget-4d7183aa0eb9da18dc26" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4d7183aa0eb9da18dc26">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Combined PIP by omics, credible set filtered<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["CD2AP","TREM2","KAT8","ACE","CTSH","CCDC6","RIN3","EED","HLA-DRB1","SLTM"],[0.880197758276838,0.995732722386219,0.986544157116266,null,null,0.235270016016177,0.929489685053569,0.918557570735459,0.873715765987043,0.84360338085028],[0.250865088723981,null,null,0.984812738311929,0.965035404625707,0.725480652897742,null,null,null,null],[1.13106284700082,0.995732722386219,0.986544157116266,0.984812738311929,0.965035404625707,0.960750668913919,0.929489685053569,0.918557570735459,0.873715765987043,0.84360338085028]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>gene_name<\/th>\n      <th>eQTL_pip<\/th>\n      <th>pQTL_pip<\/th>\n      <th>combined_pip<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>There are some boundary genes with high pip (PIP &gt; 0.5)</p>
+<pre class="r"><code>boundary_genes_epjoint &lt;- ctwas_res_epjoint$boundary_genes
+
+high_PIP_finemap_gene_res_epjoint &lt;- subset(ctwas_res_epjoint$finemap_res, group != &quot;SNP&quot; &amp; susie_pip &gt; 0.5 &amp; cs_index != 0)
+high_PIP_genes_epjoint &lt;- unique(high_PIP_finemap_gene_res_epjoint$id)
+
+selected_boundary_genes &lt;- boundary_genes_epjoint[boundary_genes_epjoint$id %in% high_PIP_genes_epjoint, , drop=FALSE]
+
+DT::datatable(selected_boundary_genes,caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Boundary genes with high PIPs&#39;),options = list(pageLength = 10) )</code></pre>
+<div id="htmlwidget-b338d87cf65df4317178" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b338d87cf65df4317178">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Boundary genes with high PIPs<\/caption>","data":[["762","1308","1568"],[6,11,14],["ENSG00000196126|brain_eQTL","ENSG00000172803|brain_pQTL","ENSG00000100599|brain_eQTL"],[32050544,65507605,92922442],[32921774,66066993,93170901],["ENSG00000196126","ENSG00000172803","ENSG00000100599"],["brain_eQTL","brain_pQTL","brain_eQTL"],[31571218,63804569,91296860],[33236497,68005825,94325285],["6_31571218_32682664;6_32682664_33236497","11_63804569_65898631;11_65898631_68005825","14_91296860_93132299;14_93132299_94325285"],[2,2,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>chrom<\/th>\n      <th>id<\/th>\n      <th>p0<\/th>\n      <th>p1<\/th>\n      <th>molecular_id<\/th>\n      <th>weight_name<\/th>\n      <th>region_start<\/th>\n      <th>region_stop<\/th>\n      <th>region_id<\/th>\n      <th>n_regions<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[1,3,4,7,8,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>We merge the regions that the boundary genes span</p>
+<ol style="list-style-type: decimal">
+<li>HLA-DRB1</li>
+</ol>
+<pre class="r"><code>print(&quot;before region merging&quot;)</code></pre>
+<pre><code>[1] &quot;before region merging&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = &quot;6_31571218_32682664&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:20 INFO::Limit to protein coding genes
+2024-10-01 12:52:20 INFO::focal id: ENSG00000196126|brain_eQTL
+2024-10-01 12:52:20 INFO::focal molecular trait: HLA-DRB1 brain eQTL
+2024-10-01 12:52:20 INFO::Range of locus: chr6:31571871-32682543
+2024-10-01 12:52:20 INFO::focal molecular trait QTL positions: 32050544,32062687,32066177,32066220,32071893,32570839,32575369,32577889,32578052
+2024-10-01 12:52:21 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
+<pre><code>[1] &quot;after region merging&quot;</code></pre>
+<pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata&quot;)
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = &quot;6_31571218_33236497&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:23 INFO::Limit to protein coding genes
+2024-10-01 12:52:23 INFO::focal id: ENSG00000196126|brain_eQTL
+2024-10-01 12:52:23 INFO::focal molecular trait: HLA-DRB1 brain eQTL
+2024-10-01 12:52:23 INFO::Range of locus: chr6:31571871-33236275
+2024-10-01 12:52:23 INFO::focal molecular trait QTL positions: 32050544,32062687,32066177,32066220,32071893,32570839,32575369,32577889,32578052,32804299,32804414,32804798,32917857,32921774
+2024-10-01 12:52:23 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>SNX32</li>
+</ol>
+<pre class="r"><code>print(&quot;before region merging&quot;)</code></pre>
+<pre><code>[1] &quot;before region merging&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = &quot;11_63804569_65898631&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:26 INFO::Limit to protein coding genes
+2024-10-01 12:52:26 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 12:52:26 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 12:52:26 INFO::Range of locus: chr11:63805235-66060118
+2024-10-01 12:52:26 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 12:52:26 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
+<pre><code>[1] &quot;after region merging&quot;</code></pre>
+<pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata&quot;)
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = &quot;11_63804569_68005825&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:30 INFO::Limit to protein coding genes
+2024-10-01 12:52:30 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 12:52:30 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 12:52:30 INFO::Range of locus: chr11:63805235-68184446
+2024-10-01 12:52:30 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564,66066993
+2024-10-01 12:52:30 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>RIN3</li>
+</ol>
+<pre class="r"><code>print(&quot;before region merging&quot;)</code></pre>
+<pre><code>[1] &quot;before region merging&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = &quot;14_91296860_93132299&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:33 INFO::Limit to protein coding genes
+2024-10-01 12:52:33 INFO::focal id: ENSG00000100599|brain_eQTL
+2024-10-01 12:52:33 INFO::focal molecular trait: RIN3 brain eQTL
+2024-10-01 12:52:33 INFO::Range of locus: chr14:91143034-93132115
+2024-10-01 12:52:33 INFO::focal molecular trait QTL positions: 92922442,92922542,92927655,92958612,92959216,93011368,93120719
+2024-10-01 12:52:33 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
+<pre><code>[1] &quot;after region merging&quot;</code></pre>
+<pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata&quot;)
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = &quot;14_91296860_94325285&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:35 INFO::Limit to protein coding genes
+2024-10-01 12:52:35 INFO::focal id: ENSG00000100599|brain_eQTL
+2024-10-01 12:52:35 INFO::focal molecular trait: RIN3 brain eQTL
+2024-10-01 12:52:35 INFO::Range of locus: chr14:91143034-94324163
+2024-10-01 12:52:36 INFO::focal molecular trait QTL positions: 92922442,92922542,92927655,92958612,92959216,93011368,93120719,93170901
+2024-10-01 12:52:36 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comparing-the-genes-reported-by-the-two-settings"
+class="section level1">
+<h1>Comparing the genes reported by the two settings</h1>
+<div id="overlapped-genes" class="section level2">
+<h2>Overlapped genes</h2>
+<div id="htmlwidget-7d5f48f8a3d9f14f5771" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7d5f48f8a3d9f14f5771">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Overlapped genes, combined_pip &gt; 0.8, filtered by credible sets<\/caption>","data":[["3","12","9"],["ACE","CTSH","CCDC6"],[0.990680411273773,0.976143230414021,0.965375109991746],[0.990680411273773,0.976143230414021,0.965375109991746],[null,null,0.235270016016177],[0.984812738311929,0.965035404625707,0.725480652897742],[0.984812738311929,0.965035404625707,0.960750668913919]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genename<\/th>\n      <th>pQTL_pip_protein<\/th>\n      <th>combined_pip_protein<\/th>\n      <th>eQTL_pip_epjoint<\/th>\n      <th>pQTL_pip_epjoint<\/th>\n      <th>combined_pip_epjoint<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="unique-genes-reported-by-2-settings" class="section level2">
+<h2>Unique genes reported by 2 settings</h2>
+<pre><code>[1] &quot;the number of genes reported by protein only setting = 6&quot;</code></pre>
+<div id="htmlwidget-20ff36fa2d52b665fda5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-20ff36fa2d52b665fda5">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Unique genes reported by protein only setting<\/caption>","data":[["1","5","6"],["VKORC1","SNX32","ADAM10"],[0.997703185118038,0.914405387583922,0.905233043587765],[0.997703185118038,0.914405387583922,0.905233043587765]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>gene_name<\/th>\n      <th>pQTL_pip<\/th>\n      <th>combined_pip<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<pre><code>[1] &quot;the number of genes reported by epjoint setting = 10&quot;</code></pre>
+<div id="htmlwidget-0e9ff92f35b7afbcbe9b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0e9ff92f35b7afbcbe9b">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Unique genes reported by epjoint setting<\/caption>","data":[["1","2","3","7","8","9","10"],["CD2AP","TREM2","KAT8","RIN3","EED","HLA-DRB1","SLTM"],[0.880197758276838,0.995732722386219,0.986544157116266,0.929489685053569,0.918557570735459,0.873715765987043,0.84360338085028],[0.250865088723981,null,null,null,null,null,null],[1.13106284700082,0.995732722386219,0.986544157116266,0.929489685053569,0.918557570735459,0.873715765987043,0.84360338085028]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>gene_name<\/th>\n      <th>eQTL_pip<\/th>\n      <th>pQTL_pip<\/th>\n      <th>combined_pip<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="why-epjoint-missed-protein-only-genes" class="section level2">
+<h2>Why epjoint missed protein only genes</h2>
+<pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = &quot;16_29036613_31382943&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:38 INFO::Limit to protein coding genes
+2024-10-01 12:52:38 INFO::focal id: ENSG00000103510|brain_eQTL
+2024-10-01 12:52:38 INFO::focal molecular trait: KAT8 brain eQTL
+2024-10-01 12:52:38 INFO::Range of locus: chr16:28860306-31380696
+2024-10-01 12:52:38 INFO::focal molecular trait QTL positions: 30979818,31014179,31122571,31132250,31133449,31145219,31334236
+2024-10-01 12:52:38 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = &quot;11_63804569_65898631&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:40 INFO::Limit to protein coding genes
+2024-10-01 12:52:40 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 12:52:40 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 12:52:40 INFO::Range of locus: chr11:63805235-66060118
+2024-10-01 12:52:41 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 12:52:41 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = &quot;15_58441366_59694116&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:43 INFO::Limit to protein coding genes
+2024-10-01 12:52:43 INFO::focal id: ENSG00000137776|brain_eQTL
+2024-10-01 12:52:43 INFO::focal molecular trait: SLTM brain eQTL
+2024-10-01 12:52:43 INFO::Range of locus: chr15:58442232-59694103
+2024-10-01 12:52:43 INFO::focal molecular trait QTL positions: 58779641,58781095,59115995,59590597
+2024-10-01 12:52:43 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_protein,
+               region_id = &quot;15_58441366_59694116&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 12:52:44 INFO::Limit to protein coding genes
+2024-10-01 12:52:44 INFO::focal id: ENSG00000137845|brain_pQTL
+2024-10-01 12:52:44 INFO::focal molecular trait: ADAM10 brain pQTL
+2024-10-01 12:52:44 INFO::Range of locus: chr15:58442232-59694103
+2024-10-01 12:52:45 INFO::focal molecular trait QTL positions: 58914632,58921198,58959273,58964931
+2024-10-01 12:52:45 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] EnsDb.Hsapiens.v86_2.99.0 ensembldb_2.20.2         
+ [3] AnnotationFilter_1.20.0   GenomicFeatures_1.48.3   
+ [5] AnnotationDbi_1.58.0      Biobase_2.56.0           
+ [7] GenomicRanges_1.48.0      GenomeInfoDb_1.39.9      
+ [9] IRanges_2.30.0            S4Vectors_0.34.0         
+[11] BiocGenerics_0.42.0       ctwas_0.4.14             
+
+loaded via a namespace (and not attached):
+  [1] colorspace_2.0-3            rjson_0.2.21               
+  [3] ellipsis_0.3.2              rprojroot_2.0.3            
+  [5] XVector_0.36.0              locuszoomr_0.2.1           
+  [7] fs_1.5.2                    rstudioapi_0.13            
+  [9] farver_2.1.0                DT_0.22                    
+ [11] ggrepel_0.9.1               bit64_4.0.5                
+ [13] fansi_1.0.3                 xml2_1.3.3                 
+ [15] codetools_0.2-18            logging_0.10-108           
+ [17] cachem_1.0.6                knitr_1.39                 
+ [19] jsonlite_1.8.0              workflowr_1.7.0            
+ [21] Rsamtools_2.12.0            dbplyr_2.1.1               
+ [23] png_0.1-7                   readr_2.1.2                
+ [25] compiler_4.2.0              httr_1.4.3                 
+ [27] assertthat_0.2.1            Matrix_1.5-3               
+ [29] fastmap_1.1.0               lazyeval_0.2.2             
+ [31] cli_3.6.1                   later_1.3.0                
+ [33] htmltools_0.5.2             prettyunits_1.1.1          
+ [35] tools_4.2.0                 gtable_0.3.0               
+ [37] glue_1.6.2                  GenomeInfoDbData_1.2.8     
+ [39] dplyr_1.1.4                 rappdirs_0.3.3             
+ [41] Rcpp_1.0.12                 jquerylib_0.1.4            
+ [43] vctrs_0.6.5                 Biostrings_2.64.0          
+ [45] rtracklayer_1.56.0          crosstalk_1.2.0            
+ [47] xfun_0.41                   stringr_1.5.1              
+ [49] lifecycle_1.0.4             irlba_2.3.5                
+ [51] restfulr_0.0.14             XML_3.99-0.14              
+ [53] zlibbioc_1.42.0             zoo_1.8-10                 
+ [55] scales_1.3.0                gggrid_0.2-0               
+ [57] hms_1.1.1                   promises_1.2.0.1           
+ [59] MatrixGenerics_1.8.0        ProtGenerics_1.28.0        
+ [61] parallel_4.2.0              SummarizedExperiment_1.26.1
+ [63] LDlinkR_1.2.3               yaml_2.3.5                 
+ [65] curl_4.3.2                  memoise_2.0.1              
+ [67] ggplot2_3.5.1               sass_0.4.1                 
+ [69] biomaRt_2.54.1              stringi_1.7.6              
+ [71] RSQLite_2.3.1               highr_0.9                  
+ [73] BiocIO_1.6.0                filelock_1.0.2             
+ [75] BiocParallel_1.30.3         rlang_1.1.2                
+ [77] pkgconfig_2.0.3             matrixStats_0.62.0         
+ [79] bitops_1.0-7                evaluate_0.15              
+ [81] lattice_0.20-45             purrr_1.0.2                
+ [83] labeling_0.4.2              GenomicAlignments_1.32.0   
+ [85] htmlwidgets_1.5.4           cowplot_1.1.1              
+ [87] bit_4.0.4                   tidyselect_1.2.0           
+ [89] magrittr_2.0.3              R6_2.5.1                   
+ [91] generics_0.1.2              DelayedArray_0.22.0        
+ [93] DBI_1.2.2                   withr_2.5.0                
+ [95] pgenlibr_0.3.3              pillar_1.9.0               
+ [97] KEGGREST_1.36.3             RCurl_1.98-1.7             
+ [99] mixsqp_0.3-43               tibble_3.2.1               
+[101] crayon_1.5.1                utf8_1.2.2                 
+[103] BiocFileCache_2.4.0         plotly_4.10.0              
+[105] tzdb_0.4.0                  rmarkdown_2.25             
+[107] progress_1.2.2              grid_4.2.0                 
+[109] data.table_1.14.2           blob_1.2.3                 
+[111] git2r_0.30.1                digest_0.6.29              
+[113] tidyr_1.3.0                 httpuv_1.6.5               
+[115] munsell_0.5.0               viridisLite_0.4.0          
+[117] bslib_0.3.1                </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

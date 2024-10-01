@@ -1,0 +1,478 @@
+---
+title: "Jasen's GWAS"
+author: "XSun"
+date: "2024-10-01"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+---
+
+# Overview
+
+## Trait
+
+Top locus removed GWAS  (/project2/guiming/xsun/proteome_alzheimer/data_gwas/jansen.topremoved.RDS)
+
+## Settings
+
+1. Weight processing:
+
+PredictDB:
+
+all the PredictDB are converted from FUSION weights
+
+- drop_strand_ambig = TRUE,
+- scale_by_ld_variance = F (FUSION converted weights)
+- load_predictdb_LD = F
+
+2. Parameter estimation and fine-mapping
+
+- niter_prefit = 5,
+- niter = 30(default),
+- L: pre-estimated,
+- group_prior_var_structure = “shared_type”,
+- maxSNP = 20000,
+- min_nonSNP_PIP = 0.5
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+library(ctwas)
+library(EnsDb.Hsapiens.v86)
+
+ens_db <- EnsDb.Hsapiens.v86
+
+gwas_n <- 472868
+E_S_A_mapping <- readRDS("/project2/xinhe/shared_data/multigroup_ctwas/weights/mapping_files/Munro_mapping.RDS")
+
+sum_pve_across_types <- function(ctwas_parameters) {
+  # Round the group_pve values
+  pve <- round(ctwas_parameters$group_pve, 4)
+  pve <- as.data.frame(pve)
+
+  # Extract SNP PVE for later use
+  SNP_pve <- pve["SNP", ]
+
+  # Add type and context columns
+  pve$type <- sapply(rownames(pve), function(x) { unlist(strsplit(x, "[|]"))[1] })
+  pve$context <- sapply(rownames(pve), function(x) { unlist(strsplit(x, "[|]"))[2] })
+
+  # Remove rows with NA values and sort
+  pve <- na.omit(pve)
+  pve <- pve[order(rownames(pve)), ]
+
+  # Aggregate PVE by type
+  df_pve <- aggregate(pve$pve, by = list(pve$type), FUN = sum)
+  colnames(df_pve) <- c("type", "total_pve")
+  df_pve$total_pve <- round(df_pve$total_pve, 4)
+
+  # Add context-specific columns
+  for (context in unique(pve$context)) {
+    context_pve <- aggregate(pve$pve, by = list(pve$type, pve$context), FUN = sum)
+    context_pve <- context_pve[context_pve$Group.2 == context, ]
+    colnames(context_pve)[3] <- context
+    df_pve <- merge(df_pve, context_pve[, c("Group.1", context)], by.x = "type", by.y = "Group.1", all.x = TRUE)
+  }
+
+  # Insert SNP PVE
+  SNP_row <- c("SNP", SNP_pve, rep(0, ncol(df_pve) - 2))
+  df_pve <- rbind(df_pve, SNP_row)
+
+  # Convert to numeric except for the type column
+  df_pve[, -1] <- lapply(df_pve[, -1], as.numeric)
+
+  # Sum all rows and add a sum_pve row
+  sum_row <- colSums(df_pve[, -1], na.rm = TRUE)
+  sum_row <- c("total_pve", sum_row)
+  df_pve <- rbind(df_pve, sum_row)
+
+  # Clean up row names and return
+  row.names(df_pve) <- NULL
+  return(df_pve)
+}
+```
+
+
+# pQTL
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+trait <- "AD_protein"
+
+results_dir_protein <- "/project/xinhe/xsun/AD/1.jansen/output/protein/"
+
+weights_protein <- readRDS(paste0(results_dir_protein,trait,".preprocessed.weights.RDS"))
+region_info_protein <- readRDS(paste0(results_dir_protein,trait,".region_info.RDS"))
+snp_map_protein <- readRDS(paste0(results_dir_protein,trait,".snp_map.RDS"))
+LD_map_protein <- readRDS(paste0(results_dir_protein,trait,".LD_map.RDS"))
+ctwas_res_protein <- readRDS(paste0(results_dir_protein,trait,".ctwas.res.RDS"))
+
+z_gene_protein <- ctwas_res_protein$z_gene
+param_protein <- ctwas_res_protein$param
+finemap_res_protein <- ctwas_res_protein$finemap_res
+boundary_genes_protein <- ctwas_res_protein$boundary_genes
+region_data_protein <- ctwas_res_protein$region_data
+screen_res_protein <- ctwas_res_protein$screen_res
+
+make_convergence_plots(param_protein, gwas_n)
+
+ctwas_parameters_protein <- summarize_param(param_protein, gwas_n)
+
+para_protein <- sum_pve_across_types(ctwas_parameters_protein)
+DT::datatable(para_protein,caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Heritability contribution by contexts'),options = list(pageLength = 10) )
+
+finemap_res_protein <- ctwas_res_protein$finemap_res
+
+finemap_res_protein$molecular_id <- get_molecular_ids(finemap_res_protein)
+
+
+finemap_res_protein <- anno_finemap_res(finemap_res_protein,
+                              snp_map = snp_map_protein,
+                              mapping_table = E_S_A_mapping,
+                              add_gene_annot = TRUE,
+                              map_by = "molecular_id",
+                              drop_unmapped = TRUE,
+                              add_position = TRUE,
+                              use_gene_pos = "mid")
+
+
+combined_pip_by_type_protein <- combine_gene_pips(finemap_res =finemap_res_protein,
+                                  group_by = "gene_name",
+                                  by = "type", 
+                                  method = "combine_cs",
+                                  filter_cs = T )
+
+DT::datatable(combined_pip_by_type_protein[combined_pip_by_type_protein$combined_pip>0.8,],caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Combined PIP by omics, credible set filtered'),options = list(pageLength = 10) )
+```
+
+There are some boundary genes with high pip (PIP > 0.5)
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+boundary_genes_protein <- ctwas_res_protein$boundary_genes
+
+high_PIP_finemap_gene_res_protein <- subset(ctwas_res_protein$finemap_res, group != "SNP" & susie_pip > 0.5 & cs_index != 0)
+high_PIP_genes_protein <- unique(high_PIP_finemap_gene_res_protein$id)
+
+selected_boundary_genes <- boundary_genes_protein[boundary_genes_protein$id %in% high_PIP_genes_protein, , drop=FALSE]
+
+DT::datatable(selected_boundary_genes,caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Boundary genes with high PIPs'),options = list(pageLength = 10) )
+```
+
+We merge the regions that the boundary genes span
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("before region merging")
+
+make_locusplot(finemap_res = finemap_res_protein,
+               region_id = "11_63804569_65898631",
+               ens_db = ens_db,
+               weights = weights_protein,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("after region merging")
+
+load("/project/xinhe/xsun/AD/1.jansen/postprocess/RM_protein.rdata")
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = "11_63804569_68005825",
+               ens_db = ens_db,
+               weights = weights_protein,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+
+
+
+
+
+
+# eQTL + pQTL joint
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+trait <- "AD_ep"
+
+results_dir_epjoint <- "/project/xinhe/xsun/AD/1.jansen/output/epjoint/"
+
+weights_epjoint <- readRDS(paste0(results_dir_epjoint,trait,".preprocessed.weights.RDS"))
+region_info_epjoint <- readRDS(paste0(results_dir_epjoint,trait,".region_info.RDS"))
+snp_map_epjoint <- readRDS(paste0(results_dir_epjoint,trait,".snp_map.RDS"))
+LD_map_epjoint <- readRDS(paste0(results_dir_epjoint,trait,".LD_map.RDS"))
+ctwas_res_epjoint <- readRDS(paste0(results_dir_epjoint,trait,".ctwas.res.RDS"))
+
+z_gene_epjoint <- ctwas_res_epjoint$z_gene
+param_epjoint <- ctwas_res_epjoint$param
+finemap_res_epjoint <- ctwas_res_epjoint$finemap_res
+boundary_genes_epjoint <- ctwas_res_epjoint$boundary_genes
+region_data_epjoint <- ctwas_res_epjoint$region_data
+screen_res_epjoint <- ctwas_res_epjoint$screen_res
+
+make_convergence_plots(param_epjoint, gwas_n)
+
+ctwas_parameters_epjoint <- summarize_param(param_epjoint, gwas_n)
+
+para_epjoint <- sum_pve_across_types(ctwas_parameters_epjoint)
+DT::datatable(para_epjoint,caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Heritability contribution by contexts'),options = list(pageLength = 10) )
+
+finemap_res_epjoint <- ctwas_res_epjoint$finemap_res
+
+finemap_res_epjoint$molecular_id <- get_molecular_ids(finemap_res_epjoint)
+
+
+finemap_res_epjoint <- anno_finemap_res(finemap_res_epjoint,
+                              snp_map = snp_map_epjoint,
+                              mapping_table = E_S_A_mapping,
+                              add_gene_annot = TRUE,
+                              map_by = "molecular_id",
+                              drop_unmapped = TRUE,
+                              add_position = TRUE,
+                              use_gene_pos = "mid")
+
+
+combined_pip_by_type_epjoint <- combine_gene_pips(finemap_res =finemap_res_epjoint,
+                                  group_by = "gene_name",
+                                  by = "type", 
+                                  method = "combine_cs",
+                                  filter_cs = T )
+
+DT::datatable(combined_pip_by_type_epjoint[combined_pip_by_type_epjoint$combined_pip>0.8,],caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Combined PIP by omics, credible set filtered'),options = list(pageLength = 10) )
+```
+
+There are some boundary genes with high pip (PIP > 0.5)
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+boundary_genes_epjoint <- ctwas_res_epjoint$boundary_genes
+
+high_PIP_finemap_gene_res_epjoint <- subset(ctwas_res_epjoint$finemap_res, group != "SNP" & susie_pip > 0.5 & cs_index != 0)
+high_PIP_genes_epjoint <- unique(high_PIP_finemap_gene_res_epjoint$id)
+
+selected_boundary_genes <- boundary_genes_epjoint[boundary_genes_epjoint$id %in% high_PIP_genes_epjoint, , drop=FALSE]
+
+DT::datatable(selected_boundary_genes,caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Boundary genes with high PIPs'),options = list(pageLength = 10) )
+```
+
+We merge the regions that the boundary genes span
+
+1. HLA-DRB1
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("before region merging")
+
+make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = "6_31571218_32682664",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("after region merging")
+
+load("/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata")
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = "6_31571218_33236497",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+2. SNX32
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("before region merging")
+
+make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = "11_63804569_65898631",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("after region merging")
+
+load("/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata")
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = "11_63804569_68005825",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+3. RIN3
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("before region merging")
+
+make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = "14_91296860_93132299",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("after region merging")
+
+load("/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata")
+
+make_locusplot(finemap_res = finemap_merged_regions_res,
+               region_id = "14_91296860_94325285",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+# Comparing the genes reported by the two settings
+
+## Overlapped genes
+
+```{r echo=FALSE}
+
+overlapped_gene <- merge(combined_pip_by_type_protein,combined_pip_by_type_epjoint, by ="gene_name")
+
+colnames(overlapped_gene) <- c("genename", "pQTL_pip_protein","combined_pip_protein","eQTL_pip_epjoint","pQTL_pip_epjoint","combined_pip_epjoint")
+
+overlapped_gene <- overlapped_gene[order(as.numeric(overlapped_gene$combined_pip_protein),decreasing = T),]
+
+DT::datatable(overlapped_gene[overlapped_gene$combined_pip_protein > 0.8 & overlapped_gene$combined_pip_epjoint > 0.8,],caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Overlapped genes, combined_pip > 0.8, filtered by credible sets'),options = list(pageLength = 10) )
+
+```
+
+## Unique genes reported by 2 settings
+
+```{r echo=FALSE}
+
+combined_pip_by_type_epjoint_highpip <- combined_pip_by_type_epjoint[combined_pip_by_type_epjoint$combined_pip > 0.8,]
+
+combined_pip_by_type_protein_highpip <- combined_pip_by_type_protein[combined_pip_by_type_protein$combined_pip > 0.8,]
+
+sprintf("the number of genes reported by protein only setting = %s", nrow(combined_pip_by_type_protein_highpip))
+
+DT::datatable(combined_pip_by_type_protein_highpip[!combined_pip_by_type_protein_highpip$gene_name %in% combined_pip_by_type_epjoint_highpip$gene_name, ],caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Unique genes reported by protein only setting'),options = list(pageLength = 10) )
+
+sprintf("the number of genes reported by epjoint setting = %s", nrow(combined_pip_by_type_epjoint_highpip))
+
+DT::datatable(combined_pip_by_type_epjoint_highpip[!combined_pip_by_type_epjoint_highpip$gene_name %in% combined_pip_by_type_protein_highpip$gene_name, ],caption = htmltools::tags$caption( style = 'caption-side: topleft; text-align = left; color:black;','Unique genes reported by epjoint setting'),options = list(pageLength = 10) )
+
+```
+
+## Why epjoint missed protein only genes
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from epjoint setting")
+
+make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = "16_29036613_31382943",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from epjoint setting")
+
+make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = "11_63804569_65898631",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from epjoint setting")
+
+make_locusplot(finemap_res = finemap_res_epjoint,
+               region_id = "15_58441366_59694116",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from epjoint setting")
+
+make_locusplot(finemap_res = finemap_res_protein,
+               region_id = "15_58441366_59694116",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
