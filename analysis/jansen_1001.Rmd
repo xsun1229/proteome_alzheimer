@@ -413,12 +413,48 @@ DT::datatable(combined_pip_by_type_epjoint_highpip[!combined_pip_by_type_epjoint
 
 ## Why epjoint missed protein only genes
 
+### VKORC1
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from protein setting")
+
+make_locusplot(finemap_res = finemap_res_protein,
+               region_id = "16_29036613_31382943",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
 ```{r, echo=T, message=FALSE, warning=FALSE}
 
 print("locus plot from epjoint setting")
 
 make_locusplot(finemap_res = finemap_res_epjoint,
                region_id = "16_29036613_31382943",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
+## SNX32
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from protein setting")
+
+make_locusplot(finemap_res = finemap_res_protein,
+               region_id = "11_63804569_65898631",
                ens_db = ens_db,
                weights = weights_epjoint,
                highlight_pip = 0.8,
@@ -445,6 +481,24 @@ make_locusplot(finemap_res = finemap_res_epjoint,
 
 ```
 
+## ADAM10
+
+```{r, echo=T, message=FALSE, warning=FALSE}
+
+print("locus plot from protein setting")
+
+make_locusplot(finemap_res = finemap_res_protein,
+               region_id = "15_58441366_59694116",
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = "cs",
+               color_pip_by = "cs")
+
+```
+
 ```{r, echo=T, message=FALSE, warning=FALSE}
 
 print("locus plot from epjoint setting")
@@ -461,18 +515,4 @@ make_locusplot(finemap_res = finemap_res_epjoint,
 
 ```
 
-```{r, echo=T, message=FALSE, warning=FALSE}
 
-print("locus plot from epjoint setting")
-
-make_locusplot(finemap_res = finemap_res_protein,
-               region_id = "15_58441366_59694116",
-               ens_db = ens_db,
-               weights = weights_epjoint,
-               highlight_pip = 0.8,
-               filter_protein_coding_genes = T,
-               filter_cs = T,
-               color_pval_by = "cs",
-               color_pip_by = "cs")
-
-```

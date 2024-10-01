@@ -448,10 +448,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -544,15 +544,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2targetblank8fd5b1ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree10adb8e31fa63c8b8ff93f8c86e7698521b3b0datargetblank10adb8ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2" target="_blank">8fd5b1b</a>
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da" target="_blank">10adb8e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2targetblank8fd5b1ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcomxsun1229proteomealzheimertree10adb8e31fa63c8b8ff93f8c86e7698521b3b0datargetblank10adb8ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +562,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/xsun1229/proteome_alzheimer/tree/8fd5b1bbdaed1aef7192c2481e88bc75ca92b3c2" target="_blank">8fd5b1b</a>.
+<a href="https://github.com/xsun1229/proteome_alzheimer/tree/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da" target="_blank">10adb8e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -578,13 +578,9 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
-    Ignored:    analysis/figure/
-
-Untracked files:
-    Untracked:  analysis/jansen_1001.Rmd
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/jansen_1001.Rmd
 
 </code></pre>
 <p>
@@ -599,10 +595,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/jansen_1001.Rmd</code>) and HTML
+(<code>docs/jansen_1001.html</code>) files. If you’ve configured a
+remote Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/analysis/jansen_1001.Rmd" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+<td>
+update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/xsun1229/proteome_alzheimer/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/jansen_1001.html" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+<td>
+update
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -713,6 +773,43 @@ screen_res_protein &lt;- ctwas_res_protein$screen_res
 
 make_convergence_plots(param_protein, gwas_n)</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-2-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ctwas_parameters_protein &lt;- summarize_param(param_protein, gwas_n)
 
 para_protein &lt;- sum_pve_across_types(ctwas_parameters_protein)
@@ -732,17 +829,17 @@ finemap_res_protein &lt;- anno_finemap_res(finemap_res_protein,
                               drop_unmapped = TRUE,
                               add_position = TRUE,
                               use_gene_pos = &quot;mid&quot;)</code></pre>
-<pre><code>2024-10-01 12:51:32 INFO::Annotating fine-mapping result ...
-2024-10-01 12:51:32 INFO::Map molecular traits to genes
-2024-10-01 12:51:32 INFO::Drop 5 unmapped molecular IDs
-2024-10-01 12:51:34 INFO::Add gene positions
-2024-10-01 12:51:34 INFO::Add SNP positions</code></pre>
+<pre><code>2024-10-01 13:07:43 INFO::Annotating fine-mapping result ...
+2024-10-01 13:07:43 INFO::Map molecular traits to genes
+2024-10-01 13:07:43 INFO::Drop 5 unmapped molecular IDs
+2024-10-01 13:07:45 INFO::Add gene positions
+2024-10-01 13:07:45 INFO::Add SNP positions</code></pre>
 <pre class="r"><code>combined_pip_by_type_protein &lt;- combine_gene_pips(finemap_res =finemap_res_protein,
                                   group_by = &quot;gene_name&quot;,
                                   by = &quot;type&quot;, 
                                   method = &quot;combine_cs&quot;,
                                   filter_cs = T )</code></pre>
-<pre><code>2024-10-01 12:51:47 INFO::Limit gene results to credible sets</code></pre>
+<pre><code>2024-10-01 13:07:58 INFO::Limit gene results to credible sets</code></pre>
 <pre class="r"><code>DT::datatable(combined_pip_by_type_protein[combined_pip_by_type_protein$combined_pip&gt;0.8,],caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Combined PIP by omics, credible set filtered&#39;),options = list(pageLength = 10) )</code></pre>
 <div id="htmlwidget-f110db3ae422a0420019" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-f110db3ae422a0420019">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Combined PIP by omics, credible set filtered<\/caption>","data":[["1","2","3","4","5","6"],["VKORC1","ACE","CTSH","CCDC6","SNX32","ADAM10"],[0.997703185118038,0.990680411273773,0.976143230414021,0.965375109991746,0.914405387583922,0.905233043587765],[0.997703185118038,0.990680411273773,0.976143230414021,0.965375109991746,0.914405387583922,0.905233043587765]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>gene_name<\/th>\n      <th>pQTL_pip<\/th>\n      <th>combined_pip<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
@@ -769,13 +866,50 @@ DT::datatable(selected_boundary_genes,caption = htmltools::tags$caption( style =
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:51:48 INFO::Limit to protein coding genes
-2024-10-01 12:51:48 INFO::focal id: ENSG00000172803|brain_pQTL
-2024-10-01 12:51:48 INFO::focal molecular trait: SNX32 brain pQTL
-2024-10-01 12:51:48 INFO::Range of locus: chr11:63805235-65896962
-2024-10-01 12:51:49 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
-2024-10-01 12:51:49 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:07:59 INFO::Limit to protein coding genes
+2024-10-01 13:07:59 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 13:07:59 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 13:07:59 INFO::Range of locus: chr11:63805235-65896962
+2024-10-01 13:07:59 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 13:07:59 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-4-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
 <pre><code>[1] &quot;after region merging&quot;</code></pre>
 <pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_protein.rdata&quot;)
@@ -789,13 +923,50 @@ make_locusplot(finemap_res = finemap_merged_regions_res,
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:51:52 INFO::Limit to protein coding genes
-2024-10-01 12:51:52 INFO::focal id: ENSG00000172803|brain_pQTL
-2024-10-01 12:51:52 INFO::focal molecular trait: SNX32 brain pQTL
-2024-10-01 12:51:52 INFO::Range of locus: chr11:63805235-68005480
-2024-10-01 12:51:52 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564,66066993
-2024-10-01 12:51:52 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:02 INFO::Limit to protein coding genes
+2024-10-01 13:08:02 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 13:08:02 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 13:08:02 INFO::Range of locus: chr11:63805235-68005480
+2024-10-01 13:08:02 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564,66066993
+2024-10-01 13:08:02 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-5-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="eqtl-pqtl-joint" class="section level1">
 <h1>eQTL + pQTL joint</h1>
@@ -818,6 +989,43 @@ screen_res_epjoint &lt;- ctwas_res_epjoint$screen_res
 
 make_convergence_plots(param_epjoint, gwas_n)</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-6-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ctwas_parameters_epjoint &lt;- summarize_param(param_epjoint, gwas_n)
 
 para_epjoint &lt;- sum_pve_across_types(ctwas_parameters_epjoint)
@@ -837,17 +1045,17 @@ finemap_res_epjoint &lt;- anno_finemap_res(finemap_res_epjoint,
                               drop_unmapped = TRUE,
                               add_position = TRUE,
                               use_gene_pos = &quot;mid&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:10 INFO::Annotating fine-mapping result ...
-2024-10-01 12:52:10 INFO::Map molecular traits to genes
-2024-10-01 12:52:10 INFO::Drop 18 unmapped molecular IDs
-2024-10-01 12:52:11 INFO::Add gene positions
-2024-10-01 12:52:11 INFO::Add SNP positions</code></pre>
+<pre><code>2024-10-01 13:08:19 INFO::Annotating fine-mapping result ...
+2024-10-01 13:08:19 INFO::Map molecular traits to genes
+2024-10-01 13:08:19 INFO::Drop 18 unmapped molecular IDs
+2024-10-01 13:08:21 INFO::Add gene positions
+2024-10-01 13:08:21 INFO::Add SNP positions</code></pre>
 <pre class="r"><code>combined_pip_by_type_epjoint &lt;- combine_gene_pips(finemap_res =finemap_res_epjoint,
                                   group_by = &quot;gene_name&quot;,
                                   by = &quot;type&quot;, 
                                   method = &quot;combine_cs&quot;,
                                   filter_cs = T )</code></pre>
-<pre><code>2024-10-01 12:52:20 INFO::Limit gene results to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:32 INFO::Limit gene results to credible sets</code></pre>
 <pre class="r"><code>DT::datatable(combined_pip_by_type_epjoint[combined_pip_by_type_epjoint$combined_pip&gt;0.8,],caption = htmltools::tags$caption( style = &#39;caption-side: topleft; text-align = left; color:black;&#39;,&#39;Combined PIP by omics, credible set filtered&#39;),options = list(pageLength = 10) )</code></pre>
 <div id="htmlwidget-4d7183aa0eb9da18dc26" style="width:100%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-4d7183aa0eb9da18dc26">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: topleft; text-align = left; color:black;\">Combined PIP by omics, credible set filtered<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["CD2AP","TREM2","KAT8","ACE","CTSH","CCDC6","RIN3","EED","HLA-DRB1","SLTM"],[0.880197758276838,0.995732722386219,0.986544157116266,null,null,0.235270016016177,0.929489685053569,0.918557570735459,0.873715765987043,0.84360338085028],[0.250865088723981,null,null,0.984812738311929,0.965035404625707,0.725480652897742,null,null,null,null],[1.13106284700082,0.995732722386219,0.986544157116266,0.984812738311929,0.965035404625707,0.960750668913919,0.929489685053569,0.918557570735459,0.873715765987043,0.84360338085028]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>gene_name<\/th>\n      <th>eQTL_pip<\/th>\n      <th>pQTL_pip<\/th>\n      <th>combined_pip<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
@@ -877,13 +1085,50 @@ DT::datatable(selected_boundary_genes,caption = htmltools::tags$caption( style =
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:20 INFO::Limit to protein coding genes
-2024-10-01 12:52:20 INFO::focal id: ENSG00000196126|brain_eQTL
-2024-10-01 12:52:20 INFO::focal molecular trait: HLA-DRB1 brain eQTL
-2024-10-01 12:52:20 INFO::Range of locus: chr6:31571871-32682543
-2024-10-01 12:52:20 INFO::focal molecular trait QTL positions: 32050544,32062687,32066177,32066220,32071893,32570839,32575369,32577889,32578052
-2024-10-01 12:52:21 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:32 INFO::Limit to protein coding genes
+2024-10-01 13:08:32 INFO::focal id: ENSG00000196126|brain_eQTL
+2024-10-01 13:08:32 INFO::focal molecular trait: HLA-DRB1 brain eQTL
+2024-10-01 13:08:32 INFO::Range of locus: chr6:31571871-32682543
+2024-10-01 13:08:33 INFO::focal molecular trait QTL positions: 32050544,32062687,32066177,32066220,32071893,32570839,32575369,32577889,32578052
+2024-10-01 13:08:33 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-8-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
 <pre><code>[1] &quot;after region merging&quot;</code></pre>
 <pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata&quot;)
@@ -897,13 +1142,50 @@ make_locusplot(finemap_res = finemap_merged_regions_res,
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:23 INFO::Limit to protein coding genes
-2024-10-01 12:52:23 INFO::focal id: ENSG00000196126|brain_eQTL
-2024-10-01 12:52:23 INFO::focal molecular trait: HLA-DRB1 brain eQTL
-2024-10-01 12:52:23 INFO::Range of locus: chr6:31571871-33236275
-2024-10-01 12:52:23 INFO::focal molecular trait QTL positions: 32050544,32062687,32066177,32066220,32071893,32570839,32575369,32577889,32578052,32804299,32804414,32804798,32917857,32921774
-2024-10-01 12:52:23 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:35 INFO::Limit to protein coding genes
+2024-10-01 13:08:35 INFO::focal id: ENSG00000196126|brain_eQTL
+2024-10-01 13:08:35 INFO::focal molecular trait: HLA-DRB1 brain eQTL
+2024-10-01 13:08:35 INFO::Range of locus: chr6:31571871-33236275
+2024-10-01 13:08:35 INFO::focal molecular trait QTL positions: 32050544,32062687,32066177,32066220,32071893,32570839,32575369,32577889,32578052,32804299,32804414,32804798,32917857,32921774
+2024-10-01 13:08:35 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-9-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ol start="2" style="list-style-type: decimal">
 <li>SNX32</li>
 </ol>
@@ -918,13 +1200,50 @@ make_locusplot(finemap_res = finemap_merged_regions_res,
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:26 INFO::Limit to protein coding genes
-2024-10-01 12:52:26 INFO::focal id: ENSG00000172803|brain_pQTL
-2024-10-01 12:52:26 INFO::focal molecular trait: SNX32 brain pQTL
-2024-10-01 12:52:26 INFO::Range of locus: chr11:63805235-66060118
-2024-10-01 12:52:26 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
-2024-10-01 12:52:26 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:38 INFO::Limit to protein coding genes
+2024-10-01 13:08:38 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 13:08:38 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 13:08:38 INFO::Range of locus: chr11:63805235-66060118
+2024-10-01 13:08:38 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 13:08:38 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-10-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
 <pre><code>[1] &quot;after region merging&quot;</code></pre>
 <pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata&quot;)
@@ -938,13 +1257,50 @@ make_locusplot(finemap_res = finemap_merged_regions_res,
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:30 INFO::Limit to protein coding genes
-2024-10-01 12:52:30 INFO::focal id: ENSG00000172803|brain_pQTL
-2024-10-01 12:52:30 INFO::focal molecular trait: SNX32 brain pQTL
-2024-10-01 12:52:30 INFO::Range of locus: chr11:63805235-68184446
-2024-10-01 12:52:30 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564,66066993
-2024-10-01 12:52:30 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:42 INFO::Limit to protein coding genes
+2024-10-01 13:08:42 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 13:08:42 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 13:08:42 INFO::Range of locus: chr11:63805235-68184446
+2024-10-01 13:08:43 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564,66066993
+2024-10-01 13:08:43 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-11-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <ol start="3" style="list-style-type: decimal">
 <li>RIN3</li>
 </ol>
@@ -959,13 +1315,50 @@ make_locusplot(finemap_res = finemap_merged_regions_res,
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:33 INFO::Limit to protein coding genes
-2024-10-01 12:52:33 INFO::focal id: ENSG00000100599|brain_eQTL
-2024-10-01 12:52:33 INFO::focal molecular trait: RIN3 brain eQTL
-2024-10-01 12:52:33 INFO::Range of locus: chr14:91143034-93132115
-2024-10-01 12:52:33 INFO::focal molecular trait QTL positions: 92922442,92922542,92927655,92958612,92959216,93011368,93120719
-2024-10-01 12:52:33 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:46 INFO::Limit to protein coding genes
+2024-10-01 13:08:46 INFO::focal id: ENSG00000100599|brain_eQTL
+2024-10-01 13:08:46 INFO::focal molecular trait: RIN3 brain eQTL
+2024-10-01 13:08:46 INFO::Range of locus: chr14:91143034-93132115
+2024-10-01 13:08:46 INFO::focal molecular trait QTL positions: 92922442,92922542,92927655,92958612,92959216,93011368,93120719
+2024-10-01 13:08:46 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-12-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(&quot;after region merging&quot;)</code></pre>
 <pre><code>[1] &quot;after region merging&quot;</code></pre>
 <pre class="r"><code>load(&quot;/project/xinhe/xsun/AD/1.jansen/postprocess/RM_epjoint.rdata&quot;)
@@ -979,13 +1372,50 @@ make_locusplot(finemap_res = finemap_merged_regions_res,
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:35 INFO::Limit to protein coding genes
-2024-10-01 12:52:35 INFO::focal id: ENSG00000100599|brain_eQTL
-2024-10-01 12:52:35 INFO::focal molecular trait: RIN3 brain eQTL
-2024-10-01 12:52:35 INFO::Range of locus: chr14:91143034-94324163
-2024-10-01 12:52:36 INFO::focal molecular trait QTL positions: 92922442,92922542,92927655,92958612,92959216,93011368,93120719,93170901
-2024-10-01 12:52:36 INFO::Limit PIPs to credible sets</code></pre>
+<pre><code>2024-10-01 13:08:48 INFO::Limit to protein coding genes
+2024-10-01 13:08:48 INFO::focal id: ENSG00000100599|brain_eQTL
+2024-10-01 13:08:48 INFO::focal molecular trait: RIN3 brain eQTL
+2024-10-01 13:08:48 INFO::Range of locus: chr14:91143034-94324163
+2024-10-01 13:08:48 INFO::focal molecular trait QTL positions: 92922442,92922542,92927655,92958612,92959216,93011368,93120719,93170901
+2024-10-01 13:08:48 INFO::Limit PIPs to credible sets</code></pre>
 <p><img src="figure/jansen_1001.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-13-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="comparing-the-genes-reported-by-the-two-settings"
 class="section level1">
@@ -1006,6 +1436,63 @@ class="section level1">
 </div>
 <div id="why-epjoint-missed-protein-only-genes" class="section level2">
 <h2>Why epjoint missed protein only genes</h2>
+<div id="vkorc1" class="section level3">
+<h3>VKORC1</h3>
+<pre class="r"><code>print(&quot;locus plot from protein setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from protein setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_protein,
+               region_id = &quot;16_29036613_31382943&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 13:08:50 INFO::Limit to protein coding genes
+2024-10-01 13:08:50 INFO::focal id: ENSG00000167397|brain_pQTL
+2024-10-01 13:08:50 INFO::focal molecular trait: VKORC1 brain pQTL
+2024-10-01 13:08:50 INFO::Range of locus: chr16:28860306-31380696
+2024-10-01 13:08:50 INFO::focal molecular trait QTL positions: 30928970,31105554,31131614,31145219,31364493
+2024-10-01 13:08:50 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-16-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
 <pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
 <pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
@@ -1017,13 +1504,109 @@ class="section level1">
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:38 INFO::Limit to protein coding genes
-2024-10-01 12:52:38 INFO::focal id: ENSG00000103510|brain_eQTL
-2024-10-01 12:52:38 INFO::focal molecular trait: KAT8 brain eQTL
-2024-10-01 12:52:38 INFO::Range of locus: chr16:28860306-31380696
-2024-10-01 12:52:38 INFO::focal molecular trait QTL positions: 30979818,31014179,31122571,31132250,31133449,31145219,31334236
-2024-10-01 12:52:38 INFO::Limit PIPs to credible sets</code></pre>
-<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>2024-10-01 13:08:53 INFO::Limit to protein coding genes
+2024-10-01 13:08:53 INFO::focal id: ENSG00000103510|brain_eQTL
+2024-10-01 13:08:53 INFO::focal molecular trait: KAT8 brain eQTL
+2024-10-01 13:08:53 INFO::Range of locus: chr16:28860306-31380696
+2024-10-01 13:08:53 INFO::focal molecular trait QTL positions: 30979818,31014179,31122571,31132250,31133449,31145219,31334236
+2024-10-01 13:08:53 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-17-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="snx32" class="section level2">
+<h2>SNX32</h2>
+<pre class="r"><code>print(&quot;locus plot from protein setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from protein setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_protein,
+               region_id = &quot;11_63804569_65898631&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 13:08:55 INFO::Limit to protein coding genes
+2024-10-01 13:08:55 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 13:08:55 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 13:08:55 INFO::Range of locus: chr11:63805235-65896962
+2024-10-01 13:08:56 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 13:08:56 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-18-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
 <pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
 <pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
@@ -1035,13 +1618,71 @@ class="section level1">
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:40 INFO::Limit to protein coding genes
-2024-10-01 12:52:40 INFO::focal id: ENSG00000172803|brain_pQTL
-2024-10-01 12:52:40 INFO::focal molecular trait: SNX32 brain pQTL
-2024-10-01 12:52:40 INFO::Range of locus: chr11:63805235-66060118
-2024-10-01 12:52:41 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
-2024-10-01 12:52:41 INFO::Limit PIPs to credible sets</code></pre>
-<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>2024-10-01 13:08:58 INFO::Limit to protein coding genes
+2024-10-01 13:08:58 INFO::focal id: ENSG00000172803|brain_pQTL
+2024-10-01 13:08:58 INFO::focal molecular trait: SNX32 brain pQTL
+2024-10-01 13:08:58 INFO::Range of locus: chr11:63805235-66060118
+2024-10-01 13:08:58 INFO::focal molecular trait QTL positions: 65507605,65513107,65577516,65594820,65617324,65623739,65637273,65646557,65647260,65656564
+2024-10-01 13:08:58 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-19-1">
+Past versions of unnamed-chunk-19-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-19-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/xsun1229/proteome_alzheimer/blob/10adb8e31fa63c8b8ff93f8c86e7698521b3b0da/docs/figure/jansen_1001.Rmd/unnamed-chunk-19-1.png" target="_blank">10adb8e</a>
+</td>
+<td>
+XSun
+</td>
+<td>
+2024-10-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="adam10" class="section level2">
+<h2>ADAM10</h2>
+<pre class="r"><code>print(&quot;locus plot from protein setting&quot;)</code></pre>
+<pre><code>[1] &quot;locus plot from protein setting&quot;</code></pre>
+<pre class="r"><code>make_locusplot(finemap_res = finemap_res_protein,
+               region_id = &quot;15_58441366_59694116&quot;,
+               ens_db = ens_db,
+               weights = weights_epjoint,
+               highlight_pip = 0.8,
+               filter_protein_coding_genes = T,
+               filter_cs = T,
+               color_pval_by = &quot;cs&quot;,
+               color_pip_by = &quot;cs&quot;)</code></pre>
+<pre><code>2024-10-01 13:09:00 INFO::Limit to protein coding genes
+2024-10-01 13:09:00 INFO::focal id: ENSG00000137845|brain_pQTL
+2024-10-01 13:09:00 INFO::focal molecular trait: ADAM10 brain pQTL
+2024-10-01 13:09:00 INFO::Range of locus: chr15:58442232-59694103
+2024-10-01 13:09:00 INFO::focal molecular trait QTL positions: 58914632,58921198,58959273,58964931
+2024-10-01 13:09:00 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
 <pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
 <pre class="r"><code>make_locusplot(finemap_res = finemap_res_epjoint,
@@ -1053,31 +1694,13 @@ class="section level1">
                filter_cs = T,
                color_pval_by = &quot;cs&quot;,
                color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:43 INFO::Limit to protein coding genes
-2024-10-01 12:52:43 INFO::focal id: ENSG00000137776|brain_eQTL
-2024-10-01 12:52:43 INFO::focal molecular trait: SLTM brain eQTL
-2024-10-01 12:52:43 INFO::Range of locus: chr15:58442232-59694103
-2024-10-01 12:52:43 INFO::focal molecular trait QTL positions: 58779641,58781095,59115995,59590597
-2024-10-01 12:52:43 INFO::Limit PIPs to credible sets</code></pre>
-<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>print(&quot;locus plot from epjoint setting&quot;)</code></pre>
-<pre><code>[1] &quot;locus plot from epjoint setting&quot;</code></pre>
-<pre class="r"><code>make_locusplot(finemap_res = finemap_res_protein,
-               region_id = &quot;15_58441366_59694116&quot;,
-               ens_db = ens_db,
-               weights = weights_epjoint,
-               highlight_pip = 0.8,
-               filter_protein_coding_genes = T,
-               filter_cs = T,
-               color_pval_by = &quot;cs&quot;,
-               color_pip_by = &quot;cs&quot;)</code></pre>
-<pre><code>2024-10-01 12:52:44 INFO::Limit to protein coding genes
-2024-10-01 12:52:44 INFO::focal id: ENSG00000137845|brain_pQTL
-2024-10-01 12:52:44 INFO::focal molecular trait: ADAM10 brain pQTL
-2024-10-01 12:52:44 INFO::Range of locus: chr15:58442232-59694103
-2024-10-01 12:52:45 INFO::focal molecular trait QTL positions: 58914632,58921198,58959273,58964931
-2024-10-01 12:52:45 INFO::Limit PIPs to credible sets</code></pre>
-<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>2024-10-01 13:09:02 INFO::Limit to protein coding genes
+2024-10-01 13:09:02 INFO::focal id: ENSG00000137776|brain_eQTL
+2024-10-01 13:09:02 INFO::focal molecular trait: SLTM brain eQTL
+2024-10-01 13:09:02 INFO::Range of locus: chr15:58442232-59694103
+2024-10-01 13:09:02 INFO::focal molecular trait QTL positions: 58779641,58781095,59115995,59590597
+2024-10-01 13:09:02 INFO::Limit PIPs to credible sets</code></pre>
+<p><img src="figure/jansen_1001.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1158,17 +1781,17 @@ loaded via a namespace (and not attached):
  [91] generics_0.1.2              DelayedArray_0.22.0        
  [93] DBI_1.2.2                   withr_2.5.0                
  [95] pgenlibr_0.3.3              pillar_1.9.0               
- [97] KEGGREST_1.36.3             RCurl_1.98-1.7             
- [99] mixsqp_0.3-43               tibble_3.2.1               
-[101] crayon_1.5.1                utf8_1.2.2                 
-[103] BiocFileCache_2.4.0         plotly_4.10.0              
-[105] tzdb_0.4.0                  rmarkdown_2.25             
-[107] progress_1.2.2              grid_4.2.0                 
-[109] data.table_1.14.2           blob_1.2.3                 
-[111] git2r_0.30.1                digest_0.6.29              
-[113] tidyr_1.3.0                 httpuv_1.6.5               
-[115] munsell_0.5.0               viridisLite_0.4.0          
-[117] bslib_0.3.1                </code></pre>
+ [97] whisker_0.4                 KEGGREST_1.36.3            
+ [99] RCurl_1.98-1.7              mixsqp_0.3-43              
+[101] tibble_3.2.1                crayon_1.5.1               
+[103] utf8_1.2.2                  BiocFileCache_2.4.0        
+[105] plotly_4.10.0               tzdb_0.4.0                 
+[107] rmarkdown_2.25              progress_1.2.2             
+[109] grid_4.2.0                  data.table_1.14.2          
+[111] blob_1.2.3                  git2r_0.30.1               
+[113] digest_0.6.29               tidyr_1.3.0                
+[115] httpuv_1.6.5                munsell_0.5.0              
+[117] viridisLite_0.4.0           bslib_0.3.1                </code></pre>
 </div>
 </div>
 </div>
